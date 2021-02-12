@@ -20,16 +20,16 @@
             // Si han habido errores se muestran, sino se mostrán los mensajes
             if( count($aErrores) > 0 )
             {
-                        echo "<p>ERRORES ENCONTRADOS:</p>";
+                echo "<p>ERRORES ENCONTRADOS:</p>";
 
 
-                        // Mostrar los errores:
-                        for( $contador=0; $contador < count($aErrores); $contador++ ) 
-                            {
-                            echo $aErrores[$contador]."<br/>";
+                // Mostrar los errores:
+                for( $contador=0; $contador < count($aErrores); $contador++ ) 
+                    {
+                    echo $aErrores[$contador]."<br/>";
 
-                            }
-                            echo "<p><a href='index.html'> Volver al formulario</a></p>";
+                    }
+                echo "<p><a href='index.html'> Volver al formulario</a></p>";
             }
             else                    
 		    {
