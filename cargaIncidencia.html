@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+    <title>Cargar incidencia-Citep</title>
+
+	<!--&aacute, le pone un acento en la A-->
+	<!--&eacute, le pone un acento en la E-->
+	<!--&iacute, le pone un acento en la I-->
+	<!--&oacute, le pone un acento en la O-->
+	<!--&uacute, le pone un acento en la U-->
+	<!--&ntilde, le pone la letra Ñ-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="login.css">
+
+<h4 align = center>Bienvenido al Sistema de Mesa de Ayuda</h4>
+
+</head>
+
+<body>
+<hgroup>
+<h6>
+	Complet&aacute los datos solicitados en este formulario y recibir&aacutes nuestro asesoramiento en las próximas 24 hs.
+</h6>
+</hgroup>
+
+<!--<form name="miFormulario" method="post" action="insertaIncidencia.php" onSubmit="return Valida(this);>-->
+<!--<form name="miFormulario" method="post"  onSubmit="return Valida(this);"">-->
+<form id="miForm" action="insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
+
+	<div class= "col-md-6">   
+		<div class="row">
+			<div class="col">
+				<label for="email">Direcci&oacuten de correo electr&oacutenico</label>
+				<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
+			</div>
+		</div>
+	</div>
+	
+
+  	<div class= "col-md-6">
+		<div class="row">
+			<div class="col">
+    			<label for="email_v">Vuelva a ingresar el correo electr&oacutenico</label>
+				<input type="email" class="form-control" name="email_v" id="email_v" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
+			  </div>
+			</div>
+	  
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col">
+				<label for="apellido">Apellido</label>
+				<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese su Apellido" onkeypress= "return soloLetras(event)" onpaste="return false" required>
+			</div>
+			<div class="col">
+				<label for="nombre">Nombre</label>
+				<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre" onkeypress= "return soloLetras(event)" onpaste="return false" required>
+			</div>
+		</div>
+	</div>
+  
+  <br>
+
+  	<div class="col-md-3">
+  		<div class="row">
+			<div class="col">
+				<label for="dni">DNI</label>
+				<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" minlength="7" maxlength="12" required>
+			</div>
+
+			<div class="col">
+				<label for="telefono">Tel&eacutefono</label>
+				<input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su Telefono" minlength="8" maxlength="15" required>
+			</div>
+		</div>
+  	</div>
+
+  <br>
+
+  	<div class="col-md-6">
+  	<span style="color: #ff6600;"><strong>
+	  Posibles inconvenientes</strong>
+	</span>
+<!--
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios1" value="1">
+		<label class="form-check-label" for="docenteRadios1">
+			Tengo problemas de acceso al <a href="http://campus.citep.rec.uba.ar/" target="_blank">Campus Citep</a>
+		</label>
+	</div>
+
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios2" value="2">
+		<label class="form-check-label" for="docenteRadios12">
+			Tengo problemas de acceso al <a href="http://campusacademica.rec.uba.ar/" target="_blank">Campus Acad&eacutemica</a>
+		</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios3" value="3">
+		<label class="form-check-label" for="docenteRadios3">
+			Requiero clave de acceso al curso de formaci&oacuten docente
+		</label>
+
+	</div>
+-->
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios4" value="4">
+		<label class="form-check-label" for="docenteRadios4">
+			Soy alumno del Curso 1 y tengo inconvenientes con mi clave de acceso.
+		</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios5" value="5">
+		<label class="form-check-label" for="docenteRadios5">
+			Soy docente de la instituci&oacuten y necesito un aula virtual para mi materia.
+		</label>
+	</div>
+<!--
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios5" value="6">
+		<label class="form-check-label" for="docenteRadios5">
+			Tengo un inconveniente en el curso de G&eacutenero (acceso o cursada).
+		</label>
+	</div>
+-->
+	<div class="form-check">
+		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios5" value="7" checked>
+		<label class="form-check-label" for="docenteRadios5">
+			Otros.
+		</label>
+	</div>
+
+    <div>
+      <textarea class="form-control" name="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
+    </div>
+ 	</div>
+    <br>
+	<button type="submit" class="btn btn-primary">Enviar</button>
+<!--
+	<input type="submit" value="Enviar" />
+-->
+</form>
+
+<script type="text/javascript">
+	function Valida() {
+		/*const pattern = new RegExp('^[A-Z]+$', 'i');*/
+
+		const tdni = document.getElementById("dni");
+		if( isNaN(tdni.value))
+		{
+			// Si no se cumple la condicion...
+			tdni.style.borderColor = 'salmon'; 
+			window.alert('[ERROR] El campo DNI debe tener solo numeros...');
+			return false;
+		}
+		else
+		{
+			tdni.style.borderColor = ''; 
+		}
+
+		const ttelef = document.getElementById("telefono");
+		if( isNaN(ttelef.value))
+		{
+			// Si no se cumple la condicion...
+			ttelef.style.borderColor = 'salmon'; 
+			window.alert('[ERROR] El campo Telefono debe tener solo numeros...');
+			return false;
+		}
+		else
+		{
+			ttelef.style.borderColor = ''; 
+		}
+
+		const temail = document.getElementById("email");
+		const temail_v = document.getElementById("email_v");
+
+		if (temail.value!=temail_v.value){
+			temail.style.borderColor = 'salmon'; 
+			temail_v.style.borderColor = 'salmon'; 
+			window.alert('[ERROR] No coinciden los mail ingresados...');
+			return false;
+		}
+		else{
+			temail.style.borderColor = '';
+			temail_v.style.borderColor = '';
+		}
+
+		window.alert("Su consulta ha sido enviada, nos contactaremos con Ud.");
+		return true;
+	}
+
+	function soloLetras(e){
+		key= e.keyCode || e.which;
+
+		teclado= String.fromCharCode(key).toLocaleLowerCase();
+
+		letras= " abcdefghijklmnñopqrstuvxwyz";
+
+		especiales="8-37-38-46-164";
+
+		teclado_especial= false;
+
+		for (var i in especiales){
+			if (key==especiales[i]){
+				teclado_especial=true;
+				break;			
+			}
+		}
+
+		if (letras.indexOf(teclado)==-1 && !teclado_especial) {	/*El -1 es si lo que presiono no se encuentra dentro de trecla*/
+			return false;
+		}
+	}
+	
+	function validoCaracterMail(e){
+		key= e.keyCode || e.which;
+
+		teclado= String.fromCharCode(key).toLocaleLowerCase();
+
+		letras= "abcdefghijklmnñopqrstuvxwyz1234567890_@.";
+
+		especiales="8-37-38-46-164";
+
+		teclado_especial= false;
+
+		for (var i in especiales){
+			if (key==especiales[i]){
+				teclado_especial=true;
+				break;			
+			}
+		}
+
+		if (letras.indexOf(teclado)==-1 && !teclado_especial) {	/*El -1 es si lo que presiono no se encuentra dentro de trecla*/
+			return false;
+		}
+	}
+
+	</script>
+
+</body>
+</html>

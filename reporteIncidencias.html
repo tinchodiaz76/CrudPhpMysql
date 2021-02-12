@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Incidencias-Citep</title>
+
+    <link rel="stylesheet" href="verIncidencias.css">
+<!--
+    <meta http-equiv=�Content-Type� content=�text/html; charset=UTF-8? />
+-->    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <form action="exportarIncidencias.php" method="post" onsubmit="return ValidarFechas(this)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col">
+                                <!--<button class="btn btn-primary" onclick="location.href='verIncidencias.html'">Volver</button>
+                                -->
+                                <a href="verIncidencias.html" _target="blank">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col">
+                        <label for="consulta">Consultas</label>
+
+                        <select name="consulta" id="consulta">
+                            <option value="1">Acceso CC</option>
+                            <option value="2">Acceso CA</option>
+                            <option value="3">Claves FVD</option>
+                            <option value="4">Solicitu AV</option>
+                            <option value="5">Asesoramiento</option>
+                            <option value="6">C.Genero</option>
+                            <option value="7">Otros</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col">
+                        <label for="FDesde">Fecha Desde</label>
+                        <input type="date" class="form-control" name="FDesde" id="FDesde" placeholder="F. Desde">
+                    </div>
+                    <div class="col">
+                        <label for="nombre">Fecha Hasta</label>
+                        <input type="date" class="form-control" name="FHasta" id="FHasta" placeholder="F. Hasta">
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col">
+                        <label for="estado">Estado</label>
+
+                        <select name="estado" id="estado">
+                            <option value="1">Cerrado</option>
+                            <option value="0">Abierto</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="col">
+                    <button type="submit" class="btn btn-primary">Ejecutar Reporte</button>
+            </div>
+    </form>
+
+    <script type="text/javascript">
+        function ValidarFechas() 
+        {
+            /*const pattern = new RegExp('^[A-Z]+$', 'i');*/
+    
+            const v_fdesde = document.getElementById("FDesde");
+            const v_fhasta = document.getElementById("FHasta");
+
+            /*
+            window.alert(Date.parse(v_fdesde.value));
+            window.alert(Date.parse(v_fhasta.value));
+            */
+
+            if (isNaN(Date.parse(v_fdesde.value)))
+            {
+                if (!isNaN(Date.parse(v_fhasta.value)))
+                {
+                    window.alert("Ingrese la fecha desde");
+                    v_fdesde.style.borderColor = 'salmon'; 
+                    return false;
+                }
+                else
+                {
+                    v_fdesde.style.borderColor = ''; 
+                }
+            }
+            else
+            {
+                if (isNaN(Date.parse(v_fhasta.value)))
+                {
+                    window.alert("Ingrese la fecha hasta");
+                    v_fhasta.style.borderColor = 'salmon'; 
+                    return false;
+                }
+                else
+                    v_fhasta.style.borderColor = ''; 
+            };
+            
+
+            if (Date.parse(v_fdesde.value) > Date.parse(v_fhasta.value))
+            {
+                window.alert("La fecha desde no debe ser superior a la fecha hasta");
+                v_fdesde.style.borderColor = 'salmon'; 
+                return false;
+            }
+            else
+            {
+                v_fdesde.style.borderColor = ''; 
+                return true;
+            }
+            /*
+            const ttelef = document.getElementById("telefono");
+            if( isNaN(ttelef.value))
+            {
+                // Si no se cumple la condicion...
+                ttelef.style.borderColor = 'salmon'; 
+                window.alert('[ERROR] El campo Telefono debe tener solo numeros...');
+                return false;
+            }
+            else
+            {
+                ttelef.style.borderColor = ''; 
+            }
+            */
+        }
+        </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+.main-section{
+  margin:0 auto;
+  margin-top:130px;
+  padding:0;
+  height:200px;
+}
+
+.modal-content{
+  background-color:#434e5a ;
+  opacity: .8;
+  padding:0 18px;
+  border-radius: 10px;
+  width: 300px;
+  color: #55e60;
+  
+}
+
+.user-img img{
+  height:120px;
+  width: 120px;
+}
+
+.user-img{
+  margin-top: -60px;
+  margin-bottom: 45px;
+}
+
+.form-group{
+  margin-bottom:  25px;
+}
+
+.form-group input{
+ height: 60px;
+ border-radius: 5px;
+ border: 0;
+ font-size: 10px;
+ letter-spacing: 2px;
+ padding-left: 54px;
+}
+
+.form-group: before{
+  content: "\fifa";
+  position: absolute;
+  font-size:22px;
+  left: 20px;
+  padding-top: 4px;
+  color: #55e60;
+}
+
+.form-group: last-of-type:{
+  content: "\f023";
+}
+
+.form-input button{
+  width: 70px;
+  margin: 5px 0 25px;
+}
+
+.btn-success{
+  background-color: #1c6288;
+  font-size: 19px;
+  border-radius: 5px;
+  padding: 7px 14px;
+  border: 1px solid #daf1ff;
+}
+
+.btn-success:hover{
+  background-color: #13445e;
+  border: 1px solid #daf1ff;
+}
+
+html, body, .container {
+  height: 100%;
+}
+.container {
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}

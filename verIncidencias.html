@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Incidencias-Citep</title>
+
+    <link rel="stylesheet" href="verIncidencias.css">
+<!--
+    <meta http-equiv=�Content-Type� content=�text/html; charset=UTF-8? />
+-->    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="modalForm" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <!--<span aria-hidden="true">×</span>-->
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Resolver Incidencia</h4>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <form role="form" id="datos">
+                        <!--Aca va el dato de la ventana emergente-->
+                    </form>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModal()">Cerrar</button>
+                    <button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return Valida(this)">Finalizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--
+    <form action="exportarIncidencias.php" method="post">
+        <button type="submit" id="export_data" name='export_data'
+       value="Export to excel" class="btn btn-info">Exportar a Excel</button>
+    </form>
+-->       
+    <div class="container">
+        <div class="row">
+        <div class="col-sm-4">
+            <!--<img width="300" src="image/logo-citep-transparete.png">-->
+            <!--<img width="200" src="image/logo-unaj-2016.jpg">-->
+        </div>
+        
+        <!--<div class="col-md-6">-->
+            <div class="row">
+                <div class="col"> 
+                    <button class="btn btn-primary mt-5" onclick="location.href='reporteIncidencias.html'">Reportes</button>
+                </div>
+                <div class="col">
+                    <form action="cerrar_sesion.php" method="post" >
+                        <button type="submit" class="btn btn-primary mt-5">Cerrar Sesión</button>
+                    </form>
+                </div>
+            </div>
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+    <br>    
+    <h2>Incidencias Pendientes:</h2>
+    <br>
+
+        <input type="text" id="incidencia_id">
+        <button id="ejecutar" >Obtener usuarios</button>
+
+        <div id="lista-usuarios"></div>
+
+    <!-- Contenido -->
+    <section>
+        <table class="grilla" id="tablajson">
+            <thead>
+                <td>Apellido</td>
+                <td>Nombre</td>
+                <td>DNI</td>
+                <td>Telefono</td>
+                <td>Email</td>			
+                <td>Descrip Inciden</td>
+                <td>Reporte Usuario</td>			
+                <!--<td>Estado</td>-->
+                <td>Fecha Creacion</td>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+                ejecutar.style.display = 'none';
+                incidencia_id.style.display = 'none';
+
+
+                $(document).ready(function(){
+                    $.ajax({
+                        /*data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.*/
+                        url: 'traerIncidencias.php',
+                        type:'POST',
+                        dataType: "json",
+                        success: function(respuesta) {
+                            var listaUsuarios= $("#tablajson tbody");
+
+                            $("#tablajson tbody").html("");
+                            var $v_append=0;
+                            $.each(respuesta, function(index, incidencias) {
+
+                                 listaUsuarios.append(
+                                        `<tr>`
+                                        +`<td>`+incidencias.apellido+`</td>`
+                                        +`<td>`+incidencias.nombre+`</td>`
+                                        +`<td>`+incidencias.dni+`</td>`
+                                        +`<td>`+incidencias.telefono+`</td>`
+                                        +`<td>`+incidencias.email+`</td>`
+                                        +`<td>`+incidencias.descrip_inciden+ `</td>`
+                                        
+                                                                                +`<td style=" width: 150px;"> <textarea style= "border: none;"readonly="true">`+ incidencias.usuario_descripcion + `</textarea>` +
+                                        `</td>`
+                                        +`<td>`+incidencias.fecha_creacion+`</td>`
+/*
+                                        +"<td>" + "<input name=\"nombre\"/>" +"</td>"
+                                        \"nombre\"/ En JAVASCRIPT devuelve "nombre"
+*/
+                                        +"<td>" + "<input type=\"button\"/ class=\"btn btn-primary\"/ onclick=\"obtengoID(" + incidencias.id + ")\"/ data-toggle=\"modal\"/ data-target=\"#modalForm\"/>Resolver</button>" + "</td>"
+
+                                        +"</tr>"
+                                    );
+                                    $v_append= $v_append+1;
+                            });
+                            
+                            if ($v_append==0 ){
+                                window.alert("No hay consultas nuevas");
+                            };
+                        },
+                        }).fail( function( jqXHR, textStatus, errorThrown ) {
+                            if (jqXHR.status === 0) {
+                                alert('Not connect: Verify Network.');
+                            } else if (jqXHR.status == 404) {
+                                alert('Requested page not found [404]');
+                            } else if (jqXHR.status == 500) {
+                                alert('Internal Server Error [500].');
+                            } else if (textStatus === 'parsererror') {
+                                alert('Requested JSON parse failed.');
+                            } else if (textStatus === 'timeout') {
+                                alert('Time out error.');
+                            } else if (textStatus === 'abort') {
+                                alert('Ajax request aborted.');
+                            } else {
+                                alert('Uncaught Error: ' + jqXHR.responseText);
+                            }
+                        });                        
+                })
+
+                function Valida(){
+                    if (document.getElementById('inputResolucion').value == ""){
+                        window.alert('[ERROR] El campo Resolucion no puede estar vacio...');
+                        return false;
+                    }
+
+                    GrabarResolucion();
+                }
+
+                function GrabarResolucion(){
+/*                    
+                    console.log("El valor del incidencia_id " + document.getElementById('incidencia_id').value);
+                    console.log("El valor en la resolucion es " + document.getElementById('inputResolucion').value);
+                    console.log("El valor en la resolucion es " + document.getElementById('email').value);
+*/
+
+                    var parametros= {
+                        "inc_id" : $('#incidencia_id').val(),
+                        "inputResolucion" : $('#inputResolucion').val(),
+                        "email" : $('#email').val()
+                    };
+                    
+                    $.ajax({
+                        data : parametros,
+                        url: 'resolverIncidencia.php',
+                        type:'POST',
+                        //dataType:'json',
+                        success: function(respuesta) {
+
+                            window.alert("La incidencia ha sido resuelta.");
+                            window.location="verIncidencias.html";
+                        },
+                        }).fail( function( jqXHR, textStatus, errorThrown ) {
+                            if (jqXHR.status === 0) {
+                                alert('Not connect: Verify Network.');
+                            } else if (jqXHR.status == 404) {
+                                alert('Requested page not found [404]');
+                            } else if (jqXHR.status == 500) {
+                                alert('Internal Server Error [500].');
+                            } else if (textStatus === 'parsererror') {
+                                alert('Requested JSON parse failed.');
+                            } else if (textStatus === 'timeout') {
+                                alert('Time out error.');
+                            } else if (textStatus === 'abort') {
+                                alert('Ajax request aborted.');
+                            } else {
+                                alert('Uncaught Error: ' + jqXHR.responseText);
+                            }
+                        });
+                }
+
+                function cerrarModal(){
+                    console.log("Cerrar modal");
+                    var pedro  = document.getElementById("datos");
+                    // Elimino todos los DIV'S que estan dentros de DATOS
+                    while (pedro.firstChild) {
+                        pedro.removeChild(pedro.firstChild);
+                    }
+                }
+
+                /*Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias*/
+                function obtengoID(id) {
+                      cerrarModal();
+                      document.getElementById('incidencia_id').value = id;    /*El id es el valor ID de la tabla Incidencias*/
+                                                                        /*El text existe pero no se muestra*/
+
+                      $('#ejecutar').trigger("click");      /*Simula el click del boton cuyo id="ejecutar"*/
+                                                            /*El boton existe pero no se muestra*/
+                                                            /*$("#ejecutar").on("click", getUsers) Anda siempre que exista un unico boton
+                                                            con ese ID(ejecutar), por eso se crea el boton ejecutar, 
+                                                            porque con el boton de la grilla no
+                                                            funciona*/
+                };
+
+
+                $("#ejecutar").on("click", getIncidencia);       /*Cada vez que le doy click al boton con id="ejecutar" invoca a la funcion "getUsers()"*/
+
+                function getIncidencia() {
+                    //console.log("valor en incidencia_id= " + $('#incidencia_id').val());
+
+                    var parametros= {
+                        "inc_id" : $('#incidencia_id').val()      /*inc_id se llama el $_POST["inc_id"]; en el php*/
+                    };
+                    
+                    console.log("parametros= " + parametros.inc_id);
+                    
+                    $.ajax({
+                        data : parametros,
+                        url: 'traerIncidencia.php',
+                        type:'POST',
+                        dataType:'json',
+                        success: function(respuesta) {
+
+//                            var listaUsuarios = $("#lista-usuarios");
+
+                            var listaUsuarios = $("#datos");
+                            $.each(respuesta, function(index, incidencia) {
+                                    /*
+                                    +"<input name=\"nombre\"/>" +"</td>"
+                                    \"nombre\"/ En JAVASCRIPT devuelve "nombre"
+                                    */
+                                 
+                                listaUsuarios.append(
+                                     `<div class=\"form-group\"/>` 
+                                    + `     <label for=\"inputTipo\">Nombre y Apellido</label>` + `</br>`
+                                    + `     <input type=\"text\" id=\"inputTipo\" value=\"` +  incidencia.usuario + `\"` + `>` + `</br>`
+                                    + `     <label for=\"inputTipo\">Mail</label>` + `</br>`
+                                    + `     <input type=\"text\" id=\"email\" value=\"` +  incidencia.email + `\"` + `>`
+                                    + `</div>` 
+                                    + `<div class=\"form-group\">`
+                                    + `     </br>`
+                                    + `     <label for=\"inputDescrip\">Descripcion Incidencia</label>` 
+                                    + `     </br>`
+                                    + `     <textarea class=\"form-control\" id=\"inputDescrip\">` + incidencia.descrip_inciden + `</textarea>` 
+                                    + `</div>` 
+                                    + `<div class=\"form-group\">` 
+                                    + `     </br>`
+                                    + `     <label for=\"inputRU\">Reporte Usuario</label>` + `</br>`
+                                    + `     <textarea class=\"form-control\" id=\"inputRU\">` + incidencia.usuario_descripcion + `</textarea>`
+                                    + `</div>`
+                                    + `<div class=\"form-group\">` 
+                                    + `     </br>`
+                                    + `     <label for=\"inputResolucion\">Resolucion</label>` + `</br>`
+                                    + `     <textarea class=\"form-control\" id=\"inputResolucion\">` + incidencia.texto_resolucion + ` </textarea>`
+                                    + `     </br>`
+                                    + `</div>`
+                                );
+                            });
+                        },
+                        
+                    }).fail( function( jqXHR, textStatus, errorThrown ) {
+                        if (jqXHR.status === 0) {
+                            alert('Not connect: Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            alert('Requested page not found [404]');
+                        } else if (jqXHR.status == 500) {
+                            alert('Internal Server Error [500].');
+                        } else if (textStatus === 'parsererror') {
+                            alert('Requested JSON parse failed.');
+                        } else if (textStatus === 'timeout') {
+                            alert('Time out error.');
+                        } else if (textStatus === 'abort') {
+                            alert('Ajax request aborted.');
+                        } else {
+                            alert('Uncaught Error: ' + jqXHR.responseText);
+                        }
+                    });
+                };
+
+        </script>
+
+    </section>
+</body>
+</html>
