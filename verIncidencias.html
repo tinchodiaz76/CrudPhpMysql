@@ -16,6 +16,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="css/sweetalert.css">
+
 </head>
 
 
@@ -141,7 +143,7 @@
                             });
                             
                             if ($v_append==0 ){
-                                window.alert("No hay consultas nuevas");
+                                swal('Info', 'No hay consultas.', 'info');
                             };
                         },
                         }).fail( function( jqXHR, textStatus, errorThrown ) {
@@ -313,7 +315,8 @@
                 };
 
         </script>
-
     </section>
+
+    <script src="js/sweetalert.min.js"></script>
 </body>
 </html>
