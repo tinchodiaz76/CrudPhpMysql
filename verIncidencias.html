@@ -49,12 +49,7 @@
             </div>
         </div>
     </div>
-<!--
-    <form action="exportarIncidencias.php" method="post">
-        <button type="submit" id="export_data" name='export_data'
-       value="Export to excel" class="btn btn-info">Exportar a Excel</button>
-    </form>
--->       
+   
     <div class="container">
         <div class="row">
         <div class="col-sm-4">
@@ -100,6 +95,7 @@
                 <td>Fecha Creacion</td>
             </thead>
             <tbody>
+
             </tbody>
         </table>
 
@@ -111,10 +107,11 @@
                 $(document).ready(function(){
                     $.ajax({
                         /*data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.*/
-                        url: 'traerIncidencias.php',
+                        url: 'model/traerIncidencias.php',
                         type:'POST',
+                        data: { "trarIncidencias":"1"},
                         dataType: "json",
-                        success: function(respuesta) {
+                        success: function (respuesta) {
                             var listaUsuarios= $("#tablajson tbody");
 
                             $("#tablajson tbody").html("");
@@ -129,8 +126,7 @@
                                         +`<td>`+incidencias.telefono+`</td>`
                                         +`<td>`+incidencias.email+`</td>`
                                         +`<td>`+incidencias.descrip_inciden+ `</td>`
-                                        
-                                                                                +`<td style=" width: 150px;"> <textarea style= "border: none;"readonly="true">`+ incidencias.usuario_descripcion + `</textarea>` +
+                                        +`<td style=" width: 150px;"> <textarea style= "border: none;"readonly="true">`+ incidencias.usuario_descripcion + `</textarea>` +
                                         `</td>`
                                         +`<td>`+incidencias.fecha_creacion+`</td>`
 /*
@@ -255,7 +251,7 @@
                     
                     $.ajax({
                         data : parametros,
-                        url: 'traerIncidencia.php',
+                        url: 'model/traerIncidencia.php',
                         type:'POST',
                         dataType:'json',
                         success: function(respuesta) {

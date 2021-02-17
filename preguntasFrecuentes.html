@@ -34,8 +34,9 @@
             $(document).ready(function(){
                 $.ajax({
                     /*data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.*/
-                    url: 'traerPreguntasFrecuentes.php',
+                    url: 'model/traerPreguntasFrecuentes.php',
                     type:'POST',
+                    data: { "traerPreguntasFrecuentes":"1"},
                     dataType: "json",
                     success: function(respuesta) {
                         var listaUsuarios= $("#datos");
@@ -86,8 +87,9 @@
               {
                   $.ajax({
                             //data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.
-                            url: 'traerRespuestas.php?tipo_id='+ tipo_id + '&id_pregunta=' + id_pregunta,
+                            url: 'model/traerRespuestasFrecuentes.php?tipo_id='+ tipo_id + '&id_pregunta=' + id_pregunta,
                             type:'POST',
+                            data: { "traerRespuestasFrecuentes":"1"},
                             dataType: "json",
                             success: function(respuesta) {
                                 var listaUsuarios= $("#respuesta"+ id_pregunta);
