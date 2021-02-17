@@ -1,92 +1,69 @@
 ﻿<?php 
     // Arrays para guardar mensajes y errores:
-    $aErrores = array();
-    $aMensajes = array();
-    
-                // Comprobar si llegaron los campos requeridos:
-                if( isset($_POST['inc_id']) )
-                {
-                    // apellido
-                    if( empty($_POST['inc_id']) )
-                    {
-                        $aErrores[] = "El ID de la incidencia no puede ser nulo";
-                    }
 
-                    // Si han habido errores se muestran, sino se mostrán los mensajes
-                    if( count($aErrores) > 0 )
-                    {
-                        echo "<p>ERRORES ENCONTRADOS:</p>";
+    session_start();
 
+    # Incluimos la clase usuario
+    require_once('conexion.php');
 
-                        // Mostrar los errores:
-                        for( $contador=0; $contador < count($aErrores); $contador++ ) 
-                            {
-                            echo $aErrores[$contador]."<br/>";
+    class TraerIncidencias extends Conexion
+    {
+        public function traerIncidencia($inc_id)
+        {	
+            parent::conectar();
 
-                            }
-                            echo "<p><a href='verIncidencias.html'> Volver al formulario</a></p>";
-                        }
+            $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
+            inc.descrip_incidencia usuario_descripcion,
+            concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
+            replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
+            inc.email
+            from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
+            where id= '.$inc_id.'
+            and tip.tipo_incidencia= inc.tipo_incidencia
+            and estado= 0';
 
+            $resEmp =parent::query($query);
 
-                    else                    
-                    {
-                        
-                        $v_inc_id= $_POST["inc_id"];
+            while($row = mysqli_fetch_array($resEmp))
+            {
+                //echo json_encode($row); 
+                $id=$row['id'];
+                $tipo_incidencia=$row['tipo_incidencia'];
+                $descrip_inciden=$row['descrip_inciden'];
+                $usuario_descripcion=$row['usuario_descripcion'];
+                $usuario=$row['usuario'];
+                $texto_resolucion=$row['texto_resolucion'];
+                $email=$row['email'];
 
-                        include('abre_conexion.php');
+                $incidencia[] = array('id'=> $id, 'tipo_incidencia'=> $tipo_incidencia, 'descrip_inciden'=> $descrip_inciden, 'usuario_descripcion'=> $usuario_descripcion,
+                    'usuario'=> $usuario,'texto_resolucion'=>$texto_resolucion,'email'=>$email);
+            }
 
-                        $query =  "select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
-                        inc.descrip_incidencia usuario_descripcion,
-                        concat(inc.nombre,' ', inc.apellido) usuario,
-                        replace(tip.texto_resolucion,'XXX',concat(inc.nombre,' ', inc.apellido)) texto_resolucion,
-                        inc.email
-                        from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
-                        where id= '$v_inc_id'
-                        and tip.tipo_incidencia= inc.tipo_incidencia
-                        and estado= 0";
+            if (!empty($incidencia)) 
+            {
+                //mysqli_free_result($resEmp);
+                //include('cerrar_conexion.php');
+                //Creamos el JSON
+                $json_string = json_encode($incidencia);
+                echo $json_string;
+            }
+            else 
+            {
+                $incidencia = [];
 
-                        /*Con estado=0 levanta las incidencias pendientes*/
+                //mysqli_free_result($resEmp);
+                //include('cerrar_conexion.php');
+                $json_string = json_encode($incidencia);
+                echo $json_string;
+            }	
+            parent::cerrar();
+		}
+	}
 
-                        mysqli_set_charset($conexion, "utf8"); //formato de datos utf8
+    if (isset($_POST['traerIncidencia']))
+	{
+		$foo = new TraerIncidencias();
 
-                        $resEmp = mysqli_query($conexion,$query);
-
-                        while($row = mysqli_fetch_array($resEmp)){
-                            //echo json_encode($row); 
-                            $id=$row['id'];
-                            $tipo_incidencia=$row['tipo_incidencia'];
-                            $descrip_inciden=$row['descrip_inciden'];
-                            $usuario_descripcion=$row['usuario_descripcion'];
-                            $usuario=$row['usuario'];
-                            $texto_resolucion=$row['texto_resolucion'];
-                            $email=$row['email'];
-
-                            $incidencia[] = array('id'=> $id, 'tipo_incidencia'=> $tipo_incidencia, 'descrip_inciden'=> $descrip_inciden, 'usuario_descripcion'=> $usuario_descripcion,
-                                'usuario'=> $usuario,'texto_resolucion'=>$texto_resolucion,'email'=>$email);
-                        }
-
-                        if (!empty($incidencia)) 
-                        {
-                            mysqli_free_result($resEmp);
-                            include('cerrar_conexion.php');
-                            //Creamos el JSON
-                            $json_string = json_encode($incidencia);
-                            echo $json_string;
-                        }
-                        else {
-                                $incidencia = [];
-            
-                                mysqli_free_result($resEmp);
-                                include('cerrar_conexion.php');
-                                $json_string = json_encode($incidencia);
-                                echo $json_string;
-            
-                        }	
-                    }
-                }
-                else
-                {
-                    echo "Error faltan parametros";
-                    echo "<p><a href='index.html'> Volver al formulario</a></p>";
-                }
+		$foo->traerIncidencia($_GET['inc_id']);
+   	}
 ?>

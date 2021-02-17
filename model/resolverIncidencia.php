@@ -1,0 +1,49 @@
+﻿<?php
+
+    session_start();
+
+    # Incluimos la clase usuario
+    require_once('conexion.php');
+
+    class ResolverIncidencias extends Conexion
+    {
+        public function resolverIncidencia($resolucion,$id)
+        {	
+            parent::conectar();
+
+            $v_user= $_SESSION['username'];
+
+            $query ='update ywayqssx_MA.incidencias 
+            set estado=1,
+            username= "'.$v_user.'",
+            fecha_cerrado= curdate(),
+            resolucion= "'.$resolucion.'"
+            where id= '.$id;
+
+            $resEmp =parent::query($query);
+
+            $asunto= "Información de citepUba";
+            $header= "From: info@lyseis.com.ar" . "\r\n";
+
+            $email="mfdiaz76@gmail.com";
+
+            $mail= @mail($email,$asunto,$resolucion,$header);
+                            
+            if ($mail){
+                echo "<h4>El mail se envio Coqui!</h4>";
+            }
+            else 
+            {
+                echo "<h4>Error al enviar el mail!</h4>";
+            }
+			parent::cerrar();
+		}
+	}			
+
+    if (isset($_POST['resolverIncidencias']))
+	{
+		$foo = new ResolverIncidencias();
+
+		$foo->resolverIncidencia($_GET['resolucion'],$_GET['id']);
+   	}
+?>
