@@ -20,7 +20,7 @@
             from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
             where id= '.$inc_id.'
             and tip.tipo_incidencia= inc.tipo_incidencia
-            and estado= 0';
+            and inc.estado= 0';
 
             $resEmp =parent::query($query);
 

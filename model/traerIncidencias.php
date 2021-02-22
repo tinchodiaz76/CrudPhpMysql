@@ -18,7 +18,7 @@
 							inc.email, tip.descrip_inciden,
 							inc.descrip_incidencia usuario_descripcion, 
 							CASE 
-								when estado=0 THEN "'.'Abierta'.'"
+								when inc.estado=0 THEN "'.'Abierta'.'"
 								ELSE "'.'Cerrada'.'"
 							END estado_descrip,
 							date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
@@ -78,7 +78,7 @@
 	}
 
 	  		
-	if (isset($_POST['trarIncidencias']))
+	if (isset($_POST['traerIncidencias']))
 	{
 	
 	
