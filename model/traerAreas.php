@@ -12,8 +12,6 @@
 		
 			parent::conectar();
 
-			$v_user= $_SESSION['username'];
-
 			$query = 'select id_area,descrip_area,estado
                     from ywayqssx_MA.area_inciden
                     where tipo_id=1

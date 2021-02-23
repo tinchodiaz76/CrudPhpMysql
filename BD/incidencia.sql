@@ -1,6 +1,7 @@
 create table ywayqssx_MA.incidencias (
 
 
+	Tipo_id int(1) not null,
 	id int(11) AUTO_INCREMENT primary key,
  
 	email varchar(50) not null,
@@ -8,6 +9,7 @@ create table ywayqssx_MA.incidencias (
 	nombre varchar(70) not null,
 	dni varchar(12) not null,
 	telefono varchar(14),
+	Id_area int(1),
 	tipo_incidencia int(1) not null,
 	descrip_incidencia varchar(3000),
 	estado int(1) not null,

@@ -17,8 +17,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-		<link rel="stylesheet" href="login.css">
-
+	    <link rel="stylesheet" href="css/sweetalert.css">
 	<h4 align = center>Bienvenido al Sistema de Mesa de Ayuda</h4>
 
 	</head>
@@ -30,8 +29,7 @@
 	</h6>
 	</hgroup>
 
-	<form id="miForm" action="insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
-
+	<form id="miForm" action="./model/insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
 		<div class= "col-md-6">   
 			<div class="row">
 				<div class="col">
@@ -88,34 +86,94 @@
 		<span style="color: #ff6600;"><strong>
 		Posibles inconvenientes</strong>
 		<br>
-		<br>
 		</span>
 			
 		<label for="selectarea">Seleccione el Area:</label>
 		<br>
-		<select name="selectarea" id="selectarea" onchange="CargarIncidente(selectarea.value)"></select>
+		<select name="selectarea" id="selectarea" onchange="BuscarIncidente(selectarea.value)"></select>
 
-		<br>
 		<br>
 		
 		<label for="selectincidenciaarea">Seleccione el Tipo de Incidencia:</label>
 		<br>
-		<select name="selectincidenciaarea" id="selectincidenciaarea"></select>
+		<select name="selectincidenciaarea" id="selectincidenciaarea" onchange="HabilitaCampoValidationTextarea()"></select>
 
-		<script type="text/javascript">
-			
-		</script>
+		<br>
+		<br>
+		<div id="textarea" style="display:none;">
+			<textarea class="form-control" name="validationTextarea"  id="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
+		</div>
+		
+		<br>
+
+		<button type="button" class="btn btn-primary" href="javascript:;" onclick="InsertaIncidencia($('#email').val(),
+				$('#apellido').val(),$('#nombre').val(),
+				$('#dni').val(),$('#telefono').val(),
+				$('#selectarea').val(),$('#selectincidenciaarea').val(),
+				$('#validationTextarea').val())">Enviar</button>
 	</form>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-				CargaAreas();
+				BuscarAreas();
 				$var= document.getElementById("selectarea").value;
-				CargarIncidente($var);
+				BuscarIncidente($var);
 			})
 
+		function HabilitaCampoValidationTextarea()
+			{
+				text= selectincidenciaarea.options[selectincidenciaarea.selectedIndex].innerText
+				if (text=="Otros.")
+				{
+					document.getElementById("textarea").style.display = "block";
+				}
+				else
+				{
+					document.getElementById("textarea").style.display = "none";
+				}
+			}
+
+		function InsertaIncidencia(email,apellido,nombre,dni,telefono,selectarea,
+								  selectincidenciaarea,validationTextarea)
+		{
+				var parametros = {
+                "email" : email,
+                "apellido" : apellido,
+				"nombre" : nombre,
+				"dni" : dni,
+				"telefono" : telefono,
+				"selectarea" : selectarea,
+				"selectincidenciaarea" : selectincidenciaarea,
+				"validationTextarea" : validationTextarea
+				        		};
+				$.ajax({
+						data:  parametros, //datos que se envian a traves de ajax
+						url:   'model/insertaIncidencia.php', //archivo que recibe la peticion
+						type:  'POST', //método de envio
+						success: function(respuesta) {
+							swal('Info', 'La incidencia ha sido cargada, nos contactaremois con Ud.', 'info');
+						},
+						}).fail( function( jqXHR, textStatus, errorThrown ) {
+								if (jqXHR.status === 0) {
+									alert('Not connect: Verify Network.');
+								} else if (jqXHR.status == 404) {
+									alert('Requested page not found [404]');
+								} else if (jqXHR.status == 500) {
+									alert('Internal Server Error [500].');
+								} else if (textStatus === 'parsererror') {
+									alert('Requested JSON parse failed.');
+								} else if (textStatus === 'timeout') {
+									alert('Time out error.');
+								} else if (textStatus === 'abort') {
+									alert('Ajax request aborted.');
+								} else {
+									alert('Uncaught Error: ' + jqXHR.responseText);
+								}
+						});                        
+			}
+			
 			/*Carga las areas*/
-			function CargaAreas()
+		function BuscarAreas()
 			{
 				$.ajax({
 					url: 'model/traerAreas.php',
@@ -164,11 +222,12 @@
 
 
 			/*Carga el Incidentes de acuerdo al Area*/
-			function CargarIncidente(id_area)
+		function BuscarIncidente(id_area)
 			{
 			/*$(document).ready(function(){*/
 				$.ajax({
 					url: 'model/traerIncidenciaArea.php?id_area=' + selectarea.value,
+					//url: 'model/traerIncidenciaArea.php?id_area=' + id_area.value,
 					type:'POST',
 					data: { "traerIncidenciaArea":"1"},
 					dataType: "json",
@@ -184,8 +243,6 @@
 								//<option value="value2" >Value 2</option>
 										`<option value="` + incidenciaarea.tipo_incidencia + `">` + incidenciaarea.descrip_inciden + `</option>`
 							);
-
-							console.log(incidenciaarea.descrip_inciden);
 
 							$v_append= $v_append+1;
 						});
@@ -214,12 +271,10 @@
 							alert('Uncaught Error: ' + jqXHR.responseText);
 						}
 					});                        
+					document.getElementById("textarea").style.display = "none";		
 			}
-			/*
-			})
-			*/
 
-			function Valida() {
+		function Valida() {
 				/*const pattern = new RegExp('^[A-Z]+$', 'i');*/
 
 				const tdni = document.getElementById("dni");
@@ -266,7 +321,7 @@
 				return true;
 			}
 
-			function soloLetras(e){
+		function soloLetras(e){
 				key= e.keyCode || e.which;
 
 				teclado= String.fromCharCode(key).toLocaleLowerCase();
@@ -289,7 +344,7 @@
 				}
 			}
 			
-			function validoCaracterMail(e){
+		function validoCaracterMail(e){
 				key= e.keyCode || e.which;
 
 				teclado= String.fromCharCode(key).toLocaleLowerCase();
@@ -313,6 +368,7 @@
 			}
 
 	</script>
+	<script src="js/sweetalert.min.js"></script>
 
 </body>
 </html>

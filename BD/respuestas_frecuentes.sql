@@ -1,6 +1,6 @@
 create table ywayqssx_MA.respuestas_frecuentes (
 	
-	tipo_id  int(11)  not null,
+	tipo_id  int(1)  not null,
 	id_pregunta int(11) not null,
 	respuesta varchar(3000)not null,
 
