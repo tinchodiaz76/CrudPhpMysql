@@ -44,7 +44,10 @@ $('#login').click(function(){
           swal('Error', 'Usuario o Contraseña incorrectos', 'error');
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
+/*
           window.location.href= "verIncidencias.html";
+*/
+          window.location.href= "verIncidencias.php";          
          }
        }
     });

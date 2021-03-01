@@ -2,12 +2,18 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Incidencias-Citep</title>
+    <title>Incidencias-UNAJ</title>
 
     <link rel="stylesheet" href="verIncidencias.css">
 <!--
     <meta http-equiv=�Content-Type� content=�text/html; charset=UTF-8? />
 -->    
+
+    <!-- link rel="stylesheet" href="../../neon/css/custom.css"  id="style-resource-6" -->
+	<!-- Estilo de campo requeridos -->
+	<style>
+		.error {color: #FF0000;}
+	</style>	
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -16,12 +22,19 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="css/sweetalert.css">
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="css/sweetalert.css">
 </head>
 
-
+<!--
 <body>
+-->
     <!-- Modal -->
     <div class="modal fade" id="modalForm" role="dialog">
         <div class="modal-dialog">
@@ -42,14 +55,6 @@
                         <!--Aca va el dato de la ventana emergente-->
                     </form>
                 </div>
-<!--
-                <div class="row">
-                    <div class="col-xs-8 col-xs-offset-2">
-                    <div class="spacing-2"></div>
-                    <button type="button" class="btn btn-primary btn-block" name="button" id="login">Iniciar sesion</button>
-                    </div>
-               </div>
--->               
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
@@ -68,22 +73,69 @@
         </div>
         
         <!--<div class="col-md-6">-->
-            <div class="row">
+        <div class="row">
                 <div class="col"> 
                     <button class="btn btn-primary mt-5" onclick="location.href='reporteIncidencias.html'">Reportes</button>
                 </div>
                 <div class="col">
-
-                    <form action="cerrar_sesion.php" method="post" >
+                    <form action="controller/cerrarSesion.php" method="post" >
                         <button type="submit" class="btn btn-primary mt-5">Cerrar Sesión</button>
                     </form>
                 </div>
-            </div>
+        </div>
         <!--</div>-->
         <!--</div>-->
     </div>
     <br>    
-    <h2>Incidencias Pendientes:</h2>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>Incidencias Pendientes:</h2>
+          <div id="loader" class="text-center"><img src="img/loader.gif"></div>
+
+          <!-- AJAX -->
+          <div id="outer_div">
+
+          </div>
+          <!-- END AJAX -->
+
+        </div>
+      </div>
+    </div>
+
+<!--    url: 'model/traerIncidencia.php?inc_id='+ parametros.inc_id,
+                        type:'POST',
+                        data: { "traerIncidencia":"1"},
+                        dataType:'json',
+-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        load(1);
+      });
+      function load(page){
+        var parametros = {"action" : "ajax", "page" : page};
+        $("#loader").fadeIn();
+        $.ajax({
+          url : 'model/traerIncidencias.php',
+          type:'POST',
+          data : parametros,
+          beforeSend:function(objeto){
+            $("#loader").fadeIn();
+          },
+          success:function(data){
+            $("#loader").fadeOut();
+            $("#outer_div").html(data).fadeIn();
+          }
+        });
+      }
+    </script>
+
+
+
     <br>
 
         <input type="text" id="incidencia_id">
@@ -92,36 +144,20 @@
         <div id="lista-usuarios"></div>
 
     <!-- Contenido -->
+<!--
     <section>
-        <!--<table class="grilla" id="tablajson">-->
-        <!--<table class="table table-dark" id="tablajson">-->
+-->        
 
-        <table class="table table-hover" id="tablajson">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Descrip Inciden</th>
-                    <th scope="col">Reporte Usuario</th>
-                    <th scope="col">Fecha Creacion</th>
-                  </tr>
-                </thead>            
-                <tbody>
 
-                </tbody>
-        </table>
-            <script type="text/javascript">
+</html>         
+        <script type="text/javascript">
                 ejecutar.style.display = 'none';
                 incidencia_id.style.display = 'none';
 
-
+/*
                 $(document).ready(function(){
-                    $.ajax({
-                        /*data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.*/
+                    $.ajax ( {
+                        //data : parametros, //La consulta del traerIncidencias.php no necesita parametros.
                         url: 'model/traerIncidencias.php',
                         type:'POST',
                         data: { "traerIncidencias":"1"},
@@ -150,32 +186,29 @@
                                         +"<td>" + "<input type=\"button\"/ class=\"btn btn-primary\"/ onclick=\"obtengoID(" + incidencias.id + ")\"/ data-toggle=\"modal\"/ data-target=\"#modalForm\"/>Resolver</button>" + "</td>"
                                         +"</tr>"
                                 );
-/*                                          
-                                 listaUsuarios.append(
-                                        `<tr>`
-                                        +`<td>`+incidencias.apellido+`</td>`
-                                        +`<td>`+incidencias.nombre+`</td>`
-                                        +`<td>`+incidencias.dni+`</td>`
-                                        +`<td>`+incidencias.telefono+`</td>`
-                                        +`<td>`+incidencias.email+`</td>`
-                                        +`<td>`+incidencias.descrip_inciden+ `</td>`
-                                        +`<td style=" width: 150px;"> <textarea style= "border: none;"readonly="true">`+ incidencias.usuario_descripcion + `</textarea>` +
-                                        `</td>`
-                                        +`<td>`+incidencias.fecha_creacion+`</td>`
-                                        +"<td>" + "<input type=\"button\"/ class=\"btn btn-primary\"/ onclick=\"obtengoID(" + incidencias.id + ")\"/ data-toggle=\"modal\"/ data-target=\"#modalForm\"/>Resolver</button>" + "</td>"
-                                        +"</tr>"
-                                    );
-*/                                  
-/*  
-                                    $v_append= $v_append+1;
-*/                                    
+//                                    $v_append= $v_append+1;
+                                    
                             });
                             
                             if ($v_append==0 ){
                                 swal('Info', 'No hay consultas.', 'info');
                             };
                         },
-                        }).fail( function( jqXHR, textStatus, errorThrown ) {
+                        }).done( function() {
+                                jQuery(document).ready(function($)
+                                {
+                                    $("#tablajson").dataTable({
+                                        "sPaginationType": "bootstrap",
+                                        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                                        "bStateSave": true
+                                    });
+                                    
+                                    $(".dataTables_wrapper select").select2({
+                                        minimumResultsForSearch: -1
+                                    });
+                                })
+                        }
+                        ).fail( function( jqXHR, textStatus, errorThrown ) {
                             if (jqXHR.status === 0) {
                                 alert('Not connect: Verify Network.');
                             } else if (jqXHR.status == 404) {
@@ -191,9 +224,10 @@
                             } else {
                                 alert('Uncaught Error: ' + jqXHR.responseText);
                             }
-                        });                        
+                        }); 
+                        alert('Fin de AJAx');
                 })
-
+*/
                 function Valida(){
                     if (document.getElementById('inputResolucion').value == ""){
                         window.alert('[ERROR] El campo Resolucion no puede estar vacio...');
@@ -219,7 +253,7 @@
 
                             window.alert("La incidencia ha sido resuelta.");
 
-                            window.location="verIncidencias.html";
+                            window.location="verIncidencias.php";
                         },
                         }).fail( function( jqXHR, textStatus, errorThrown ) {
                             if (jqXHR.status === 0) {
@@ -343,7 +377,13 @@
                 };
 
         </script>
-    </section>
+
+        <script type="text/javascript">
+
+        </script>
+<!--    
+        </section>
+-->
 
     <script src="js/sweetalert.min.js"></script>
 </body>
