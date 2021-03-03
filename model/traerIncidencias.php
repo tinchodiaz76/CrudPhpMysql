@@ -34,7 +34,7 @@
                 $cantreg = 'select count(1) numrows
                 from ywayqssx_MA.incidencias inc, ywayqssx_MA.usuxperfil per, ywayqssx_MA.tipinciden tip
                 where per.username= "'.$v_user.'"
-                and inc.estado=0    
+                and inc.estado in (0,1)
                 and inc.tipo_incidencia = per.tipo_incidencia
                 and tip.tipo_incidencia= inc.tipo_incidencia';
   ?>
@@ -60,13 +60,14 @@
                 IFNULL(replace(inc.descrip_incidencia,null,"'.''.'"),"'.'-'.'") usuario_descripcion,
                 CASE 
                   when inc.estado=0 THEN "'.'Abierta'.'"
+                  when inc.estado=1 THEN "'.'Progreso'.'"
                   ELSE "'.'Cerrada'.'"
                 END estado_descrip,
                 date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
-                inc.id
+                inc.id,inc.estado
                 from ywayqssx_MA.incidencias inc, ywayqssx_MA.usuxperfil per, ywayqssx_MA.tipinciden tip
                 where per.username= "'.$v_user.'"
-                and inc.estado=0    
+                and inc.estado in (0,1)
                 and inc.tipo_incidencia = per.tipo_incidencia
                 and tip.tipo_incidencia= inc.tipo_incidencia
                 LIMIT '.$offset.','.$per_page;
@@ -82,8 +83,9 @@
                             <th scope="col">DNI</th>
                             <th scope="col">Telefono</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Descrip Inciden</th>
+                            <th scope="col">Descripcion Incidencia</th>
                             <th scope="col">Reporte Usuario</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Fecha Creacion</th>
                           </tr>
                         </thead>
@@ -94,22 +96,47 @@
                         while($row = mysqli_fetch_array($resEmp)): 
                           $id=$id+1;
                         ?>
-                        <tr>
-                          <td><?=$id?></td>
-                          <td><?=$row['apellido']?></td>
-                          <td><?=$row['nombre']?></td>
-                          <td><?=$row['dni']?></td>
-                          <td><?=$row['telefono']?></td>
-                          <td><?=$row['email']?></td>
-                          <td><?=$row['descrip_inciden']?></td>
-                          <td><?=$row['usuario_descripcion']?></td>
-                          <td><?=$row['estado_descrip']?></td>
-                          <td><?=$row['fecha_creacion']?></td>
-                          <td><input type="button" class="btn btn-primary" onclick="obtengoID(<?=$row['id']?>)" data-toggle="modal" data-target="#modalForm">Resolver</button></td>
-                        </tr>
-                      <?php endwhile;  
+                        
+                          <?php
+                          if ($row['estado']==1):
+                          ?>
+                              <tr>
+                                  <td class="table-warning"><?=$id?></td>
+                                  <td class="table-warning"><?=$row['apellido']?></td>
+                                  <td class="table-warning"><?=$row['nombre']?></td>
+                                  <td class="table-warning"><?=$row['dni']?></td>
+                                  <td class="table-warning"><?=$row['telefono']?></td>
+                                  <td class="table-warning"><?=$row['email']?></td>
+                                  <td class="table-warning"><?=$row['descrip_inciden']?></td>
+                                  <td class="table-warning"><?=$row['usuario_descripcion']?></td>
+                                  <td class="table-warning"><?=$row['estado_descrip']?></td>
+                                  <td class="table-warning"><?=$row['fecha_creacion']?></td>
+                                  <td class="table-warning"><input type="button" class="btn btn-warning" onclick="obtengoIDNotas(<?=$row['id']?>)" data-toggle="modal" data-target="#modalNotas">Notas</button></td>
+                                  <td class="table-warning"><input type="button" class="btn btn-primary" onclick="obtengoIDResolucion(<?=$row['id']?>)" data-toggle="modal" data-target="#modalResolucionIncidencia">Resolver</button></td>
+                              </tr>
+                          <?php
+                          else:
+                          ?>
+                              <tr>
+                                  <td><?=$id?></td>
+                                  <td><?=$row['apellido']?></td>
+                                  <td><?=$row['nombre']?></td>
+                                  <td><?=$row['dni']?></td>
+                                  <td><?=$row['telefono']?></td>
+                                  <td><?=$row['email']?></td>
+                                  <td><?=$row['descrip_inciden']?></td>
+                                  <td><?=$row['usuario_descripcion']?></td>
+                                  <td><?=$row['estado_descrip']?></td>
+                                  <td><?=$row['fecha_creacion']?></td>
+                                  <td><input type="button" class="btn btn-warning" onclick="obtengoIDNotas(<?=$row['id']?>)" data-toggle="modal" data-target="#modalNotas">Notas</button></td>
+                                  <td><input type="button" class="btn btn-primary" onclick="obtengoIDResolucion(<?=$row['id']?>)" data-toggle="modal" data-target="#modalResolucionIncidencia">Resolver</button></td>
+                          </tr>
+                          <?php
+                          endif;
+                          ?>
+                        <?php endwhile;  
                             $id=$id;
-                      ?>
+                        ?>
                       </tbody>
                     </table>
                     <div class="table-pagination pull-right">

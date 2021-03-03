@@ -21,8 +21,7 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
             inc.email
             from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
             where id= '.$inc_id.'
-            and tip.tipo_incidencia= inc.tipo_incidencia
-            and inc.estado= 0';
+            and tip.tipo_incidencia= inc.tipo_incidencia';
 
             $resEmp =parent::query($query);
 

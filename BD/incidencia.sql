@@ -12,7 +12,8 @@ create table ywayqssx_MA.incidencias (
 	Id_area int(1),
 	tipo_incidencia int(1) not null,
 	descrip_incidencia varchar(3000),
-	estado int(1) not null,
+	estado int(1) not null,					//0 Abierta //1 Nota //2 Cerrada
+	nota varchar(4000),
 	fecha_creacion	date not null,
 	username varchar(20),
 	fecha_cerrado date,
