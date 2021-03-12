@@ -13,7 +13,7 @@ create table ywayqssx_MA.incidencias (
 	tipo_incidencia int(1) not null,
 	descrip_incidencia varchar(3000),
 	estado int(1) not null,					//0 Abierta //1 Nota //2 Cerrada
-	nota varchar(4000),
+	nota varchar(4000),					//se puede ingresar un comentario, sin cerrar el incidente
 	fecha_creacion	date not null,
 	username varchar(20),
 	fecha_cerrado date,

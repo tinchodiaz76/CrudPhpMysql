@@ -37,7 +37,8 @@
 			else
 			{
 				
-				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, texto_resolucion,estado
+				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, 
+				texto_resolucion,estado
 				from ywayqssx_MA.tipinciden
 				where tipo_id=1
 				and id_area='.$v_area.'

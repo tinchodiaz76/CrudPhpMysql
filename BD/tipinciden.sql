@@ -8,5 +8,6 @@ create table ywayqssx_MA.tipinciden (
 	descrip_inciden varchar(3000)  not null,
  
 	texto_resolucion varchar(3000),
+	mas_informacion  int(1) not null default 0,
 	estado   int(1)
 	);

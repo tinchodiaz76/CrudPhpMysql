@@ -44,8 +44,8 @@
     
     
     if (isset($_POST['email']) && isset($_POST['apellido']) && isset($_POST['nombre']) &&
-    isset($_POST['dni']) && isset($_POST['telefono']) && isset($_POST['selectarea']) &&
-    isset($_POST['selectincidenciaarea']) && isset($_POST['validationTextarea'])
+            isset($_POST['dni']) && isset($_POST['telefono']) && isset($_POST['selectarea']) &&
+            isset($_POST['selectincidenciaarea']) && isset($_POST['validationTextarea'])
         )
     {
 

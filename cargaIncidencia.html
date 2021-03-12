@@ -65,7 +65,6 @@
 		</div>
 	
 		<br>
-
 		<div class="col-md-3">
 			<div class="row">
 				<div class="col">
@@ -84,26 +83,29 @@
 
 		<div class="col-md-6">
 		<span style="color: #ff6600;"><strong>
-		Posibles inconvenientes</strong>
+		Indicanos a continuación cuál es tu inconveniente:</strong>
 		<br>
 		</span>
-			
-		<label for="selectarea">Seleccione el Area:</label>
+		
 		<br>
 		<select name="selectarea" id="selectarea" onchange="BuscarIncidente(selectarea.value)"></select>
 
 		<br>
 		
-		<label for="selectincidenciaarea">Seleccione el Tipo de Incidencia:</label>
+		<label for="selectincidenciaarea">Especificanos tu problema:</label>
 		<br>
-		<select name="selectincidenciaarea" id="selectincidenciaarea" onchange="HabilitaCampoValidationTextarea()"></select>
+		<select name="selectincidenciaarea" id="selectincidenciaarea" onchange="HabilitaCampoValidationTextarea(selectincidenciaarea.value)"></select>
 
 		<br>
 		<br>
+		
+		<div id="apala">
+		<!--
 		<div id="textarea" style="display:none;">
 			<textarea class="form-control" name="validationTextarea"  id="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
 		</div>
-		
+		-->		
+		</div>
 		<br>
 
 		<button type="button" class="btn btn-primary" href="javascript:;" onclick="InsertaIncidencia($('#email').val(),
@@ -120,17 +122,55 @@
 				BuscarIncidente($var);
 			})
 
-		function HabilitaCampoValidationTextarea()
+		function HabilitaCampoValidationTextarea(incidenciaarea)
 			{
-				text= selectincidenciaarea.options[selectincidenciaarea.selectedIndex].innerText
-				if (text=="Otros.")
-				{
-					document.getElementById("textarea").style.display = "block";
-				}
-				else
-				{
-					document.getElementById("textarea").style.display = "none";
-				}
+				$.ajax({
+					url: 'model/traerMasInfo.php?Tipo_incidencia=' + incidenciaarea,
+					type:'POST',
+					data: { "traerMasInfo":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaUsuarios= $("#apala");
+						$("#apala").html("");
+						
+						var $v_append=0;
+
+						$.each(respuesta, function(index, incidenciamasInfo) {
+							if (incidenciamasInfo.mas_informacion==1)
+							{
+								listaUsuarios.append(
+									`<div id="textarea" style="display:block;">`+
+										`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
+									`</div>`
+								);
+								$v_append= $v_append+1;
+							}
+							else
+							{
+								listaUsuarios.append(
+								`<div id="textarea" style="display:none;">`+
+								`</div>`
+								)
+							}
+						});
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
 			}
 
 		function InsertaIncidencia(email,apellido,nombre,dni,telefono,selectarea,
@@ -241,7 +281,7 @@
 							
 							listaUsuarios.append(
 								//<option value="value2" >Value 2</option>
-										`<option value="` + incidenciaarea.tipo_incidencia + `">` + incidenciaarea.descrip_inciden + `</option>`
+										`<option value="` + incidenciaarea.tipo_incidencia + `">` + incidenciaarea.descrip_inciden + `</option>` 
 							);
 
 							$v_append= $v_append+1;
@@ -252,6 +292,10 @@
 
 						if ($v_append==0 ){
 							swal('Info', 'No hay Areas seteadas.', 'info');
+						}
+						else
+						{
+							HabilitaCampoValidationTextarea(selectincidenciaarea.value);
 						};
 					},
 					}).fail( function( jqXHR, textStatus, errorThrown ) {
@@ -271,7 +315,7 @@
 							alert('Uncaught Error: ' + jqXHR.responseText);
 						}
 					});                        
-					document.getElementById("textarea").style.display = "none";		
+					//document.getElementById("textarea").style.display = "none";		
 			}
 
 		function Valida() {
