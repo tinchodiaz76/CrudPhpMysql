@@ -57,7 +57,7 @@
                 
                 $query = 'select inc.apellido, inc.nombre, inc.dni, inc.telefono,
                 inc.email, tip.descrip_inciden,
-                IFNULL(replace(inc.descrip_incidencia,null,"'.''.'"),"'.'-'.'") usuario_descripcion,
+                IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
                 CASE 
                   when inc.estado=0 THEN "'.'Abierta'.'"
                   when inc.estado=1 THEN "'.'Progreso'.'"

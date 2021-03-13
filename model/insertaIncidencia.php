@@ -24,7 +24,7 @@
 
             parent::conectar();
 
-            $query ='insert into ywayqssx_MA.incidencias (tipo_id,email,
+            $query ='insert into ywayqssx_ma.incidencias (tipo_id,email,
             apellido,nombre,dni,
             telefono,Id_area,tipo_incidencia, 
             descrip_incidencia,estado,fecha_creacion) 
@@ -33,8 +33,6 @@
             "'.$telefono.'",'.$selectarea.','.$selectincidenciaarea.',
             "'.$validationTextarea.'",0,curdate())';
     
-            echo $query;
-
             $resEmp =parent::query($query);
 
             parent::cerrar();

@@ -2,17 +2,10 @@ insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, descrip_inciden,texto_reso
 values (1,1,'No puedo ingresar al SIU Guaraní.',null,0,0);
 
 
-insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, descrip_inciden,texto_resolucion,estado,mas_informacion) 
-values (1,1,'No puedo ingresar al Campus Virtual.',null,0,0);
-
-
 insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, descrip_inciden,texto_resolucion,estado
 ,mas_informacion) values (1,1,'No recuerdo mi Usuario y/o Contraseña en el SIU Guaraní.',null,0,0);
 
 
-insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, 
-descrip_inciden,texto_resolucion,estado,mas_informacion)
- values (1,1,'No sé cómo ingresar al Campus Virtual.',null,0,0);
 insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, 
 descrip_inciden,texto_resolucion,estado,mas_informacion)
  values (1,1,'No puedo inscribirme a las materias.',null,0,0);
@@ -22,6 +15,12 @@ insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, descrip_inciden,texto_reso
 values (1,2,'No puedo modificar mi mail en el Campus Virtual. Completá el mail que debe figurar:',null,0,1);
 
 
+insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, descrip_inciden,texto_resolucion,estado,mas_informacion) 
+values (1,2,'No puedo ingresar al Campus Virtual.',null,0,0);
+
+insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, 
+descrip_inciden,texto_resolucion,estado,mas_informacion)
+ values (1,1,'No sé cómo ingresar al Campus Virtual.',null,0,0);
 insert into ywayqssx_MA.tipinciden (Tipo_id, Id_area, descrip_inciden,texto_resolucion,estado,mas_informacion) 
 values (1,2,'No recuerdo mi Usuario y/o Contraseña en el Campus Virtual.',null,0,0);
 

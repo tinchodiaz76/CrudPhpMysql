@@ -101,10 +101,13 @@
 		
 		<div id="apala">
 		<!--
-		<div id="textarea" style="display:none;">
-			<textarea class="form-control" name="validationTextarea"  id="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
-		</div>
-		-->		
+			<div id="textarea" style="display:none;">
+				<textarea class="form-control" name="validationTextarea"  id="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
+			</div>
+		-->
+			<div id="textarea">
+
+			</div>
 		</div>
 		<br>
 
@@ -143,12 +146,20 @@
 										`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
 									`</div>`
 								);
+								/*
+								listaUsuarios.append(
+									`<div id="textarea" style="display:block;">`+
+										`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
+									`</div>`
+								);
+								*/
 								$v_append= $v_append+1;
 							}
 							else
 							{
 								listaUsuarios.append(
 								`<div id="textarea" style="display:none;">`+
+									`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
 								`</div>`
 								)
 							}
