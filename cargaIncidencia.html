@@ -28,8 +28,10 @@
 		Complet&aacute los datos solicitados en este formulario y recibir&aacutes nuestro asesoramiento en las próximas 24 hs.
 	</h6>
 	</hgroup>
-
+<!--
 	<form id="miForm" action="./model/insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
+-->
+	<form id="miForm">
 		<div class= "col-md-6">   
 			<div class="row">
 				<div class="col">
@@ -100,17 +102,9 @@
 		<br>
 		
 		<div id="apala">
-		<!--
-			<div id="textarea" style="display:none;">
-				<textarea class="form-control" name="validationTextarea"  id="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
-			</div>
-		-->
-			<div id="textarea">
 
-			</div>
 		</div>
 		<br>
-
 		<button type="button" class="btn btn-primary" href="javascript:;" onclick="InsertaIncidencia($('#email').val(),
 				$('#apellido').val(),$('#nombre').val(),
 				$('#dni').val(),$('#telefono').val(),
@@ -118,6 +112,7 @@
 				$('#validationTextarea').val())">Enviar</button>
 	</form>
 
+	<script src="js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 				BuscarAreas();
@@ -146,13 +141,6 @@
 										`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
 									`</div>`
 								);
-								/*
-								listaUsuarios.append(
-									`<div id="textarea" style="display:block;">`+
-										`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
-									`</div>`
-								);
-								*/
 								$v_append= $v_append+1;
 							}
 							else
@@ -187,40 +175,43 @@
 		function InsertaIncidencia(email,apellido,nombre,dni,telefono,selectarea,
 								  selectincidenciaarea,validationTextarea)
 		{
-				var parametros = {
-                "email" : email,
-                "apellido" : apellido,
-				"nombre" : nombre,
-				"dni" : dni,
-				"telefono" : telefono,
-				"selectarea" : selectarea,
-				"selectincidenciaarea" : selectincidenciaarea,
-				"validationTextarea" : validationTextarea
-				        		};
-				$.ajax({
-						data:  parametros, //datos que se envian a traves de ajax
-						url:   'model/insertaIncidencia.php', //archivo que recibe la peticion
-						type:  'POST', //método de envio
-						success: function(respuesta) {
-							swal('Info', 'La incidencia ha sido cargada, nos contactaremos con Ud.', 'info');
-						},
-						}).fail( function( jqXHR, textStatus, errorThrown ) {
-								if (jqXHR.status === 0) {
-									alert('Not connect: Verify Network.');
-								} else if (jqXHR.status == 404) {
-									alert('Requested page not found [404]');
-								} else if (jqXHR.status == 500) {
-									alert('Internal Server Error [500].');
-								} else if (textStatus === 'parsererror') {
-									alert('Requested JSON parse failed.');
-								} else if (textStatus === 'timeout') {
-									alert('Time out error.');
-								} else if (textStatus === 'abort') {
-									alert('Ajax request aborted.');
-								} else {
-									alert('Uncaught Error: ' + jqXHR.responseText);
-								}
-						});                        
+				if (Valida()==true) 
+				{
+							var parametros = {
+							"email" : email,
+							"apellido" : apellido,
+							"nombre" : nombre,
+							"dni" : dni,
+							"telefono" : telefono,
+							"selectarea" : selectarea,
+							"selectincidenciaarea" : selectincidenciaarea,
+							"validationTextarea" : validationTextarea
+											};
+							$.ajax({
+									data:  parametros, //datos que se envian a traves de ajax
+									url:   'model/insertaIncidencia.php', //archivo que recibe la peticion
+									type:  'POST', //método de envio
+									success: function(respuesta) {
+										swal('Info', 'La incidencia ha sido cargada, nos contactaremos con Ud.', 'info');
+									},
+									}).fail( function( jqXHR, textStatus, errorThrown ) {
+											if (jqXHR.status === 0) {
+												alert('Not connect: Verify Network.');
+											} else if (jqXHR.status == 404) {
+												alert('Requested page not found [404]');
+											} else if (jqXHR.status == 500) {
+												alert('Internal Server Error [500].');
+											} else if (textStatus === 'parsererror') {
+												alert('Requested JSON parse failed.');
+											} else if (textStatus === 'timeout') {
+												alert('Time out error.');
+											} else if (textStatus === 'abort') {
+												alert('Ajax request aborted.');
+											} else {
+												alert('Uncaught Error: ' + jqXHR.responseText);
+											}
+									});                        
+				}
 			}
 			
 			/*Carga las areas*/
@@ -330,32 +321,75 @@
 			}
 
 		function Valida() {
-				/*const pattern = new RegExp('^[A-Z]+$', 'i');*/
-
-				const tdni = document.getElementById("dni");
-				if( isNaN(tdni.value))
+				var campo = $('#apellido').val();
+				const tapellido = document.getElementById("apellido");	
+				if(campo === ''){
+					tapellido.style.borderColor = 'salmon'; 
+					swal('Error', 'El campo Apellido no puede estar vacio.', 'error');
+					return false;
+				}
+				else
 				{
-					// Si no se cumple la condicion...
+					tapellido.style.borderColor = ''; 
+				}
+
+				var campo = $('#nombre').val();
+				const tnombre = document.getElementById("nombre");	
+				if(campo === ''){
+					tnombre.style.borderColor = 'salmon'; 
+					swal('Error', 'El campo Nombre no puede estar vacio.', 'error');
+					return false;
+				}
+				else
+				{
+					tnombre.style.borderColor = ''; 
+				}
+
+
+				var campo = $('#dni').val();
+				const tdni = document.getElementById("dni");	
+				if(campo === ''){
 					tdni.style.borderColor = 'salmon'; 
-					window.alert('[ERROR] El campo DNI debe tener solo numeros...');
+					swal('Error', 'El campo DNI no puede estar vacio.', 'error');
 					return false;
 				}
 				else
 				{
-					tdni.style.borderColor = ''; 
+ 				//Las validaciones que necesitas hacer
+				 	if( isNaN(tdni.value))
+					{
+						// Si no se cumple la condicion...
+						tdni.style.borderColor = 'salmon'; 
+						swal('Error', 'El campo DNI debe tener solo numeros.', 'error');
+						return false;
+					}
+					else
+					{
+						tdni.style.borderColor = ''; 
+					}
 				}
+				
 
-				const ttelef = document.getElementById("telefono");
-				if( isNaN(ttelef.value))
-				{
-					// Si no se cumple la condicion...
+				var campo = $('#telefono').val();
+				const ttelef = document.getElementById("telefono");	
+				if(campo === ''){
 					ttelef.style.borderColor = 'salmon'; 
-					window.alert('[ERROR] El campo Telefono debe tener solo numeros...');
+					swal('Error', 'El campo Telefono no puede estar vacio.', 'error');
 					return false;
 				}
 				else
 				{
-					ttelef.style.borderColor = ''; 
+					if( isNaN(ttelef.value))
+					{
+						// Si no se cumple la condicion...
+						ttelef.style.borderColor = 'salmon'; 
+						swal('Error', 'El campo Telefono debe tener solo numeros.', 'error');
+						return false;
+					}
+					else
+					{
+						ttelef.style.borderColor = ''; 
+					}
 				}
 
 				const temail = document.getElementById("email");
@@ -364,7 +398,7 @@
 				if (temail.value!=temail_v.value){
 					temail.style.borderColor = 'salmon'; 
 					temail_v.style.borderColor = 'salmon'; 
-					window.alert('[ERROR] No coinciden los mail ingresados...');
+					swal('Error', 'No coinciden los mail ingresados.', 'error');
 					return false;
 				}
 				else{
@@ -372,8 +406,8 @@
 					temail_v.style.borderColor = '';
 				}
 
-				window.alert("Su consulta ha sido enviada, nos contactaremos con Ud.");
 				return true;
+
 			}
 
 		function soloLetras(e){
@@ -423,7 +457,5 @@
 			}
 
 	</script>
-	<script src="js/sweetalert.min.js"></script>
-
 </body>
 </html>
