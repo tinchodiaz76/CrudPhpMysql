@@ -372,24 +372,17 @@
 
 				var campo = $('#telefono').val();
 				const ttelef = document.getElementById("telefono");	
-				if(campo === ''){
+
+				if( isNaN(ttelef.value))
+				{
+					// Si no se cumple la condicion...
 					ttelef.style.borderColor = 'salmon'; 
-					swal('Error', 'El campo Telefono no puede estar vacio.', 'error');
+					swal('Error', 'El campo Telefono debe tener solo numeros.', 'error');
 					return false;
 				}
 				else
 				{
-					if( isNaN(ttelef.value))
-					{
-						// Si no se cumple la condicion...
-						ttelef.style.borderColor = 'salmon'; 
-						swal('Error', 'El campo Telefono debe tener solo numeros.', 'error');
-						return false;
-					}
-					else
-					{
-						ttelef.style.borderColor = ''; 
-					}
+					ttelef.style.borderColor = ''; 
 				}
 
 				const temail = document.getElementById("email");
