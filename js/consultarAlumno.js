@@ -8,7 +8,7 @@ $('#login').click(function(){
     $.ajax({
       method: 'POST',
       // Recuerda que la ruta se hace como si estuvieramos en el index y no en operaciones por esa razon no utilizamos ../ para ir a controller
-      url: 'controller/loginAlumno.php',
+      url: 'api/loginAlumno.php',
       // Recuerda el primer parametro es la variable de php y el segundo es el dato que enviamos
       data: {user_php: user, clave_php: clave},      
       // Esta funcion se ejecuta antes de enviar la información al archivo indicado en el parametro url

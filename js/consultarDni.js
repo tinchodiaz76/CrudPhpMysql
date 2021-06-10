@@ -11,7 +11,7 @@ $('#validarDni').click(function(){
     $.ajax({
       method: 'POST',
       // Recuerda que la ruta se hace como si estuvieramos en el index y no en operaciones por esa razon no utilizamos ../ para ir a controller
-      url: 'controller/loginDni.php',
+      url: 'api/loginDni.php',
       // Recuerda el primer parametro es la variable de php y el segundo es el dato que enviamos
       data: {dni_php: dni},
       // Esta funcion se ejecuta antes de enviar la información al archivo indicado en el parametro url
