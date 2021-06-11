@@ -1,18 +1,19 @@
-$('#login').click(function(){
+$('#validarDni').click(function(){
 
   // Traemos los datos de los inputs
 
-    var user = document.getElementById("usuario").value;
-    var clave = document.getElementById("password").value;
- 
+    var dni = document.getElementById("dni").value;
+    /*
+    var dni= 1;
+    */
     // Envio de datos mediante Ajax
 
     $.ajax({
       method: 'POST',
       // Recuerda que la ruta se hace como si estuvieramos en el index y no en operaciones por esa razon no utilizamos ../ para ir a controller
-      url: 'controller/loginController.php',
+      url: 'api/loginDni.php',
       // Recuerda el primer parametro es la variable de php y el segundo es el dato que enviamos
-      data: {user_php: user, clave_php: clave},
+      data: {dni_php: dni},
       // Esta funcion se ejecuta antes de enviar la información al archivo indicado en el parametro url
       beforeSend: function(){
         // Mostramos el div con el id load mientras se espera una respuesta del servidor (el archivo solicitado en el parametro url)
@@ -36,21 +37,34 @@ $('#login').click(function(){
           en el momento conozco tres tipos, entonces puedes variar entre success: Muestra animación de un check,
           warning: muestra icono de advertencia amarillo y error: muestra una animacion con una X muy chula :v
           */
+          /*
           swal('Error', 'Por favor ingrese todos los campos', 'error');
-        }else if(res == 'error_2'){
-          // Recuerda que si no necesitas validar si es un email puedes eliminar el if de la linea 34
-          swal('Error', 'Por favor ingrese un email valido', 'warning');
+          */
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Por favor ingrese todos los campos.";
+
         }else if(res == 'error_3'){
-          swal('Error', 'Usuario o Contraseña incorrectos', 'error');
+          /*
+          swal('Error', 'Hola!!! No estas registrado en el SIU, volve a las Preguntas Frecuentas y alli te indicamos como proceder.', 'error');
+          */
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Hola. No figura tu usuario en nuestros sistemas. Por favor ingresa <a href=" + "https://guarani.unaj.edu.ar/" +" target=_blank>SIU</a>";
+
+          //volve a las Preguntas Frecuentas y alli te indicamos como proceder.";
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
 /*
           window.location.href= "verIncidencias.html";
 */
-          window.location.href= "verIncidencias.php";          
+
+          window.location.href= "alumno.php";          
+
          }
        }
     });
   
   });
-  
+
+  $('#dni').keydown(function(){
+    document.getElementById("Error").style.display = "none";
+  });

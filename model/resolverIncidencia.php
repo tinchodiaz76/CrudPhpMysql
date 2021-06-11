@@ -14,7 +14,7 @@
             $v_user= $_SESSION['username'];
 
             $query ='update ywayqssx_MA.incidencias 
-            set estado=1,
+            set estado=2,
             username= "'.$v_user.'",
             fecha_cerrado= curdate(),
             resolucion= "'.$resolucion.'"

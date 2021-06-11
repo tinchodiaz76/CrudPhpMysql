@@ -1,6 +1,6 @@
 create table ywayqssx_MA.preguntas_frecuentes (
 
-	Tipo_id int(11)  not null, 
+	Tipo_id int(1)  not null, 
     
 	id_pregunta int(11)  AUTO_INCREMENT primary key,
 

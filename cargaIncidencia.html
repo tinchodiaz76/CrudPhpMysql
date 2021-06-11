@@ -1,250 +1,558 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
-    <title>Cargar incidencia-UNAJ</title>
+	<head>
+		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+		<title>Cargar incidencia-UNAJ</title>
 
-	<!--&aacute, le pone un acento en la A-->
-	<!--&eacute, le pone un acento en la E-->
-	<!--&iacute, le pone un acento en la I-->
-	<!--&oacute, le pone un acento en la O-->
-	<!--&uacute, le pone un acento en la U-->
-	<!--&ntilde, le pone la letra Ñ-->
+		<!--&aacute, le pone un acento en la A-->
+		<!--&eacute, le pone un acento en la E-->
+		<!--&iacute, le pone un acento en la I-->
+		<!--&oacute, le pone un acento en la O-->
+		<!--&uacute, le pone un acento en la U-->
+		<!--&ntilde, le pone la letra Ñ-->
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="login.css">
+	    <link rel="stylesheet" href="css/sweetalert.css">
+		<h4 align = center>Bienvenido al Sistema de Mesa de Ayuda</h4>
 
-<h4 align = center>Bienvenido al Sistema de Mesa de Ayuda</h4>
-
-</head>
+	</head>
 
 <body>
-<hgroup>
-<h6>
-	Complet&aacute los datos solicitados en este formulario y recibir&aacutes nuestro asesoramiento en las próximas 24 hs.
-</h6>
-</hgroup>
-
-<!--<form name="miFormulario" method="post" action="insertaIncidencia.php" onSubmit="return Valida(this);>-->
-<!--<form name="miFormulario" method="post"  onSubmit="return Valida(this);"">-->
-<form id="miForm" action="insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
-
-	<div class= "col-md-6">   
-		<div class="row">
-			<div class="col">
-				<label for="email">Direcci&oacuten de correo electr&oacutenico</label>
-				<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
+	<hgroup>
+	<h6>
+		Complet&aacute los datos solicitados en este formulario y recibir&aacutes nuestro asesoramiento en las próximas 24 hs.
+	</h6>
+	</hgroup>
+<!--
+	<form id="miForm" action="./model/insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
+-->
+	<form id="miForm">
+		<div class= "col-md-6">   
+			<div class="row">
+				<div class="col">
+					<label for="email">Direcci&oacuten de correo electr&oacutenico</label>
+					<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
+				</div>
 			</div>
 		</div>
-	</div>
+		
+
+		<div class= "col-md-6">
+			<div class="row">
+				<div class="col">
+					<label for="email_v">Vuelva a ingresar el correo electr&oacutenico</label>
+					<input type="email" class="form-control" name="email_v" id="email_v" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
+				</div>
+				</div>
+		
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col">
+					<label for="apellido">Apellido</label>
+					<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese su Apellido" onkeypress= "return soloLetras(event)" onpaste="return false" required>
+				</div>
+				<div class="col">
+					<label for="nombre">Nombre</label>
+					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre" onkeypress= "return soloLetras(event)" onpaste="return false" required>
+				</div>
+			</div>
+		</div>
 	
+		<br>
+		<div class="col-md-3">
+			<div class="row">
+				<div class="col">
+					<label for="dni">DNI</label>
+					<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" minlength="7" maxlength="12" required>
+				</div>
 
-  	<div class= "col-md-6">
-		<div class="row">
-			<div class="col">
-    			<label for="email_v">Vuelva a ingresar el correo electr&oacutenico</label>
-				<input type="email" class="form-control" name="email_v" id="email_v" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
-			  </div>
-			</div>
-	  
-		</div>
-	</div>
-
-	<div class="col-md-6">
-		<div class="row">
-			<div class="col">
-				<label for="apellido">Apellido</label>
-				<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese su Apellido" onkeypress= "return soloLetras(event)" onpaste="return false" required>
-			</div>
-			<div class="col">
-				<label for="nombre">Nombre</label>
-				<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre" onkeypress= "return soloLetras(event)" onpaste="return false" required>
+				<div class="col">
+					<label for="telefono">Tel&eacutefono</label>
+					<input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su Telefono" minlength="8" maxlength="15" required>
+				</div>
 			</div>
 		</div>
-	</div>
-  
-  <br>
 
-  	<div class="col-md-3">
-  		<div class="row">
-			<div class="col">
-				<label for="dni">DNI</label>
-				<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" minlength="7" maxlength="12" required>
-			</div>
+		<br>
 
-			<div class="col">
-				<label for="telefono">Tel&eacutefono</label>
-				<input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su Telefono" minlength="8" maxlength="15" required>
-			</div>
+		<div class="col-md-6">
+		<span style="color: #ff6600;"><strong>
+		Indicanos a continuación cuál es tu inconveniente:</strong>
+		<br>
+		</span>
+
+		<label for="selectcarrera">Seleccioná la carrera por la que es tu consulta:</label>
+		<br>
+		<select name="selectcarrera" id="selectcarrera"></select>
+
+		<br>
+		<label for="selectmaterias">Seleccioná la materia por la que es tu consulta:</label>
+		<br>
+		<select name="selectmaterias" id="selectmaterias"></select>
+
+		<br>
+		<br>
+		<select name="selectarea" id="selectarea" onchange="BuscarIncidente(selectarea.value)"></select>
+
+		<br>
+		
+		<label for="selectincidenciaarea">Especificanos tu problema:</label>
+		<br>
+		<select name="selectincidenciaarea" id="selectincidenciaarea" onchange="HabilitaCampoValidationTextarea(selectincidenciaarea.value)"></select>
+
+		<br>
+		<br>
+		
+		<div id="apala">
+
 		</div>
-  	</div>
+		<br>
+		<button type="button" class="btn btn-primary" href="javascript:;" onclick="InsertaIncidencia($('#email').val(),
+				$('#apellido').val(),$('#nombre').val(),
+				$('#dni').val(),$('#telefono').val(),
+				$('#selectarea').val(),$('#selectincidenciaarea').val(),
+				$('#validationTextarea').val())">Enviar</button>
+	</form>
 
-  <br>
+	<script src="js/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				BuscarAreas();
+				$var= document.getElementById("selectarea").value;
+				BuscarIncidente($var);
+				BuscarCarreras();
+				BuscarMaterias();
+			})
 
-  	<div class="col-md-6">
-  	<span style="color: #ff6600;"><strong>
-	  Posibles inconvenientes</strong>
-	</span>
-<!--
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios1" value="1">
-		<label class="form-check-label" for="docenteRadios1">
-			Tengo problemas de acceso al <a href="http://campus.citep.rec.uba.ar/" target="_blank">Campus Citep</a>
-		</label>
-	</div>
+		function HabilitaCampoValidationTextarea(incidenciaarea)
+			{
+				$.ajax({
+					url: 'model/traerMasInfo.php?Tipo_incidencia=' + incidenciaarea,
+					type:'POST',
+					data: { "traerMasInfo":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaUsuarios= $("#apala");
+						$("#apala").html("");
+						
+						var $v_append=0;
 
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios2" value="2">
-		<label class="form-check-label" for="docenteRadios12">
-			Tengo problemas de acceso al <a href="http://campusacademica.rec.uba.ar/" target="_blank">Campus Acad&eacutemica</a>
-		</label>
-	</div>
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios3" value="3">
-		<label class="form-check-label" for="docenteRadios3">
-			Requiero clave de acceso al curso de formaci&oacuten docente
-		</label>
-
-	</div>
--->
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios4" value="4">
-		<label class="form-check-label" for="docenteRadios4">
-			Soy alumno del Curso 1 y tengo inconvenientes con mi clave de acceso.
-		</label>
-	</div>
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios5" value="5">
-		<label class="form-check-label" for="docenteRadios5">
-			Soy docente de la instituci&oacuten y necesito un aula virtual para mi materia.
-		</label>
-	</div>
-<!--
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios5" value="6">
-		<label class="form-check-label" for="docenteRadios5">
-			Tengo un inconveniente en el curso de G&eacutenero (acceso o cursada).
-		</label>
-	</div>
--->
-	<div class="form-check">
-		<input class="form-check-input" type="radio" name="exampleRadios" id="docenteRadios5" value="7" checked>
-		<label class="form-check-label" for="docenteRadios5">
-			Otros.
-		</label>
-	</div>
-
-    <div>
-      <textarea class="form-control" name="validationTextarea" placeholder="Ingrese su consulta, hasta 1500 caracteres" style="display:block;" maxlength="1500"></textarea>
-    </div>
- 	</div>
-    <br>
-	<button type="submit" class="btn btn-primary">Enviar</button>
-<!--
-	<input type="submit" value="Enviar" />
--->
-</form>
-
-<script type="text/javascript">
-	function Valida() {
-		/*const pattern = new RegExp('^[A-Z]+$', 'i');*/
-
-		const tdni = document.getElementById("dni");
-		if( isNaN(tdni.value))
-		{
-			// Si no se cumple la condicion...
-			tdni.style.borderColor = 'salmon'; 
-			window.alert('[ERROR] El campo DNI debe tener solo numeros...');
-			return false;
-		}
-		else
-		{
-			tdni.style.borderColor = ''; 
-		}
-
-		const ttelef = document.getElementById("telefono");
-		if( isNaN(ttelef.value))
-		{
-			// Si no se cumple la condicion...
-			ttelef.style.borderColor = 'salmon'; 
-			window.alert('[ERROR] El campo Telefono debe tener solo numeros...');
-			return false;
-		}
-		else
-		{
-			ttelef.style.borderColor = ''; 
-		}
-
-		const temail = document.getElementById("email");
-		const temail_v = document.getElementById("email_v");
-
-		if (temail.value!=temail_v.value){
-			temail.style.borderColor = 'salmon'; 
-			temail_v.style.borderColor = 'salmon'; 
-			window.alert('[ERROR] No coinciden los mail ingresados...');
-			return false;
-		}
-		else{
-			temail.style.borderColor = '';
-			temail_v.style.borderColor = '';
-		}
-
-		window.alert("Su consulta ha sido enviada, nos contactaremos con Ud.");
-		return true;
-	}
-
-	function soloLetras(e){
-		key= e.keyCode || e.which;
-
-		teclado= String.fromCharCode(key).toLocaleLowerCase();
-
-		letras= " abcdefghijklmnñopqrstuvxwyz";
-
-		especiales="8-37-38-46-164";
-
-		teclado_especial= false;
-
-		for (var i in especiales){
-			if (key==especiales[i]){
-				teclado_especial=true;
-				break;			
+						$.each(respuesta, function(index, incidenciamasInfo) {
+							if (incidenciamasInfo.mas_informacion==1)
+							{
+								listaUsuarios.append(
+									`<div id="textarea" style="display:block;">`+
+										`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
+									`</div>`
+								);
+								$v_append= $v_append+1;
+							}
+							else
+							{
+								listaUsuarios.append(
+								`<div id="textarea" style="display:none;">`+
+									`<textarea class="form-control" name="validationTextarea"  id="validationTextarea" style="display:block;" maxlength="1500"></textarea>`+
+								`</div>`
+								)
+							}
+						});
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
 			}
-		}
 
-		if (letras.indexOf(teclado)==-1 && !teclado_especial) {	/*El -1 es si lo que presiono no se encuentra dentro de trecla*/
-			return false;
-		}
-	}
-	
-	function validoCaracterMail(e){
-		key= e.keyCode || e.which;
-
-		teclado= String.fromCharCode(key).toLocaleLowerCase();
-
-		letras= "abcdefghijklmnñopqrstuvxwyz1234567890_@.";
-
-		especiales="8-37-38-46-164";
-
-		teclado_especial= false;
-
-		for (var i in especiales){
-			if (key==especiales[i]){
-				teclado_especial=true;
-				break;			
+		function InsertaIncidencia(email,apellido,nombre,dni,telefono,selectarea,
+								  selectincidenciaarea,validationTextarea)
+		{
+				if (Valida()==true) 
+				{
+							var parametros = {
+							"email" : email,
+							"apellido" : apellido,
+							"nombre" : nombre,
+							"dni" : dni,
+							"telefono" : telefono,
+							"selectarea" : selectarea,
+							"selectincidenciaarea" : selectincidenciaarea,
+							"validationTextarea" : validationTextarea
+											};
+							$.ajax({
+									data:  parametros, //datos que se envian a traves de ajax
+									url:   'model/insertaIncidencia.php', //archivo que recibe la peticion
+									type:  'POST', //método de envio
+									success: function(respuesta) {
+										swal('Info', 'La incidencia ha sido cargada, nos contactaremos con Ud.', 'info');
+									},
+									}).fail( function( jqXHR, textStatus, errorThrown ) {
+											if (jqXHR.status === 0) {
+												alert('Not connect: Verify Network.');
+											} else if (jqXHR.status == 404) {
+												alert('Requested page not found [404]');
+											} else if (jqXHR.status == 500) {
+												alert('Internal Server Error [500].');
+											} else if (textStatus === 'parsererror') {
+												alert('Requested JSON parse failed.');
+											} else if (textStatus === 'timeout') {
+												alert('Time out error.');
+											} else if (textStatus === 'abort') {
+												alert('Ajax request aborted.');
+											} else {
+												alert('Uncaught Error: ' + jqXHR.responseText);
+											}
+									});                        
+				}
 			}
-		}
+			
+			/*Carga las areas*/
+		function BuscarAreas()
+			{
+				$.ajax({
+					url: 'model/traerAreas.php',
+					type:'POST',
+					data: { "traerAreas":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaUsuarios= $("#selectarea");
+						$("#selectarea").html("");
+						
+						var $v_append=0;
 
-		if (letras.indexOf(teclado)==-1 && !teclado_especial) {	/*El -1 es si lo que presiono no se encuentra dentro de trecla*/
-			return false;
-		}
-	}
+						$.each(respuesta, function(index, areas) {
+
+							listaUsuarios.append(
+										`<option value="` + areas.id_area + `">` + areas.descrip_area + `</option>`
+							);
+
+							$v_append= $v_append+1;
+						});
+						
+						listaUsuarios.append(`</select>`);
+
+						if ($v_append==0 ){
+							swal('Info', 'No hay Areas seteadas.', 'info');
+						};
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
+			}
+
+
+			/*Carga el Incidentes de acuerdo al Area*/
+		function BuscarIncidente(id_area)
+			{
+			/*$(document).ready(function(){*/
+				$.ajax({
+					url: 'model/traerIncidenciaArea.php?id_area=' + selectarea.value,
+					//url: 'model/traerIncidenciaArea.php?id_area=' + id_area.value,
+					type:'POST',
+					data: { "traerIncidenciaArea":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaUsuarios= $("#selectincidenciaarea");
+						$("#selectincidenciaarea").html("");
+						
+						var $v_append=0;
+
+						$.each(respuesta, function(index, incidenciaarea) {
+							
+							listaUsuarios.append(
+								//<option value="value2" >Value 2</option>
+										`<option value="` + incidenciaarea.tipo_incidencia + `">` + incidenciaarea.descrip_inciden + `</option>` 
+							);
+
+							$v_append= $v_append+1;
+						});
+						
+						listaUsuarios.append(`</select>`);
+
+
+						if ($v_append==0 ){
+							swal('Info', 'No hay Areas seteadas.', 'info');
+						}
+						else
+						{
+							HabilitaCampoValidationTextarea(selectincidenciaarea.value);
+						};
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
+					//document.getElementById("textarea").style.display = "none";		
+			}
+
+		function BuscarCarreras()
+			{
+				$.ajax({
+					url: 'api/carreraAlumno.php',
+					type:'POST',
+					data: { "traerCarreras":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaCarreras= $("#selectcarrera");
+						$("#selectcarrera").html("");
+						
+						var $v_append=0;
+
+						$.each(respuesta, function(index, carreras) {
+							listaCarreras.append(
+										`<option value="` + carreras.propuesta_codigo + `">` + carreras.propuesta_nombre + `</option>`
+							);
+
+							$v_append= $v_append+1;
+						});
+						
+						listaCarreras.append(`</select>`);
+
+						if ($v_append==0 ){
+							swal('Info', 'No hay Carreras.', 'info');
+						};
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
+			}
+
+			function BuscarMaterias()
+			{
+				$.ajax({
+					url: 'api/materiaAlumno.php',
+					type:'POST',
+					data: { "traerMaterias":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaMaterias= $("#selectmaterias");
+						$("#selectmaterias").html("");
+						
+						var $v_append=0;
+
+						$.each(respuesta, function(index, materias) {
+							listaMaterias.append(
+										`<option value="` + materias.elemento_codigo + `">` + materias.elemento_nombre + `</option>`
+							);
+
+							$v_append= $v_append+1;
+						});
+						
+						listaMaterias.append(`</select>`);
+
+						if ($v_append==0 ){
+							swal('Info', 'No hay Materias.', 'info');
+						};
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
+			}
+
+		function Valida() {
+				var campo = $('#apellido').val();
+				const tapellido = document.getElementById("apellido");	
+				if(campo === ''){
+					tapellido.style.borderColor = 'salmon'; 
+					swal('Error', 'El campo Apellido no puede estar vacio.', 'error');
+					return false;
+				}
+				else
+				{
+					tapellido.style.borderColor = ''; 
+				}
+
+				var campo = $('#nombre').val();
+				const tnombre = document.getElementById("nombre");	
+				if(campo === ''){
+					tnombre.style.borderColor = 'salmon'; 
+					swal('Error', 'El campo Nombre no puede estar vacio.', 'error');
+					return false;
+				}
+				else
+				{
+					tnombre.style.borderColor = ''; 
+				}
+
+
+				var campo = $('#dni').val();
+				const tdni = document.getElementById("dni");	
+				if(campo === ''){
+					tdni.style.borderColor = 'salmon'; 
+					swal('Error', 'El campo DNI no puede estar vacio.', 'error');
+					return false;
+				}
+				else
+				{
+ 				//Las validaciones que necesitas hacer
+				 	if( isNaN(tdni.value))
+					{
+						// Si no se cumple la condicion...
+						tdni.style.borderColor = 'salmon'; 
+						swal('Error', 'El campo DNI debe tener solo numeros.', 'error');
+						return false;
+					}
+					else
+					{
+						tdni.style.borderColor = ''; 
+					}
+				}
+				
+
+				var campo = $('#telefono').val();
+				const ttelef = document.getElementById("telefono");	
+
+				if( isNaN(ttelef.value))
+				{
+					// Si no se cumple la condicion...
+					ttelef.style.borderColor = 'salmon'; 
+					swal('Error', 'El campo Telefono debe tener solo numeros.', 'error');
+					return false;
+				}
+				else
+				{
+					ttelef.style.borderColor = ''; 
+				}
+
+				const temail = document.getElementById("email");
+				const temail_v = document.getElementById("email_v");
+
+				if (temail.value!=temail_v.value){
+					temail.style.borderColor = 'salmon'; 
+					temail_v.style.borderColor = 'salmon'; 
+					swal('Error', 'No coinciden los mail ingresados.', 'error');
+					return false;
+				}
+				else{
+					temail.style.borderColor = '';
+					temail_v.style.borderColor = '';
+				}
+
+				return true;
+
+			}
+
+		function soloLetras(e){
+				key= e.keyCode || e.which;
+
+				teclado= String.fromCharCode(key).toLocaleLowerCase();
+
+				letras= " abcdefghijklmnñopqrstuvxwyz";
+
+				especiales="8-37-38-46-164";
+
+				teclado_especial= false;
+
+				for (var i in especiales){
+					if (key==especiales[i]){
+						teclado_especial=true;
+						break;			
+					}
+				}
+
+				if (letras.indexOf(teclado)==-1 && !teclado_especial) {	/*El -1 es si lo que presiono no se encuentra dentro de trecla*/
+					return false;
+				}
+			}
+			
+		function validoCaracterMail(e){
+				key= e.keyCode || e.which;
+
+				teclado= String.fromCharCode(key).toLocaleLowerCase();
+
+				letras= "abcdefghijklmnñopqrstuvxwyz1234567890_@.";
+
+				especiales="8-37-38-46-164";
+
+				teclado_especial= false;
+
+				for (var i in especiales){
+					if (key==especiales[i]){
+						teclado_especial=true;
+						break;			
+					}
+				}
+
+				if (letras.indexOf(teclado)==-1 && !teclado_especial) {	/*El -1 es si lo que presiono no se encuentra dentro de trecla*/
+					return false;
+				}
+			}
 
 	</script>
-
 </body>
 </html>

@@ -7,7 +7,6 @@
   
   # Verificamos que los campos no esten vacios, el chiste de este if es que si almenos una variable (o campo) esta vacio mostrara error_1
   if(empty($user) || empty($clave)){
-
     # mostramos la respuesta de php (echo)
     echo 'error_1';
   }

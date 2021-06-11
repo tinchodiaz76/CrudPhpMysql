@@ -11,16 +11,30 @@
         public function traerIncidencia($inc_id)
         {	
             parent::conectar();
-
+/*
+replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
+*/
+/*
             $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
-            inc.descrip_incidencia usuario_descripcion,
+            IFNULL(replace(inc.descrip_incidencia,null,"'.''.'"),"'.'-'.'") usuario_descripcion,
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
-            replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
+            replace(IFNULL(replace(tip.texto_resolucion,null,"'.''.'"),"'.''.'") ,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
             inc.email
             from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
             where id= '.$inc_id.'
-            and tip.tipo_incidencia= inc.tipo_incidencia
-            and estado= 0';
+            and tip.tipo_incidencia= inc.tipo_incidencia';
+*/
+
+            $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
+            IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
+            concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
+            replace(IFNULL(tip.texto_resolucion,"'.' '.'"),"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
+            inc.email
+            from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
+            where inc.id= '.$inc_id.'
+            and tip.Id_area= inc.id_area
+            and tip.Tipo_incidencia=inc.tipo_incidencia';
+
 
             $resEmp =parent::query($query);
 

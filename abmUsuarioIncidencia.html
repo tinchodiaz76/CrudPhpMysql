@@ -22,6 +22,8 @@
 
 
 <body>
+
+
     <!-- Modal -->
     <div class="modal fade" id="modalForm" role="dialog">
         <div class="modal-dialog">
@@ -42,7 +44,7 @@
                         <!--Aca va el dato de la ventana emergente-->
                     </form>
                 </div>
-                
+
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModal()">Cerrar</button>
@@ -52,29 +54,25 @@
         </div>
     </div>
    
+<!--
     <div class="container">
         <div class="row">
         <div class="col-sm-4">
-            <!--<img width="300" src="image/logo-citep-transparete.png">-->
-            <!--<img width="200" src="image/logo-unaj-2016.jpg">-->
         </div>
         
-        <!--<div class="col-md-6">-->
-            <div class="row">
-                <div class="col"> 
-                    <button class="btn btn-primary mt-5" onclick="location.href='reporteIncidencias.html'">Reportes</button>
-                </div>
-                <div class="col">
-                    <form action="cerrar_sesion.php" method="post" >
-                        <button type="submit" class="btn btn-primary mt-5">Cerrar Sesión</button>
-                    </form>
-                </div>
-            </div>
-        <!--</div>-->
-        <!--</div>-->
+        <div class="col"> 
+            <button class="btn btn-primary mt-5" onclick="location.href='reporteIncidencias.html'">Reportes</button>
+        </div>
+        <div class="col">
+
+            <form action="cerrar_sesion.php" method="post" >
+                <button type="submit" class="btn btn-primary mt-5">Cerrar Sesión</button>
+            </form>
+        </div>
     </div>
+-->    
     <br>    
-    <h2>Incidencias Pendientes:</h2>
+    <h2>Usuarios/Incidencias:</h2>
     <br>
 
         <input type="text" id="incidencia_id">
@@ -84,34 +82,36 @@
 
     <!-- Contenido -->
     <section>
-        <table class="grilla" id="tablajson">
-            <thead>
-                <td>Apellido</td>
-                <td>Nombre</td>
-                <td>DNI</td>
-                <td>Telefono</td>
-                <td>Email</td>			
-                <td>Descrip Inciden</td>
-                <td>Reporte Usuario</td>			
-                <!--<td>Estado</td>-->
-                <td>Fecha Creacion</td>
-            </thead>
-            <tbody>
+        <!--Tipo_Incidencia, descrip_inciden, texto_resolucion-->
 
-            </tbody>
+        <!--<table class="grilla" id="tablajson">-->
+        <!--<table class="table table-dark" id="tablajson">-->
+        <table class="table table-hover" id="tablajson">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tipo_Incidencia</th>
+                        <th scope="col">Descripcion Incidencia</th>
+                        <th scope="col">Texto Resolucion</th>
+                    </tr>
+                </thead>            
+                <tbody>
+
+                </tbody>
         </table>
 
-        <script type="text/javascript">
+            <script type="text/javascript">
+/*
                 ejecutar.style.display = 'none';
                 incidencia_id.style.display = 'none';
-
+*/
 
                 $(document).ready(function(){
                     $.ajax({
                         /*data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.*/
-                        url: 'model/traerIncidencias.php',
+                        url: 'model/traerTiposIncidencias.php',
                         type:'POST',
-                        data: { "trarIncidencias":"1"},
+                        data: { "traerTiposIncidencias":"1"},
                         dataType: "json",
                         success: function (respuesta) {
                             var listaUsuarios= $("#tablajson tbody");
@@ -120,6 +120,23 @@
                             var $v_append=0;
                             $.each(respuesta, function(index, incidencias) {
 
+    
+                                $v_append= $v_append+1;
+                                listaUsuarios.append(
+                                        `<tr>`
+                                            +`<th scope="row">`+$v_append + `</th>`
+                                            +`<td>`+incidencias.Tipo_Incidencia+`</td>`
+                                            +`<td>`+incidencias.Descrip_Inciden+`</td>`
+                                            +`<td>`+incidencias.Texto_Resolucion+`</td>`
+                                            /*
+                                            +`<td style=" width: 150px;"> <textarea style= "border: none;"readonly="true">`+ incidencias.usuario_descripcion + `</textarea>` +
+                                            `</td>`
+                                            +`<td>`+incidencias.fecha_creacion+`</td>`
+                                            +"<td>" + "<input type=\"button\"/ class=\"btn btn-primary\"/ onclick=\"obtengoID(" + incidencias.id + ")\"/ data-toggle=\"modal\"/ data-target=\"#modalForm\"/>Resolver</button>" + "</td>"
+                                            */
+                                        +"</tr>"
+                                );
+/*                                          
                                  listaUsuarios.append(
                                         `<tr>`
                                         +`<td>`+incidencias.apellido+`</td>`
@@ -131,19 +148,17 @@
                                         +`<td style=" width: 150px;"> <textarea style= "border: none;"readonly="true">`+ incidencias.usuario_descripcion + `</textarea>` +
                                         `</td>`
                                         +`<td>`+incidencias.fecha_creacion+`</td>`
-/*
-                                        +"<td>" + "<input name=\"nombre\"/>" +"</td>"
-                                        \"nombre\"/ En JAVASCRIPT devuelve "nombre"
-*/
                                         +"<td>" + "<input type=\"button\"/ class=\"btn btn-primary\"/ onclick=\"obtengoID(" + incidencias.id + ")\"/ data-toggle=\"modal\"/ data-target=\"#modalForm\"/>Resolver</button>" + "</td>"
-
                                         +"</tr>"
                                     );
+*/                                  
+/*  
                                     $v_append= $v_append+1;
+*/                                    
                             });
                             
                             if ($v_append==0 ){
-                                swal('Info', 'No hay consultas.', 'info');
+                                swal('Info', 'No hay Incidencias.', 'info');
                             };
                         },
                         }).fail( function( jqXHR, textStatus, errorThrown ) {
@@ -165,6 +180,7 @@
                         });                        
                 })
 
+/*
                 function Valida(){
                     if (document.getElementById('inputResolucion').value == ""){
                         window.alert('[ERROR] El campo Resolucion no puede estar vacio...');
@@ -173,7 +189,9 @@
 
                     GrabarResolucion();
                 }
+*/                
 
+/*
                 function GrabarResolucion(){
 
                     var parametros= {
@@ -209,7 +227,8 @@
                             }
                         });
                 }
-
+*/
+/*
                 function cerrarModal(){
                     console.log("Cerrar modal");
                     var pedro  = document.getElementById("datos");
@@ -218,38 +237,39 @@
                         pedro.removeChild(pedro.firstChild);
                     }
                 }
+*/
 
-                /*Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias*/
+/*
+                //Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias
                 function obtengoID(id) {
                       cerrarModal();
-                      document.getElementById('incidencia_id').value = id;    /*El id es el valor ID de la tabla Incidencias*/
-                                                                        /*El text existe pero no se muestra*/
+                      document.getElementById('incidencia_id').value = id;    //El id es el valor ID de la tabla Incidencias//
+                                                                              //El text existe pero no se muestra//
 
-                      $('#ejecutar').trigger("click");      /*Simula el click del boton cuyo id="ejecutar"*/
-                                                            /*El boton existe pero no se muestra*/
-                                                            /*$("#ejecutar").on("click", getUsers) Anda siempre que exista un unico boton
-                                                            con ese ID(ejecutar), por eso se crea el boton ejecutar, 
-                                                            porque con el boton de la grilla no
-                                                            funciona*/
+                      $('#ejecutar').trigger("click");      //Simula el click del boton cuyo id="ejecutar"//
+                                                            //El boton existe pero no se muestra//
+                                                            //$("#ejecutar").on("click", getUsers) Anda siempre que exista un unico boton//
+                                                            //con ese ID(ejecutar), por eso se crea el boton ejecutar, //
+                                                            //porque con el boton de la grilla no//
+                                                            //funciona//
                 };
+*/                
 
-
-                $("#ejecutar").on("click", getIncidencia);       /*Cada vez que le doy click al boton con id="ejecutar" invoca a la funcion "getUsers()"*/
+/*
+                $("#ejecutar").on("click", getIncidencia);       //Cada vez que le doy click al boton con id="ejecutar" invoca a la funcion "getUsers()"//
 
                 function getIncidencia() {
                     //console.log("valor en incidencia_id= " + $('#incidencia_id').val());
 
                     var parametros= {
-                        "inc_id" : $('#incidencia_id').val()      /*inc_id se llama el $_POST["inc_id"]; en el php*/
+                        "inc_id" : $('#incidencia_id').val()      //inc_id se llama el $_POST["inc_id"]; en el php
                     };
                     
                     console.log("parametros_1= " + parametros.inc_id);
                     
                     $.ajax({
-                        /*data : parametros,*/
-                        /*
-                        url: 'model/traerRespuestasFrecuentes.php?tipo_id='+ tipo_id + '&id_pregunta=' + id_pregunta,
-                        */
+                        //data : parametros,
+                        //url: 'model/traerRespuestasFrecuentes.php?tipo_id='+ tipo_id + '&id_pregunta=' + id_pregunta,//
                         url: 'model/traerIncidencia.php?inc_id='+ parametros.inc_id,
                         type:'POST',
                         data: { "traerIncidencia":"1"},
@@ -260,10 +280,9 @@
 
                             var listaUsuarios = $("#datos");
                             $.each(respuesta, function(index, incidencia) {
-                                    /*
-                                    +"<input name=\"nombre\"/>" +"</td>"
-                                    \"nombre\"/ En JAVASCRIPT devuelve "nombre"
-                                    */
+                                    
+                                    //+"<input name=\"nombre\"/>" +"</td>"
+                                    //\"nombre\"/ En JAVASCRIPT devuelve "nombre"
                                  
                                 listaUsuarios.append(
                                      `<div class=\"form-group\"/>` 
@@ -311,7 +330,7 @@
                         }
                     });
                 };
-
+*/
         </script>
     </section>
 

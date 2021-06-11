@@ -1,6 +1,7 @@
 create table ywayqssx_MA.incidencias (
 
 
+	Tipo_id int(1) not null,
 	id int(11) AUTO_INCREMENT primary key,
  
 	email varchar(50) not null,
@@ -8,9 +9,11 @@ create table ywayqssx_MA.incidencias (
 	nombre varchar(70) not null,
 	dni varchar(12) not null,
 	telefono varchar(14),
+	Id_area int(1),
 	tipo_incidencia int(1) not null,
 	descrip_incidencia varchar(3000),
-	estado int(1) not null,
+	estado int(1) not null,					//0 Abierta //1 Nota //2 Cerrada
+	nota varchar(4000),					//se puede ingresar un comentario, sin cerrar el incidente
 	fecha_creacion	date not null,
 	username varchar(20),
 	fecha_cerrado date,

@@ -1,18 +1,16 @@
 $('#login').click(function(){
 
-  // Traemos los datos de los inputs
-
+    // Traemos los datos de los inputs
     var user = document.getElementById("usuario").value;
     var clave = document.getElementById("password").value;
- 
     // Envio de datos mediante Ajax
 
     $.ajax({
       method: 'POST',
       // Recuerda que la ruta se hace como si estuvieramos en el index y no en operaciones por esa razon no utilizamos ../ para ir a controller
-      url: 'controller/loginController.php',
+      url: 'api/loginAlumno.php',
       // Recuerda el primer parametro es la variable de php y el segundo es el dato que enviamos
-      data: {user_php: user, clave_php: clave},
+      data: {user_php: user, clave_php: clave},      
       // Esta funcion se ejecuta antes de enviar la información al archivo indicado en el parametro url
       beforeSend: function(){
         // Mostramos el div con el id load mientras se espera una respuesta del servidor (el archivo solicitado en el parametro url)
@@ -36,21 +34,33 @@ $('#login').click(function(){
           en el momento conozco tres tipos, entonces puedes variar entre success: Muestra animación de un check,
           warning: muestra icono de advertencia amarillo y error: muestra una animacion con una X muy chula :v
           */
-          swal('Error', 'Por favor ingrese todos los campos', 'error');
-        }else if(res == 'error_2'){
-          // Recuerda que si no necesitas validar si es un email puedes eliminar el if de la linea 34
-          swal('Error', 'Por favor ingrese un email valido', 'warning');
+          /*swal('Error', 'Por favor ingrese todos los campos', 'error');*/
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Por favor ingrese todos los campos.";
         }else if(res == 'error_3'){
-          swal('Error', 'Usuario o Contraseña incorrectos', 'error');
+          /*swal('Error', 'Usuario o Password incorrecta.', 'error');*/
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Hola. Por favor verifica tu usuario y clave";
+
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
 /*
           window.location.href= "verIncidencias.html";
 */
-          window.location.href= "verIncidencias.php";          
+
+          window.location.href= "cargaIncidencia.html";          
+
          }
        }
     });
   
+  });
+
+  $('#usuario').keydown(function(){
+    document.getElementById("Error").style.display = "none";
+  });
+  
+  $('#password').keydown(function(){
+    document.getElementById("Error").style.display = "none";
   });
   
