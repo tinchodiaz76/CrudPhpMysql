@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv=?Content-Type? content=?text/html; charset=UTF-8? />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
     <title>Mesa de Ayuda-UNAJ</title>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -33,14 +34,10 @@
             <form>
 		          <label>Ingrese su DNI</label>
 		          <input type="text" class="form-control" id="dni"  placeholder="Ingresa su DNI">
-<!--
-	            <div class="row">
-                  <div class="col-xs-8 col-xs-offset-2">
-                         <div class="spacing-2"></div>
-                  			  <p> <input type="submit" class="btn btn-primary btn-block"/></p>
-                  </div>
-        	    </div>
--->
+
+              <br>
+              <br>
+
               <div class="row">
                 <div class="col-xs-8 col-xs-offset-2">
                 <div class="spacing-2"></div>
@@ -48,13 +45,23 @@
                 </div>
               </div>
 
+              <br>
+              <br>              
+              
+              <div id="Error" style="display:none;" >
+                  <label></label>
+              </div>
+		          <!--
+              <input type="text" class="form-control" id="dni"  placeholder="Aca va el mesaje">
+              -->
+
             </form>   
        </div>
      </div>
    </div>
 
 
-    <script src="js/sweetalert.min.js"></script>
+    <!--<script src="js/sweetalert.min.js"></script>-->
     <!-- Js personalizado -->
     <script src="js/consultarDni.js"></script>
 </body>

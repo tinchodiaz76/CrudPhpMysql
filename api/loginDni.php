@@ -27,22 +27,33 @@
 
             $data = file_get_contents($api_endpoint,false, $context);
 
-//            echo $data;
+            //echo $data;
 
             //$array = json_decode($data, true); Con el TRUE devuelve un array asociatico
             $array = json_decode($data);
-            
+//          Este END POINT devuelve un ARRAY de OBJETOS, por eso el resultado lo recorrro con FOREACH
+
+//            echo $array;
+
             if (empty($array))
             {
               echo 'error_3';
             }
             else 
             {
-              session_start();
-              $_SESSION['apellido_nombres']     = $array->apellido_nombres;
-              $_SESSION['nombres']     = $array->nombres;
-              $_SESSION['apellido']     = $array->apellido;
-              $_SESSION['usuario_alumno']     = $array->usuario;
+            
+              foreach ($array as $value)
+              {
+                //acciones
+//                echo $value->nombres;
+//                echo $value->apellido;
+                  session_start();
+                  //$_SESSION['apellido_nombres']     = $value->apellido_nombres;
+                  $_SESSION['nombres']     = $value->nombres;
+                  $_SESSION['apellido']     = $value->apellido;
+                  //$_SESSION['usuario_alumno']     = $value->usuario;
+                  //$_SESSION['persona']     = $value->persona;
+              }
             }
   }
 ?>

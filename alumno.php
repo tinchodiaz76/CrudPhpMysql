@@ -86,6 +86,16 @@
                         </div>
                   </div>
 
+                  <br>
+                  <br>              
+              
+                  <div id="Error" style="display:none;" >
+                      <label></label>
+                    </div>
+
+                  <br>
+                  <br>              
+                  
                   <section class="text-accent center">
                     <div class="spacing-2"></div>
                     
@@ -100,9 +110,8 @@
      </div>
    </div>
 
-   <script src="js/sweetalert.min.js"></script>
+   <!--<script src="js/sweetalert.min.js"></script>-->
     <!-- Js personalizado -->
     <script src="js/consultarAlumno.js"></script>
-
 </body>
 </html>

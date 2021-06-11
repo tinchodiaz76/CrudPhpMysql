@@ -34,12 +34,14 @@ $('#login').click(function(){
           en el momento conozco tres tipos, entonces puedes variar entre success: Muestra animación de un check,
           warning: muestra icono de advertencia amarillo y error: muestra una animacion con una X muy chula :v
           */
-          swal('Error', 'Por favor ingrese todos los campos', 'error');
-        }else if(res == 'error_2'){
-          // Recuerda que si no necesitas validar si es un email puedes eliminar el if de la linea 34
-          swal('Error', 'Por favor ingrese un email valido', 'warning');
+          /*swal('Error', 'Por favor ingrese todos los campos', 'error');*/
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Por favor ingrese todos los campos.";
         }else if(res == 'error_3'){
-          swal('Error', 'Usuario o Password incorrecta.', 'error');
+          /*swal('Error', 'Usuario o Password incorrecta.', 'error');*/
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Hola. Por favor verifica tu usuario y clave";
+
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
 /*
@@ -52,5 +54,13 @@ $('#login').click(function(){
        }
     });
   
+  });
+
+  $('#usuario').keydown(function(){
+    document.getElementById("Error").style.display = "none";
+  });
+  
+  $('#password').keydown(function(){
+    document.getElementById("Error").style.display = "none";
   });
   

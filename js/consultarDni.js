@@ -37,12 +37,20 @@ $('#validarDni').click(function(){
           en el momento conozco tres tipos, entonces puedes variar entre success: Muestra animación de un check,
           warning: muestra icono de advertencia amarillo y error: muestra una animacion con una X muy chula :v
           */
+          /*
           swal('Error', 'Por favor ingrese todos los campos', 'error');
-        }else if(res == 'error_2'){
-          // Recuerda que si no necesitas validar si es un email puedes eliminar el if de la linea 34
-          swal('Error', 'Por favor ingrese un email valido', 'warning');
+          */
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Por favor ingrese todos los campos.";
+
         }else if(res == 'error_3'){
+          /*
           swal('Error', 'Hola!!! No estas registrado en el SIU, volve a las Preguntas Frecuentas y alli te indicamos como proceder.', 'error');
+          */
+          document.getElementById("Error").style.display = "block";
+          document.getElementById("Error").innerHTML="Hola. No figura tu usuario en nuestros sistemas. Por favor ingresa <a href=" + "https://guarani.unaj.edu.ar/" +" target=_blank>SIU</a>";
+
+          //volve a las Preguntas Frecuentas y alli te indicamos como proceder.";
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
 /*
@@ -56,4 +64,7 @@ $('#validarDni').click(function(){
     });
   
   });
-  
+
+  $('#dni').keydown(function(){
+    document.getElementById("Error").style.display = "none";
+  });

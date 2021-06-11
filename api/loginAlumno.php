@@ -10,7 +10,7 @@
   if(empty($user) || empty($clave))
   {
     # mostramos la respuesta de php (echo)
-    echo 'error_3';
+    echo 'error_1';
   }
   else
   {
@@ -38,14 +38,21 @@
 
       //$array = json_decode($result, true); Cone le TRUE devuelve un array asociatico      
       $array = json_decode($result);
+//    Este END POINT devuelve un OBJETOS
 
-//    echo $array->status;
 
       if($array->status == "success")
       {
             echo $array->persona->usuario;
             echo $array->persona->nombres;
             echo $array->persona->persona;
+
+            session_start();
+            $_SESSION['nombres']     = $array->persona->nombres;
+            $_SESSION['apellido']    =$array->persona->apellido;
+            $_SESSION['persona']     = $array->persona->persona;
+
+
               //echo $array->persona;
             //echo $resp->apellido . " " . $resp->nombres;
       }

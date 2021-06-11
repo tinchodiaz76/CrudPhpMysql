@@ -18,7 +18,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	    <link rel="stylesheet" href="css/sweetalert.css">
-	<h4 align = center>Bienvenido al Sistema de Mesa de Ayuda</h4>
+		<h4 align = center>Bienvenido al Sistema de Mesa de Ayuda</h4>
 
 	</head>
 
@@ -88,7 +88,17 @@
 		Indicanos a continuación cuál es tu inconveniente:</strong>
 		<br>
 		</span>
-		
+
+		<label for="selectcarrera">Porque Carrera es tu Consulta:</label>
+		<br>
+		<select name="selectcarrera" id="selectcarrera"></select>
+
+		<br>
+		<label for="selectmaterias">Porque Materia es tu Consulta:</label>
+		<br>
+		<select name="selectmaterias" id="selectmaterias"></select>
+
+		<br>
 		<br>
 		<select name="selectarea" id="selectarea" onchange="BuscarIncidente(selectarea.value)"></select>
 
@@ -118,6 +128,8 @@
 				BuscarAreas();
 				$var= document.getElementById("selectarea").value;
 				BuscarIncidente($var);
+				BuscarCarreras();
+				BuscarMaterias();
 			})
 
 		function HabilitaCampoValidationTextarea(incidenciaarea)
@@ -318,6 +330,98 @@
 						}
 					});                        
 					//document.getElementById("textarea").style.display = "none";		
+			}
+
+		function BuscarCarreras()
+			{
+				$.ajax({
+					url: 'api/carreraAlumno.php',
+					type:'POST',
+					data: { "traerCarreras":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaCarreras= $("#selectcarrera");
+						$("#selectcarrera").html("");
+						
+						var $v_append=0;
+
+						$.each(respuesta, function(index, carreras) {
+							listaCarreras.append(
+										`<option value="` + carreras.propuesta_codigo + `">` + carreras.propuesta_nombre + `</option>`
+							);
+
+							$v_append= $v_append+1;
+						});
+						
+						listaCarreras.append(`</select>`);
+
+						if ($v_append==0 ){
+							swal('Info', 'No hay Carreras.', 'info');
+						};
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
+			}
+
+			function BuscarMaterias()
+			{
+				$.ajax({
+					url: 'api/materiaAlumno.php',
+					type:'POST',
+					data: { "traerMaterias":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+						var listaMaterias= $("#selectmaterias");
+						$("#selectmaterias").html("");
+						
+						var $v_append=0;
+
+						$.each(respuesta, function(index, materias) {
+							listaMaterias.append(
+										`<option value="` + materias.elemento_codigo + `">` + materias.elemento_nombre + `</option>`
+							);
+
+							$v_append= $v_append+1;
+						});
+						
+						listaMaterias.append(`</select>`);
+
+						if ($v_append==0 ){
+							swal('Info', 'No hay Materias.', 'info');
+						};
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
 			}
 
 		function Valida() {
