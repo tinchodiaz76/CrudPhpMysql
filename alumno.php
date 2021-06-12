@@ -89,7 +89,7 @@
                   <br>
                   <br>              
               
-                  <div id="Error" style="display:none;" >
+                  <div id="Error" style="display:none;text-align:center">
                       <label></label>
                     </div>
 

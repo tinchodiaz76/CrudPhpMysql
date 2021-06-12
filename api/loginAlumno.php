@@ -52,8 +52,7 @@
             $_SESSION['apellido']    =$array->persona->apellido;
             $_SESSION['persona']     = $array->persona->persona;
 
-
-              //echo $array->persona;
+            //echo $array->persona;
             //echo $resp->apellido . " " . $resp->nombres;
       }
       else 

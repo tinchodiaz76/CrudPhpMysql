@@ -119,7 +119,9 @@
 				$('#apellido').val(),$('#nombre').val(),
 				$('#dni').val(),$('#telefono').val(),
 				$('#selectarea').val(),$('#selectincidenciaarea').val(),
-				$('#validationTextarea').val())">Enviar</button>
+				$('#validationTextarea').val(),
+				$('#selectcarrera').val(),
+				$('#selectmaterias').val())">Enviar</button>
 	</form>
 
 	<script src="js/sweetalert.min.js"></script>
@@ -185,7 +187,7 @@
 			}
 
 		function InsertaIncidencia(email,apellido,nombre,dni,telefono,selectarea,
-								  selectincidenciaarea,validationTextarea)
+								  selectincidenciaarea,validationTextarea,selectcarrera,selectmaterias)
 		{
 				if (Valida()==true) 
 				{
@@ -197,14 +199,18 @@
 							"telefono" : telefono,
 							"selectarea" : selectarea,
 							"selectincidenciaarea" : selectincidenciaarea,
-							"validationTextarea" : validationTextarea
+							"validationTextarea" : validationTextarea,
+							"selectcarrera" : selectcarrera,
+        					"selectmaterias": selectmaterias
 											};
 							$.ajax({
 									data:  parametros, //datos que se envian a traves de ajax
 									url:   'model/insertaIncidencia.php', //archivo que recibe la peticion
 									type:  'POST', //método de envio
 									success: function(respuesta) {
-										swal('Info', 'La incidencia ha sido cargada, nos contactaremos con Ud.', 'info');
+										//swal('Info', 'La incidencia ha sido guardada ', 'info');
+										window.alert('La incidencia ha sido guardada');
+										window.location.href= "usuario.html"
 									},
 									}).fail( function( jqXHR, textStatus, errorThrown ) {
 											if (jqXHR.status === 0) {
