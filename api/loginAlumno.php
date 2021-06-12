@@ -48,12 +48,11 @@
             echo $array->persona->persona;
 
             session_start();
+            /*Estos son los datos que boy a mostrar en la pantalla de carga de incidencia*/
             $_SESSION['nombres']     = $array->persona->nombres;
             $_SESSION['apellido']    =$array->persona->apellido;
-            $_SESSION['persona']     = $array->persona->persona;
+            $_SESSION['persona']    =$array->persona->persona;
 
-            //echo $array->persona;
-            //echo $resp->apellido . " " . $resp->nombres;
       }
       else 
       {

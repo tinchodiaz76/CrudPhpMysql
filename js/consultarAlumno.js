@@ -44,10 +44,6 @@ $('#login').click(function(){
 
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
-/*
-          window.location.href= "verIncidencias.html";
-*/
-
           window.location.href= "cargaIncidencia.html";          
 
          }
