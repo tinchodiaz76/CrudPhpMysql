@@ -36,18 +36,14 @@ $('#login').click(function(){
           */
           /*swal('Error', 'Por favor ingrese todos los campos', 'error');*/
           document.getElementById("Error").style.display = "block";
-          document.getElementById("Error").innerHTML="Por favor ingrese todos los campos.";
+          document.getElementById("Error").innerHTML="<strong> Por favor ingrese todos los campos. </strong>";
         }else if(res == 'error_3'){
           /*swal('Error', 'Usuario o Password incorrecta.', 'error');*/
           document.getElementById("Error").style.display = "block";
-          document.getElementById("Error").innerHTML="Hola. Por favor verifica tu usuario y clave";
+          document.getElementById("Error").innerHTML="<strong> Hola. Por favor verifica tu usuario y clave</strong>";
 
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
-/*
-          window.location.href= "verIncidencias.html";
-*/
-
           window.location.href= "cargaIncidencia.html";          
 
          }

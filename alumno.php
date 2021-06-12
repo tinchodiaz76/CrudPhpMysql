@@ -37,7 +37,6 @@
          <!-- Margen superior (css personalizado )-->
          <div class="spacing-1"></div>
          
-         <!--<form method="post" action="validarusuario.php">-->
           <form>
 
                <!-- Estructura del formulario -->
@@ -89,9 +88,9 @@
                   <br>
                   <br>              
               
-                  <div id="Error" style="display:none;" >
-                      <label></label>
-                    </div>
+                  <div id="Error" style="display:none;text-align:center">
+
+                  </div>
 
                   <br>
                   <br>              
