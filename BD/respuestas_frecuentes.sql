@@ -1,4 +1,4 @@
-create table ywayqssx_MA.respuestas_frecuentes (
+create table unaj.respuestas_frecuentes (
 	
 	tipo_id  int(1)  not null,
 	id_pregunta int(11) not null,

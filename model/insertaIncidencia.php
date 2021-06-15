@@ -26,7 +26,7 @@
 
             parent::conectar();
 
-            $query ='insert into ywayqssx_ma.incidencias (tipo_id,email,
+            $query ='insert into unaj.incidencias (tipo_id,email,
             apellido,nombre,dni,
             telefono,propuesta_codigo, elemento_codigo, Id_area,tipo_incidencia, 
             descrip_incidencia,estado,fecha_creacion) 

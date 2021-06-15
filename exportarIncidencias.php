@@ -27,8 +27,8 @@
                                     inc.username,
                                     inc.resolucion,
                                     inc.fecha_cerrado
-                                    from ywayqssx_MA.incidencias inc, ywayqssx_MA.usuxperfil per,
-                                        ywayqssx_MA.tipinciden tip
+                                    from unaj.incidencias inc, unaj.usuxperfil per,
+                                        unaj.tipinciden tip
                                     where 1=1";
 /*
 OJOOOOOO!!!

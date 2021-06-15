@@ -14,7 +14,9 @@
     
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Font Awesome: para los iconos -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- link rel="stylesheet" href="css/font-awesome.min.css" -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
     <!-- Sweet Alert: alertas JavaScript presentables para el usuario (más bonitas que el alert) -->
     <link rel="stylesheet" href="css/sweetalert.css">
     <!-- Estilos personalizados: archivo personalizado 100% real no feik -->
@@ -35,12 +37,17 @@
                <!-- Estructura del formulario -->
                <fieldset>
 
-                    <legend class="center">Login</legend>
+                    <legend class="center">
+                      <a href="#" class="logo">
+                        <img src="./img/UNAJ.JPG" width="80%" hight="80%" alt="" />
+                      </a>
+                      <br/><p style="color:rgb(48, 113, 175);"><b>Login</b></p>
+                    </legend>
 
                     <!-- Caja de texto para usuario -->
                     <label class="sr-only" for="user">Usuario</label>
                     <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
                     <input type="text" class="form-control" id="usuario"  placeholder="Ingresa tu usuario">
                     </div>
 
@@ -50,8 +57,8 @@
                     <!-- Caja de texto para la clave-->
                     <label class="sr-only" for="clave">Contraseña</label>
                     <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                    <input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Ingresa tu paswword">
+                    <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                    <input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Ingresa tu passwword">
                     </div>
                     
                     <!-- Animacion de load (solo sera visible cuando el cliente espere una respuesta del servidor )-->
@@ -72,8 +79,7 @@
                     </div>
 
                     <section class="text-accent center">
-                      <div class="spacing-2"></div>
-                      
+                      <div class="spacing-2"></div>                      
                       <p>
                         No tienes una cuenta? <a href="registro.php"> Registrate!</a>
                       </p>

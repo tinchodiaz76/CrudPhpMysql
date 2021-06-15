@@ -1,15 +1,22 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Incidencias-UNAJ</title>
+﻿<?php
+// include '../../include/db_conn.php';
+// page_protect();
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>     
+    <title>UNAJ | Incidencias </title>
 
-    <link rel="stylesheet" href="verIncidencias.css">
-<!--
-    <meta http-equiv=�Content-Type� content=�text/html; charset=UTF-8? />
--->    
+	<link rel="stylesheet" href="css/verIncidencias.css">
+    <link rel="stylesheet" href="neon/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css"  id="style-resource-1">
+    <link rel="stylesheet" href="neon/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+    <link rel="stylesheet" href="neon/css/font-icons/entypo/css/animation.css"  id="style-resource-3">
+    <link rel="stylesheet" href="neon/css/neon.css"  id="style-resource-5">
+    <link rel="stylesheet" href="neon/css/custom.css"  id="style-resource-6">
 
-    <!-- link rel="stylesheet" href="../../neon/css/custom.css"  id="style-resource-6" -->
+    <script src="neon/js/jquery-1.10.2.min.js"></script>
+
 	<!-- Estilo de campo requeridos -->
 	<style>
 		.error {color: #FF0000;}
@@ -19,171 +26,222 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
-    <meta charset="utf-8">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-
     <link rel="stylesheet" href="css/sweetalert.css">
 </head>
-    
-    <!-- Modal NOTAS DE INCIDENCIA-->
-    <div class="modal fade" id="modalNotas" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <!--<span aria-hidden="true">×</span>-->
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Grabar Notas</h4>
-                </div>
-                
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <p class="statusMsg"></p>
-                    <form role="form" id="notasIncidencia">
-                        <!--Aca va el dato de la ventana emergente-->
-                    </form>
-                </div>
+    <body class="page-body  page-fade">
 
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalNotasIncidencias()">Cerrar</button>
-                    <button type="button" class="btn btn-primary" action="grabarNota.php" data-dismiss="modal"  onclick="return ValidaNota(this)">Grabar Nota</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    	<div class="page-container">	
+	
+		<div class="sidebar-menu">	
+			<header class="logo-env">	
+				<div class="row">
+					<div class="col-xs-10 col-md-10 col-lg-10">		
+						<!-- logo -->
+						<div class="logo">
+							<a href="index.php">					
+								<img src="./img/UNAJ.JPG" width="100%" height="100%" alt="UNAJ" />
+							</a>
+						</div>
+					</div>	
+					<div class="col-xs-2 col-md-2 col-lg-2">
+						<!-- logo collapse icon -->
+						<div class="sidebar-collapse">
+							<a href="#" class="sidebar-collapse-icon with-animation"><!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition -->
+								<i class="entypo-menu"></i>
+							</a>
+						</div>
+														
+						<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+						<div class="sidebar-mobile-menu visible-xs">
+							<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
+								<i class="entypo-menu"></i>
+							</a>
+						</div>
+					</div>	
+				</div>		
+			</header>
+    		<?php include('include/nav.php'); ?>
+    	</div>
 
-    <!-- Modal RESOLUCION DE INCIDENCIA-->
-    <div class="modal fade" id="modalResolucionIncidencia" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <!--<span aria-hidden="true">×</span>-->
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Resolver Incidencia</h4>
-                </div>
-                
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <p class="statusMsg"></p>
-                    <form role="form" id="resolverIncidencia">
-                        <!--Aca va el dato de la ventana emergente-->
-                    </form>
-                </div>
+    	<div class="main-content">
+		
+				<div class="row">
+					
+					<!-- Profile Info and Notifications -->
+					<div class="col-md-6 col-sm-8 clearfix">	
+						<h2 >Incidencias</h2>	
+					</div>
+					
+					
+					<!-- Raw Links -->
+					<div class="col-md-6 col-sm-4 clearfix hidden-xs">
+					
+						<ul class="list-inline links-list pull-right">
+							<li >Bienvenido <?php echo $_SESSION['username']; ?></li>											
+							<li>
+								<a href="logout.php">
+								<button type="submit" class="btn btn-primary">Cerrar Sesión<i class="entypo-logout right"></i></button>
+								</a>
+							</li>
+						</ul>
+						
+					</div>
+					
+				</div>
+			
+			<hr>
 
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalResolverIncidencias()">Cerrar</button>
-                    <button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return ValidaResolucion(this)">Grabar Resolucion</button>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-    <div class="container">
-        <div class="row">
-        <div class="col-sm-4">
-            <!--<img width="300" src="image/logo-citep-transparete.png">-->
-            <!--<img width="200" src="image/logo-unaj-2016.jpg">-->
-        </div>
-        
-        <!--<div class="col-md-6">-->
-        <div class="row">
-                <div class="col"> 
-                    <button class="btn btn-primary mt-5" onclick="location.href='reporteIncidencias.html'">Reportes</button>
-                </div>
-                <div class="col">
-                    <form action="controller/cerrarSesion.php" method="post" >
-                        <button type="submit" class="btn btn-primary mt-5">Cerrar Sesión</button>
-                    </form>
-                </div>
-        </div>
-        <!--</div>-->
-        <!--</div>-->
-    </div>
-    <br>    
+			<!-- Modal NOTAS DE INCIDENCIA-->
+			<div class="modal fade" id="modalNotas" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<!--<span aria-hidden="true">×</span>-->
+								<span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Grabar Notas</h4>
+						</div>
+						
+						<!-- Modal Body -->
+						<div class="modal-body">
+							<p class="statusMsg"></p>
+							<form role="form" id="notasIncidencia">
+								<!--Aca va el dato de la ventana emergente-->
+							</form>
+						</div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>Incidencias Pendientes:</h2>
-          <div id="loader" class="text-center"><img src="img/loader.gif"></div>
+						<!-- Modal Footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalNotasIncidencias()">Cerrar</button>
+							<button type="button" class="btn btn-primary" action="grabarNota.php" data-dismiss="modal"  onclick="return ValidaNota(this)">Grabar Nota</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal RESOLUCION DE INCIDENCIA-->
+			<div class="modal fade" id="modalResolucionIncidencia" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<!--<span aria-hidden="true">×</span>-->
+								<span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Resolver Incidencia</h4>
+						</div>
+						
+						<!-- Modal Body -->
+						<div class="modal-body">
+							<p class="statusMsg"></p>
+							<form role="form" id="resolverIncidencia">
+								<!--Aca va el dato de la ventana emergente-->
+							</form>
+						</div>
 
-          <!-- AJAX -->
-          <div id="outer_div">
+						<!-- Modal Footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalResolverIncidencias()">Cerrar</button>
+							<button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return ValidaResolucion(this)">Grabar Resolucion</button>
+						</div>
+					</div>
+				</div>
+			</div>	
 
-          </div>
-          <!-- END AJAX -->
+			<div class="container">
+				<div class="row">
+				<div class="col-sm-4">
+					<!--<img width="300" src="image/logo-citep-transparete.png">-->
+					<!--<img width="200" src="image/logo-unaj-2016.jpg">-->
+				</div>			
+				<!--<div class="col-md-6">-->
+				<div class="row">
+						<div class="col"> 
+							<button class="btn btn-primary mt-5" onclick="location.href='reporteIncidencias.html'">Reportes</button>
+						</div>
+						<!-- div class="col">
+							<form action="controller/cerrarSesion.php" method="post" >
+								<button type="submit" class="btn btn-primary mt-5">Cerrar Sesión</button>
+							</form>
+						</div -->
+				</div>
+				<!--</div>-->
+				<!--</div>-->
+			</div>
+			<br>  	
+				
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12">
+					<h2>Incidencias Pendientes:</h2>
+					<div id="loader" class="text-center"><img src="img/loader.gif"></div>
 
-        </div>
-      </div>
-    </div>
+					<!-- AJAX -->
+					<div id="outer_div">
 
-<!--    url: 'model/traerIncidencia.php?inc_id='+ parametros.inc_id,
-                        type:'POST',
-                        data: { "traerIncidencia":"1"},
-                        dataType:'json',
--->
+					</div>
+					<!-- END AJAX -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        load(1);
-      });
-      function load(page){
-        var parametros = {"action" : "ajax", "page" : page};
-        $("#loader").fadeIn();
-        $.ajax({
-          url : 'model/traerIncidencias.php',
-          type:'POST',
-          data : parametros,
-          beforeSend:function(objeto){
-            $("#loader").fadeIn();
-          },
-          success:function(data){
-            $("#loader").fadeOut();
-            $("#outer_div").html(data).fadeIn();
-          }
-        });
-      }
-    </script>
+					</div>
+				</div>
+			</div>
 
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+			<script>
+				$(document).ready(function(){
+					load(1);
+				});
+				function load(page){
+					var parametros = {"action" : "ajax", "page" : page};
+					$("#loader").fadeIn();
+					$.ajax({
+					url : 'model/traerIncidencias.php',
+					type:'POST',
+					data : parametros,
+					beforeSend:function(objeto){
+						$("#loader").fadeIn();
+					},
+					success:function(data){
+						$("#loader").fadeOut();
+						$("#outer_div").html(data).fadeIn();
+					}
+					});
+				}
+			</script>
 
+		    <br>
+		    <input type="text" id="incidencia_id">
+		    <button id="ejecutarIDResolucion" >Obtener usuarios</button>        
+		    <div id="lista-usuarios"></div>
+		    <br>
+		    <input type="text" id="nota_id">
+		    <button id="ejecutarNota" >Obtener Notas</button>        
+		    <div id="lista-usuarios"></div>
 
-    <br>
+	
 
-    <input type="text" id="incidencia_id">
+						
+			<br/>
+			<?php include('include/footer.php'); ?>
+		</div>
 
-    <button id="ejecutarIDResolucion" >Obtener usuarios</button>        
-
-    <div id="lista-usuarios"></div>
-
-
-    <br>
-
-    <input type="text" id="nota_id">
-
-    <button id="ejecutarNota" >Obtener Notas</button>        
-
-    <div id="lista-usuarios"></div>
-
-
-
-</html>         
-        <script type="text/javascript">
+		<script type="text/javascript">
                 ejecutarIDResolucion.style.display = 'none';
                 ejecutarNota.style.display ='none';
                 incidencia_id.style.display = 'none';
@@ -474,17 +532,18 @@
                         }
                     });
                 };
-
-
         </script>
+		<script src="js/sweetalert.min.js"></script>
 
-        <script type="text/javascript">
-
-        </script>
-<!--    
-        </section>
--->
-
-    <script src="js/sweetalert.min.js"></script>
-</body>
+    <script src="neon/js/gsap/main-gsap.js" id="script-resource-1"></script>
+    <script src="neon/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+    <script src="neon/js/bootstrap.min.js" id="script-resource-3"></script>
+    <script src="neon/js/joinable.js" id="script-resource-4"></script>
+    <script src="neon/js/resizeable.js" id="script-resource-5"></script>
+    <script src="neon/js/neon-api.js" id="script-resource-6"></script>
+    <script src="neon/js/jquery.validate.min.js" id="script-resource-7"></script>
+    <script src="neon/js/neon-login.js" id="script-resource-8"></script>
+    <script src="neon/js/neon-custom.js" id="script-resource-9"></script>
+    <script src="neon/js/neon-demo.js" id="script-resource-10"></script>
+    </body>
 </html>

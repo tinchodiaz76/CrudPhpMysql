@@ -13,7 +13,7 @@
 			parent::conectar();
 
 			$query = 'select id_area,descrip_area,estado
-                    from ywayqssx_MA.area_inciden
+                    from unaj.area_inciden
                     where tipo_id=1
                     and estado=0
                     order by id_area asc';

@@ -1,4 +1,4 @@
-create table ywayqssx_MA.tipinciden (
+create table unaj.tipinciden (
 	
 	Tipo_id	 int(1)  not null,
 	Id_area  int(11)  not null,

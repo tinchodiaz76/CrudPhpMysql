@@ -1,0 +1,1 @@
+<footer class="main" style="margin-top:15px; padding-top:15px; border-top:1px solid #ebebeb;"> &copy;  <strong>UNAJ</strong></footer>
