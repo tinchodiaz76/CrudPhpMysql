@@ -9,9 +9,9 @@
         # Atributos de la clase conexion
         private $mysqli = '';
         private $usuario = 'root';
-        private $clave = 'ciclon';
+        private $clave = 'adminGym666'; //ciclon
         private $server = 'localhost';
-        private $db = 'ywayqssx_MA';
+        private $db = 'unaj'; //ywayqssx_MA
 
 
         # Funcion que permite conectarnos a la base de datos
@@ -23,6 +23,17 @@
             $this->mysqli = new mysqli($this->server, $this->usuario, $this->clave, $this->db);
             */
             $this->mysqli = new mysqli($this->server, $this->usuario, $this->clave, $this->db);
+			
+			// echo $this->mysqli->host_info . "\n";
+			
+			/* comprobar si el servidor sigue vivo */
+			/*
+			if ($this->mysqli->ping()) {
+				printf ("¡La conexión está bien!\n");
+			} else {
+				printf ("Error: %s\n", $this->mysqli->error);
+			}
+			*/
 
             # Validamos si existe un error al conectarnos
             if($this->mysqli->connect_errno)
@@ -127,5 +138,9 @@
         }
 
     } // End Class
+
+// $a = new Conexion();
+// $a->conectar();
+
 
 ?>

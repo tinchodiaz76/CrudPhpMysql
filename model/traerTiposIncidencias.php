@@ -13,7 +13,7 @@
             parent::conectar();
 
             $query =  'select Tipo_incidencia, Descrip_inciden, Texto_resolucion
-            from ywayqssx_MA.tipinciden';
+            from unaj.tipinciden';
 
             $resEmp =parent::query($query);
 

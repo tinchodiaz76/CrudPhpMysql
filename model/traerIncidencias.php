@@ -32,7 +32,7 @@
                 // Cuenta el número total de filas de la tabla*/
 
                 $cantreg = 'select count(1) numrows
-                from ywayqssx_MA.incidencias inc, ywayqssx_MA.usuxperfil per, ywayqssx_MA.tipinciden tip
+                from unaj.incidencias inc, unaj.usuxperfil per, unaj.tipinciden tip
                 where per.username= "'.$v_user.'"
                 and inc.estado in (0,1)
                 and inc.tipo_incidencia = per.tipo_incidencia
@@ -65,7 +65,7 @@
                 END estado_descrip,
                 date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
                 inc.id,inc.estado
-                from ywayqssx_MA.incidencias inc, ywayqssx_MA.usuxperfil per, ywayqssx_MA.tipinciden tip
+                from unaj.incidencias inc, unaj.usuxperfil per, unaj.tipinciden tip
                 where per.username= "'.$v_user.'"
                 and inc.estado in (0,1)
                 and inc.tipo_incidencia = per.tipo_incidencia

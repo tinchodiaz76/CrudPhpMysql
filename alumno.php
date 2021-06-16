@@ -65,7 +65,7 @@
                   <label class="sr-only" for="clave">Contraseña</label>
                   <div class="input-group">
                       <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                      <input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Ingresa tu paswword">
+                      <input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Ingresa tu password">
                   </div>
                   
                   <!-- Animacion de load (solo sera visible cuando el cliente espere una respuesta del servidor )-->

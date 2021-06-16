@@ -13,7 +13,7 @@
 			parent::conectar();
 			
 			$query =  'select tipo_id, id_pregunta, pregunta
-							from ywayqssx_MA.preguntas_frecuentes
+							from unaj.preguntas_frecuentes
 							where tipo_id=1
 							order by orden_aparicion asc';
 

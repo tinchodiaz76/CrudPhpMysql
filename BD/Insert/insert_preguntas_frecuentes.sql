@@ -1,9 +1,9 @@
-insert into ywayqssx_MA.preguntas_frecuentes(Tipo_id, pregunta,orden_aparicion) 
+insert into unaj.preguntas_frecuentes(Tipo_id, pregunta,orden_aparicion) 
     
-values (1,1,'¿Dónde encuentro información sobre las fechas de inscripción y cursada de las materias?',1);
+values (1,1,'ï¿½Dï¿½nde encuentro informaciï¿½n sobre las fechas de inscripciï¿½n y cursada de las materias?',1);
     
     
 
-insert into ywayqssx_MA.preguntas_frecuentes(Tipo_id, pregunta,orden_aparicion) 
+insert into unaj.preguntas_frecuentes(Tipo_id, pregunta,orden_aparicion) 
     
-values (1,2,'¿Cómo me inscribo a las materias?',2);
+values (1,2,'ï¿½Cï¿½mo me inscribo a las materias?',2);

@@ -14,7 +14,7 @@
 			if (empty($v_area))
 			{
 				$query='select id_area from  
-										(select * from ywayqssx_MA.area_inciden 
+										(select * from unaj.area_inciden 
 										 where estado=0	
 										order by id_area asc
 										) t1
@@ -28,7 +28,7 @@
 				}
 			
 				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, texto_resolucion,estado
-				from ywayqssx_MA.tipinciden
+				from unaj.tipinciden
 				where tipo_id=1
 				and id_area='.$id_area.'
 				and estado=0
@@ -39,7 +39,7 @@
 				
 				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, 
 				texto_resolucion,estado
-				from ywayqssx_MA.tipinciden
+				from unaj.tipinciden
 				where tipo_id=1
 				and id_area='.$v_area.'
 				and estado=0

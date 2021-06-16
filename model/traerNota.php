@@ -14,11 +14,11 @@
 
             /*
             $query =  'select inc.id, IFNULL(replace(inc.nota,null,"'.''.'"),inc.nota) nota
-            from ywayqssx_MA.incidencias inc
+            from unaj.incidencias inc
             where inc.id= '.$inc_id;
             */
             $query =  'select inc.id, IF(inc.nota IS NULL, "'.''.'", inc.nota)  nota
-            from ywayqssx_MA.incidencias inc
+            from unaj.incidencias inc
             where inc.id= '.$inc_id;
 
             $resEmp =parent::query($query);

@@ -14,7 +14,7 @@
 			if (!empty($Tipo_incidencia))
 			{
 				$query='select mas_informacion
-						from ywayqssx_MA.tipinciden 
+						from unaj.tipinciden 
 						where tipo_incidencia='.$Tipo_incidencia;
 				
 				$resEmp =parent::query($query);

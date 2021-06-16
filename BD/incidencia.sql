@@ -1,4 +1,4 @@
-create table ywayqssx_MA.incidencias (
+create table unaj.incidencias (
 
 
 	Tipo_id int(1) not null,

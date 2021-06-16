@@ -12,7 +12,7 @@
 			parent::conectar();
 
 			$query =  'select respuesta
-							from ywayqssx_MA.respuestas_frecuentes
+							from unaj.respuestas_frecuentes
 							where tipo_id= '.$tipo_id.'
 							and id_pregunta= '.$id_pregunta.'
 							order by orden_aparicion asc';

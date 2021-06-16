@@ -20,7 +20,7 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
             replace(IFNULL(replace(tip.texto_resolucion,null,"'.''.'"),"'.''.'") ,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
             inc.email
-            from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
+            from unaj.incidencias inc, unaj.tipinciden tip
             where id= '.$inc_id.'
             and tip.tipo_incidencia= inc.tipo_incidencia';
 */
@@ -30,7 +30,7 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
             replace(IFNULL(tip.texto_resolucion,"'.' '.'"),"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
             inc.email
-            from ywayqssx_MA.incidencias inc, ywayqssx_MA.tipinciden tip
+            from unaj.incidencias inc, unaj.tipinciden tip
             where inc.id= '.$inc_id.'
             and tip.Id_area= inc.id_area
             and tip.Tipo_incidencia=inc.tipo_incidencia';
@@ -40,7 +40,7 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
 
             while($row = mysqli_fetch_array($resEmp))
             {
-                //echo json_encode($row); 
+                echo json_encode($row); 
                 $id=$row['id'];
                 $tipo_incidencia=$row['tipo_incidencia'];
                 $descrip_inciden=$row['descrip_inciden'];

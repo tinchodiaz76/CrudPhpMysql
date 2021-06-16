@@ -1,2 +1,2 @@
-insert into ywayqssx_MA.Tipo  (Descripcion) values ('Alumnos');
-insert into ywayqssx_MA.Tipo  (Descripcion) values ('Profesores');
+insert into unaj.Tipo  (Descripcion) values ('Alumnos');
+insert into unaj.Tipo  (Descripcion) values ('Profesores');
