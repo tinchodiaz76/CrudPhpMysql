@@ -16,7 +16,9 @@
                                         $selectincidenciaarea,
                                         $validationTextarea,
                                         $selectcarrera,
-                                        $selectmaterias
+                                        $descripcionCarrera,
+                                        $selectmaterias,
+                                        $descripcionMateria
                                         )
 
         {
@@ -28,12 +30,12 @@
 
             $query ='insert into ywayqssx_ma.incidencias (tipo_id,email,
             apellido,nombre,dni,
-            telefono,propuesta_codigo, elemento_codigo, Id_area,tipo_incidencia, 
+            telefono,propuesta_codigo,propuesta_descripcion,elemento_codigo,elemento_descripcion,Id_area,tipo_incidencia, 
             descrip_incidencia,estado,fecha_creacion) 
             values (1,"'.$email.'",
             upper("'.$apellido.'"),upper("'.$nombre.'"),"'.$dni.'",
-            "'.$telefono.'","'.$selectcarrera.'","'.$selectmaterias.'",'.$selectarea.','.$selectincidenciaarea.',
-            "'.$validationTextarea.'",0,curdate())';
+            "'.$telefono.'","'.$selectcarrera.'","'.$descripcionCarrera.'","'.$selectmaterias.'","'.$descripcionMateria.'","'
+            .$selectarea.'","'.$selectincidenciaarea.'","'.$validationTextarea.'",0,curdate())';
     
             echo $query;
             $resEmp =parent::query($query);
@@ -47,7 +49,8 @@
     if (isset($_POST['email']) && isset($_POST['apellido']) && isset($_POST['nombre']) &&
             isset($_POST['dni']) && isset($_POST['telefono']) && isset($_POST['selectarea']) &&
             isset($_POST['selectincidenciaarea']) && isset($_POST['validationTextarea']) &&
-            isset($_POST['selectcarrera']) && isset($_POST['selectmaterias'])
+            isset($_POST['selectcarrera']) && isset($_POST['selectmaterias']) &&
+            isset($_POST['descripcionCarrera']) && isset($_POST['descripcionMateria'])
         )
     {
 
@@ -62,7 +65,9 @@
         $_POST['selectincidenciaarea'],
         $_POST['validationTextarea'],
         $_POST['selectcarrera'],
-        $_POST['selectmaterias']);
+        $_POST['descripcionCarrera'],
+        $_POST['selectmaterias'],
+        $_POST['descripcionMateria']);
 
     }
 

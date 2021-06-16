@@ -122,7 +122,8 @@
 				$('#selectarea').val(),$('#selectincidenciaarea').val(),
 				$('#validationTextarea').val(),
 				$('#selectcarrera').val(),
-				$('#selectmaterias').val())">Enviar</button>
+				$('#selectmaterias').val()
+				)">Enviar</button>
 	</form>
 
 	<script src="js/sweetalert.min.js"></script>
@@ -228,6 +229,19 @@
 		{
 				if (Valida()==true) 
 				{
+							//carrera_descripcion= document.getElementById("selectcarrera").innerHTML;
+
+							var combo = document.getElementById("selectcarrera");
+							var descripcionCarrera = combo.options[combo.selectedIndex].text;
+
+							//window.alert('elijio la carrera'+ descripcionCarrera );
+
+							var combo = document.getElementById("selectmaterias");
+							var descripcionMateria = combo.options[combo.selectedIndex].text;
+
+							//window.alert('elijio la materia'+ descripcionMateria );
+
+
 							var parametros = {
 							"email" : email,
 							"apellido" : apellido,
@@ -238,7 +252,9 @@
 							"selectincidenciaarea" : selectincidenciaarea,
 							"validationTextarea" : validationTextarea,
 							"selectcarrera" : selectcarrera,
-        					"selectmaterias": selectmaterias
+							"descripcionCarrera": descripcionCarrera,
+        					"selectmaterias": selectmaterias,
+							"descripcionMateria": descripcionMateria
 											};
 							$.ajax({
 									data:  parametros, //datos que se envian a traves de ajax
@@ -246,6 +262,7 @@
 									type:  'POST', //método de envio
 									success: function(respuesta) {
 										//swal('Info', 'La incidencia ha sido guardada ', 'info');
+										
 										window.alert('La incidencia ha sido guardada');
 										window.location.href= "usuario.html"
 									},

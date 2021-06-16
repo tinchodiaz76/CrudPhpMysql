@@ -7,5 +7,6 @@ create table ywayqssx_MA.preguntas_frecuentes (
 	pregunta varchar(3000) not null
 ,
 	orden_aparicion int(3)
- not null	
+ not null,
+	activo	int(1) not null default 1
 );
