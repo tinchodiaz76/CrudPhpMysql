@@ -129,7 +129,8 @@
 	<script src="js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-				TraeDatosAlumonos();
+				TraeDniAlumno();
+				TraeDatosNombreApellidoAlumno();
 				BuscarAreas();
 				$var= document.getElementById("selectarea").value;
 				BuscarIncidente($var);
@@ -137,7 +138,43 @@
 				BuscarMaterias();
 			})
 
-		function TraeDatosAlumonos()
+		function TraeDniAlumno()
+		{	
+			$.ajax({
+					url: 'api/TraerDniAlumno.php',
+					method: 'POST',
+					data: { "traerDni":"1"},
+					dataType: "json",
+					success: function(respuesta) {
+
+						$.each(respuesta, function(index, documento) {
+
+							document.getElementById("dni").value= documento.nro_documento;
+							
+						});
+					},
+					}).fail( function( jqXHR, textStatus, errorThrown ) {
+						if (jqXHR.status === 0) {
+							alert('Not connect: Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (textStatus === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (textStatus === 'timeout') {
+							alert('Time out error.');
+						} else if (textStatus === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error: ' + jqXHR.responseText);
+						}
+					});                        
+			}			
+
+
+
+		function TraeDatosNombreApellidoAlumno()
 		{	
 			$.ajax({
 					url: 'model/TraerDatosAlumno.php',
@@ -151,6 +188,8 @@
 //							window.alert("datosUsuarios.nombres=" +datosUsuarios.nombres);
 							document.getElementById("apellido").value= datosUsuarios.apellido;
 							document.getElementById("nombre").value= datosUsuarios.nombres;
+//							document.getElementById("nombre").value= datosUsuarios.tipo_documento
+							
 						});
 					},
 					}).fail( function( jqXHR, textStatus, errorThrown ) {
