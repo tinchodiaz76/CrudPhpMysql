@@ -37,7 +37,7 @@ $('#login').click(function(){
             break;          
           case 'success':
             // alert('Entre success');
-            window.location.href= "verIncidencias.php";
+            window.location.href= "index.php";
             break;
         }
        }

@@ -3,7 +3,7 @@ $host     = "localhost"; // Host name: localhost / pcse2pp1de0738
 //$host     = "127.0.0.1"; // Host name: localhost / pcse2pp1de0738
 $username = "root"; // Mysql username 
 $password = "adminGym666"; // Mysql password 
-$db_name  = "dbgym"; // Database name
+$db_name  = "unaj"; // Database name
 
 /* 
 // Create connection

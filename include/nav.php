@@ -1,12 +1,21 @@
 <ul id="main-menu" class="">
 			
-    <li class="active opened active"><a href="index.php"><i class="entypo-home"><!-- entypo-gauge --></i><span>Inicio</span></a></li>
+    <li id="model/traerIncidencias.php" class="active opened active"><a href="#"><i class="entypo-home"><!-- entypo-gauge --></i><span>Inicio</span></a></li>
                 
-	<li><a href="model/ABM_preguntasFrecuentes.php"><i class="entypo-user-add"></i><span>Preguntas Frecuentes</span></a></li>                
+	<li id="model/preguntasFrecuentes.php"><a href="#">
+		<!-- span class="material-icons">edit_note</span -->
+		<!-- i class="entypo-clipboard"></i -->
+		<i class="inline-icon material-icons md-24">edit_note</i>
+		<span>ABM Preguntas Frecuentes</span></a>
+	</li>                
 				
-	<li><a href="reporteIncidencias.html"><i class="entypo-star"></i><span>Reporte Incidencias</span></a></li>
+	<li id="model/respuestasFrecuentes.php"><a href="#">
+		<!-- i class="entypo-doc-text"></i -->
+		<i class="inline-icon material-icons md-24">edit_note</i>
+		<span>ABM Respuestas Frecuentes</span></a>
+	</li>
 
-	<li><a href="category.php"><i class="entypo-users"></i><span>Socios</span></a>
+	<!-- li><a href="category.php"><i class="entypo-users"></i><span>Socios</span></a>
 		<ul>
 			<li class="active"><a href="view_mem.php"><span>Ver Socios</span></a></li>			
 			<li><a href="table_view.php"><span>Experiencia deportiva</span></a></li>
@@ -21,7 +30,7 @@
 		</ul>
 	</li>
 
-	<!-- li><a href="new_health_status.php"><i class="entypo-user-add"></i><span>Nueva medición</span></a></li --> 	
+	<li><a href="new_health_status.php"><i class="entypo-user-add"></i><span>Nueva medición</span></a></li> 	
 
 	<li><a href="#"><i class="entypo-briefcase"></i><span>Admin</span></a>
 		<ul>
@@ -60,8 +69,37 @@
 		</ul>
 	</li>
 
-	<li><a href="more-userprofile.php"><i class="entypo-folder"></i><span>Perfil</span></a></li>
+	<li><a href="more-userprofile.php"><i class="entypo-folder"></i><span>Perfil</span></a></li -->
 
 	<li><a href="logout.php"><i class="entypo-logout"></i><span>Cerrar Sesión</span></a></li>
 
 </ul>	
+
+<script>
+$(document).ready(function(){
+ 
+ function load_page_details(id)
+ {
+	// alert('id: ' + id);
+  $.ajax({
+   url: ''+id+'',
+   method:"POST",   
+   beforeSend:function(objeto){
+		// $("#ajaxContent").fadeOut();
+		$("#loader").fadeIn();
+	},
+   success:function(response)
+   {	
+	$("#loader").fadeOut();
+	$("#ajaxContent").html(response).fadeIn();
+   }
+  });
+ }
+
+ $('li').click(function(){	
+  var page_id = $(this).attr("id");  
+  load_page_details(page_id);
+ });
+ 
+});
+</script>
