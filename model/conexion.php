@@ -9,9 +9,9 @@
         # Atributos de la clase conexion
         private $mysqli = '';
         private $usuario = 'root';
-        private $clave = 'adminGym666'; //ciclon
+        private $clave = 'ciclon';
         private $server = 'localhost';
-        private $db = 'unaj'; //ywayqssx_MA
+        private $db = 'unaj'; //unaj
 
 
         # Funcion que permite conectarnos a la base de datos

@@ -1,9 +1,6 @@
 create table unaj.incidencias (
-
-
 	Tipo_id int(1) not null,
 	id int(11) AUTO_INCREMENT primary key,
- 
 	email varchar(50) not null,
 	apellido varchar(50) not null,
 	nombre varchar(70) not null,
