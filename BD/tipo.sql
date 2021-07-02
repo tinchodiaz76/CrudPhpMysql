@@ -1,4 +1,5 @@
-create table ywayqssx_MA.Tipo(
-	id int(11)  AUTO_INCREMENT primary key,
-	Descripcion varchar(3000)  not null
-);
+CREATE TABLE `tipo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(3000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;

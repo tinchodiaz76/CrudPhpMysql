@@ -1,12 +1,8 @@
-create table ywayqssx_MA.preguntas_frecuentes (
-
-	Tipo_id int(1)  not null, 
-    
-	id_pregunta int(11)  AUTO_INCREMENT primary key,
-
-	pregunta varchar(3000) not null
-,
-	orden_aparicion int(3)
- not null,
-	activo	int(1) not null default 1
-);
+CREATE TABLE `preguntas_frecuentes` (
+  `Tipo_id` int(1) NOT NULL,
+  `id_pregunta` int(11) NOT NULL AUTO_INCREMENT,
+  `pregunta` varchar(3000) NOT NULL,
+  `orden_aparicion` int(3) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_pregunta`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
