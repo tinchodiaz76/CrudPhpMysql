@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1.-Ingresar al EndPoint
 https://api.unaj.edu.ar/mesa-de-ayuda/v1/personas?nro_documento=22420019
 Obtener el campo Nombre, Apellido, Mail y Persona
@@ -18,3 +19,20 @@ En la API del login con usuario y clave, traer el mail del alumno y dni.
 El telefono debe apracer en la pantalla de carga de incidencias?.
 
 
+=======
+1.-Ingresar al EndPoint
+https://api.unaj.edu.ar/mesa-de-ayuda/v1/personas?nro_documento=22420019
+Obtener el campo Nombre, Apellido, Mail y Persona
+
+2.-Ingresar al EndPoint (ingresar por Persona)
+https://api.unaj.edu.ar/mesa-de-ayuda/v1/personas/Persona(xxxx)/propuestas
+Obtener Plan_Nombre y Plan_Codigo .....estas son las Carerras
+
+3.-Ingresar al EndPoint (ingresar por Persona)
+https://api.unaj.edu.ar/mesa-de-ayuda/v1/personas/Persona(xxxx)/inscripciones
+Obtener Elemento_Nombre y Elemento_Codigo .....estas son las Materias
+
+Usuario Prueba: 31894399
+
+bitwarrend
+>>>>>>> 497df68054f187bdcebc3f54618cb224480a61f2
