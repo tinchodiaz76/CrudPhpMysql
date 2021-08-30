@@ -318,7 +318,7 @@
                                                             funciona*/
                 };
 
-                                /*Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias*/
+                /*Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias*/
                 function obtengoIDNotas(id) {
 /*
                     console.log('id=' || id);

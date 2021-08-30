@@ -1,8 +1,8 @@
 <?php
-$host     = "localhost"; // Host name: localhost / pcse2pp1de0738
-//$host     = "127.0.0.1"; // Host name: localhost / pcse2pp1de0738
+//$host     = "localhost"; // Host name: localhost / pcse2pp1de0738
+$host     = "127.0.0.1"; // Host name: localhost / pcse2pp1de0738
 $username = "root"; // Mysql username 
-$password = "adminGym666"; // Mysql password 
+$password = "msRMC1980"; //"adminGym666"; // Mysql password 
 $db_name  = "unaj"; // Database name
 
 /* 
@@ -23,6 +23,7 @@ echo "</pre>";
 $con = mysqli_connect($host, $username, $password, $db_name);
 
 //echo "Connect to MySQL: " . mysqli_connect_error();
+//exit("Connect to MySQL: " . mysqli_connect_error());
 
 // Check connection
 //if (mysqli_connect_errno($con)) {
@@ -31,6 +32,7 @@ if (!$con) {
     //echo "Failed to connect to MySQL: " . mysqli_connect_error();
     echo "Failed to connect to MySQL: " . mysqli_connect_errno();
 	echo "</pre>";
+    //exit("Failed to connect to MySQL: " . mysqli_connect_errno());
 }
 //echo "<pre>";
 //echo "Connected successfully"; 
@@ -71,5 +73,6 @@ function page_protect()
     } else {
         header("Location: ../../login/");
     }
+    
 }
 ?>

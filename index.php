@@ -144,11 +144,11 @@ session_start();
 					iniLoad(1);
 				});
 				function iniLoad(page){
+					//alert('traerIncidencias');
 					var parametros = {"action" : "ajax", "page" : page};
 					$("#loader").fadeIn();
 					$.ajax({
-					url : 'model/traerIncidencias.php',
-					//url: 'preguntasFrecuentes.html',
+					url : 'model/traerIncidencias.php',					
 					type:'POST',
 					data : parametros,
 					beforeSend:function(objeto){
@@ -156,6 +156,7 @@ session_start();
 						$("#loader").fadeIn();
 					},
 					success:function(data){
+						//alert(data);
 						$("#loader").fadeOut();
 						$("#ajaxContent").html(data).fadeIn();
 					}

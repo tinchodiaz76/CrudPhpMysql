@@ -12,19 +12,6 @@
         {	
             parent::conectar();
 /*
-replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
-*/
-/*
-            $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
-            IFNULL(replace(inc.descrip_incidencia,null,"'.''.'"),"'.'-'.'") usuario_descripcion,
-            concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
-            replace(IFNULL(replace(tip.texto_resolucion,null,"'.''.'"),"'.''.'") ,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
-            inc.email
-            from unaj.incidencias inc, unaj.tipinciden tip
-            where id= '.$inc_id.'
-            and tip.tipo_incidencia= inc.tipo_incidencia';
-*/
-
             $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
             IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
@@ -34,7 +21,6 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
             where inc.id= '.$inc_id.'
             and tip.Id_area= inc.id_area
             and tip.Tipo_incidencia=inc.tipo_incidencia';
-
 
             $resEmp =parent::query($query);
 
@@ -51,6 +37,7 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
 
                 $incidencia[] = array('id'=> $id, 'tipo_incidencia'=> $tipo_incidencia, 'descrip_inciden'=> $descrip_inciden, 'usuario_descripcion'=> $usuario_descripcion,
                     'usuario'=> $usuario,'texto_resolucion'=>$texto_resolucion,'email'=>$email);
+                    
             }
 
             if (!empty($incidencia)) 
@@ -70,6 +57,8 @@ replace(tip.texto_resolucion,"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apelli
                 $json_string = json_encode($incidencia);
                 echo $json_string;
             }	
+*/          
+            echo json_encode("holaaa" + $inc_id);
             parent::cerrar();
 		}
 	}

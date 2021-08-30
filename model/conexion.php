@@ -2,15 +2,15 @@
 <?php
 
     # Clase conexion: permite conectar a la base de datos y ejecutar consultas sql
-
     class Conexion
     {
 
         # Atributos de la clase conexion
-        private $mysqli = '';
+        //private $mysqli = '';
         private $usuario = 'root';
-        private $clave = 'adminGym666'; //ciclon
-        private $server = 'localhost';
+        private $clave = 'msRMC1980'; //'adminGym666'; //ciclon
+        //private $server = 'localhost';
+        private $server = "127.0.0.1";
         private $db = 'unaj'; //ywayqssx_MA
 
 
@@ -24,7 +24,7 @@
             */
             $this->mysqli = new mysqli($this->server, $this->usuario, $this->clave, $this->db);
 			
-			// echo $this->mysqli->host_info . "\n";
+			 //echo $this->mysqli->host_info . "\n";
 			
 			/* comprobar si el servidor sigue vivo */
 			/*
@@ -33,7 +33,8 @@
 			} else {
 				printf ("Error: %s\n", $this->mysqli->error);
 			}
-			*/
+      */
+			//exit("Connect to MySQL: " .$this->mysqli->error);
 
             # Validamos si existe un error al conectarnos
             if($this->mysqli->connect_errno)
@@ -141,6 +142,4 @@
 
 // $a = new Conexion();
 // $a->conectar();
-
-
 ?>
