@@ -223,42 +223,43 @@
 			}
 		</script>
     
-	<!-- Ajax Modal -->
+	<!-- Ajax Modal para informar status de exito de las operaciones -->
 	<div id="myModal2" class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-			<div class="modal-header btn-blue">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>				
-				<h5 class="modal-title" style="color: white; font-weight: bolder;" id="modalTitle">Modal title</h5>
-			</div>
-			<div class="modal-body" style="color: black; font-weight: bolder;" id="modalBody">
-				<p><b>Modal body text goes here.</b></p>
-			</div>
-			<div class="modal-footer" style="padding:10px 10px;">				
-				<button type="button" class="btn btn-primary btn-blue" data-dismiss="modal">Close</button>
-			</div>
+				<div class="modal-header btn-blue">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>				
+					<h5 class="modal-title" style="color: white; font-weight: bolder;" id="modalTitle">Modal title</h5>
+				</div>
+				<div class="modal-body" style="color: black; font-weight: bolder;" id="modalBody">
+					<p><b>Modal body text goes here.</b></p>
+				</div>
+				<div class="modal-footer" style="padding:10px 10px;">				
+					<button type="button" class="btn btn-primary btn-blue" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="actdel" class="modal fade" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-			<div class="modal-header btn-blue">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h5 class="modal-title" style="color: white; font-weight: bolder;" id="modalTitle2">Modal title</h5>
-			</div>
-			<div class="modal-body" style="color: black; font-weight: bolder;" id="modalBody2">
-				<p>Modal body text goes here.</p>
-			</div>
-			<div class="modal-footer" style="padding:10px 10px;">				
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary btn-blue" onclick="return modal_ok()">OK</button>
-			</div>
+	<!-- Modal boton delete -->
+	<div id="actdel" class="modal fade" tabindex="-1" role="dialog" >
+		<div class="modal-dialog" role="document" >
+			<div class="modal-content" style="border-radius: 10px; border:black 1px solid;">
+				<div class="modal-header btn-blue" style="border-radius: 10px 10px 0px 0px;">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h5 class="modal-title" style="color: white; font-weight: bolder;" id="modalTitle2">Modal title</h5>
+				</div>
+				<div class="modal-body" style="color: black; font-weight: bolder; border-radius: 10px;" id="modalBody2">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer" style="padding:10px 10px;">				
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary btn-blue" onclick="return modal_ok()">OK</button>
+				</div>
 			</div>
 		</div>
 	</div>

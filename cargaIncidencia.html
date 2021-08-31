@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
@@ -57,11 +57,11 @@
 			<div class="row">
 				<div class="col">
 					<label for="apellido">Apellido</label>
-					<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese su Apellido" onkeypress= "return soloLetras(event)" onpaste="return false" disabled required>
+					<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese su Apellido" onkeypress= "return soloLetras(event)" onpaste="return false" required>
 				</div>
 				<div class="col">
 					<label for="nombre">Nombre</label>
-					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre" onkeypress= "return soloLetras(event)" onpaste="return false" disabled required>
+					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre" onkeypress= "return soloLetras(event)" onpaste="return false" required>
 				</div>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 			<div class="row">
 				<div class="col">
 					<label for="dni">DNI</label>
-					<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" minlength="7" maxlength="12" disabled required>
+					<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" minlength="7" maxlength="12" required>
 				</div>
 
 				<div class="col">
@@ -122,15 +122,13 @@
 				$('#selectarea').val(),$('#selectincidenciaarea').val(),
 				$('#validationTextarea').val(),
 				$('#selectcarrera').val(),
-				$('#selectmaterias').val()
-				)">Enviar</button>
+				$('#selectmaterias').val())">Enviar</button>
 	</form>
 
 	<script src="js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-				TraeDniAlumno();
-				TraeDatosNombreApellidoAlumno();
+				TraeDatosAlumonos();
 				BuscarAreas();
 				$var= document.getElementById("selectarea").value;
 				BuscarIncidente($var);
@@ -138,43 +136,7 @@
 				BuscarMaterias();
 			})
 
-		function TraeDniAlumno()
-		{	
-			$.ajax({
-					url: 'api/TraerDniAlumno.php',
-					method: 'POST',
-					data: { "traerDni":"1"},
-					dataType: "json",
-					success: function(respuesta) {
-
-						$.each(respuesta, function(index, documento) {
-
-							document.getElementById("dni").value= documento.nro_documento;
-							
-						});
-					},
-					}).fail( function( jqXHR, textStatus, errorThrown ) {
-						if (jqXHR.status === 0) {
-							alert('Not connect: Verify Network.');
-						} else if (jqXHR.status == 404) {
-							alert('Requested page not found [404]');
-						} else if (jqXHR.status == 500) {
-							alert('Internal Server Error [500].');
-						} else if (textStatus === 'parsererror') {
-							alert('Requested JSON parse failed.');
-						} else if (textStatus === 'timeout') {
-							alert('Time out error.');
-						} else if (textStatus === 'abort') {
-							alert('Ajax request aborted.');
-						} else {
-							alert('Uncaught Error: ' + jqXHR.responseText);
-						}
-					});                        
-			}			
-
-
-
-		function TraeDatosNombreApellidoAlumno()
+		function TraeDatosAlumonos()
 		{	
 			$.ajax({
 					url: 'model/TraerDatosAlumno.php',
@@ -188,8 +150,6 @@
 //							window.alert("datosUsuarios.nombres=" +datosUsuarios.nombres);
 							document.getElementById("apellido").value= datosUsuarios.apellido;
 							document.getElementById("nombre").value= datosUsuarios.nombres;
-//							document.getElementById("nombre").value= datosUsuarios.tipo_documento
-							
 						});
 					},
 					}).fail( function( jqXHR, textStatus, errorThrown ) {
@@ -268,19 +228,6 @@
 		{
 				if (Valida()==true) 
 				{
-							//carrera_descripcion= document.getElementById("selectcarrera").innerHTML;
-
-							var combo = document.getElementById("selectcarrera");
-							var descripcionCarrera = combo.options[combo.selectedIndex].text;
-
-							//window.alert('elijio la carrera'+ descripcionCarrera );
-
-							var combo = document.getElementById("selectmaterias");
-							var descripcionMateria = combo.options[combo.selectedIndex].text;
-
-							//window.alert('elijio la materia'+ descripcionMateria );
-
-
 							var parametros = {
 							"email" : email,
 							"apellido" : apellido,
@@ -291,9 +238,7 @@
 							"selectincidenciaarea" : selectincidenciaarea,
 							"validationTextarea" : validationTextarea,
 							"selectcarrera" : selectcarrera,
-							"descripcionCarrera": descripcionCarrera,
-        					"selectmaterias": selectmaterias,
-							"descripcionMateria": descripcionMateria
+        					"selectmaterias": selectmaterias
 											};
 							$.ajax({
 									data:  parametros, //datos que se envian a traves de ajax
@@ -301,7 +246,6 @@
 									type:  'POST', //método de envio
 									success: function(respuesta) {
 										//swal('Info', 'La incidencia ha sido guardada ', 'info');
-										
 										window.alert('La incidencia ha sido guardada');
 										window.location.href= "usuario.html"
 									},

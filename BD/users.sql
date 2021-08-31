@@ -1,5 +1,4 @@
-CREATE TABLE `users` (
-  `username` varchar(20) NOT NULL,
-  `password` varchar(10) NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table unaj.users (
+	username varchar(20) primary key,
+	password varchar(10)  not null
+);

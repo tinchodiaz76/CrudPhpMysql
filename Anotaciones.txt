@@ -13,8 +13,3 @@ Obtener Elemento_Nombre y Elemento_Codigo .....estas son las Materias
 Usuario Prueba: 31894399
 
 bitwarrend
-/*****/
-En la API del login con usuario y clave, traer el mail del alumno y dni.
-El telefono debe apracer en la pantalla de carga de incidencias?.
-
-

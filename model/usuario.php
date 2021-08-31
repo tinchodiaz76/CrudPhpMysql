@@ -3,7 +3,6 @@
   # Incluimos la clase conexion para poder heredar los metodos de ella.
   require_once('conexion.php');
 
-
   class Usuario extends Conexion
   {
 
@@ -22,6 +21,7 @@
       $consulta ='select username from unaj.users where username="'.$user.'" and password= "'.$clave.'"';
 
       $verificar_usuario = parent::verificarRegistros($consulta);
+      //echo 'success: ' + $verificar_usuario;
 
       // si la consulta es mayor a 0 el usuario existe
       if($verificar_usuario > 0)

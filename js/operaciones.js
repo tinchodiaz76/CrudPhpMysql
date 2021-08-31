@@ -1,10 +1,11 @@
 $('#login').click(function(){
 
   // Traemos los datos de los inputs
-
+    //alert('Operaciones.js');
     var user = document.getElementById("usuario").value;
     var clave = document.getElementById("password").value;
- 
+    //alert(user);
+    //alert(clave);
     // Envio de datos mediante Ajax
 
     $.ajax({
@@ -25,18 +26,19 @@ $('#login').click(function(){
         
         /*Hago esto ya que a veces la "RES" de AJAX trae un salto de linea*/
         res= res.split("\n").join("");
-        // alert(res);
+        //alert(res);
         /*Hago esto ya que a veces la "RES" trae espacios*/
         switch (res.trim()) {
           case 'error_1':
+            //alert('Entre error_1');
             swal('Error', 'Por favor ingrese todos los campos', 'error');
             break;          
           case 'error_3':
-            // alert('Entre error_3');
+            //alert('Entre error_3');
             swal('Error', 'Usuario o Contraseña incorrectos', 'error');
             break;          
           case 'success':
-            // alert('Entre success');
+            //alert('Entre success');
             window.location.href= "index.php";
             break;
         }
