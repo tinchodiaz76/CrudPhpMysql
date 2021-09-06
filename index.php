@@ -116,6 +116,7 @@ session_start();
 					</div>					
 				</div>
                 <hr/>
+				<br>
 
                 <!-- AJAX content -->
                 <div class="container-fluid">
@@ -130,7 +131,7 @@ session_start();
 				</div>
 				<!-- END AJAX content -->
 			</div>
-   
+
 			<br/>
 			<?php include('include/footer.php'); ?>
 		</div>
@@ -140,15 +141,23 @@ session_start();
 		
 		<!-- Inicia por default en Traer Incidencias: -->
 			<script>
+				//var estadoIncidencia;
+
 				$(document).ready(function(){
+					//alert("en el READY=" + estadoIncidencia);
 					iniLoad(1);
 				});
+
 				function iniLoad(page){
-					//alert('traerIncidencias');
+					
+/*					
+					estadoIncidencia= document.getElementById("Estado").value;
+*/					
 					var parametros = {"action" : "ajax", "page" : page};
 					$("#loader").fadeIn();
 					$.ajax({
-					url : 'model/traerIncidencias.php',					
+					/*url : 'model/traerIncidencias.php?estado=' + estadoIncidencia,*/
+					url : 'model/traerIncidencias.php',
 					type:'POST',
 					data : parametros,
 					beforeSend:function(objeto){
@@ -162,6 +171,14 @@ session_start();
 					}
 					});
 				}
+/*
+				function selectEstado() 
+				{ //Se usa cada vez que cambia el valor del estado de la incidencia
+     				estadoIncidencia= document.getElementById("Estado").value;
+					iniLoad(1);
+    			}
+*/
+
 			</script>
 
 	<script src="js/sweetalert.min.js"></script>

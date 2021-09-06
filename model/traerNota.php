@@ -17,7 +17,7 @@
             from unaj.incidencias inc
             where inc.id= '.$inc_id;
             */
-            $query =  'select inc.id, IF(inc.nota IS NULL, "'.''.'", inc.nota)  nota
+            $query =  'select inc.id, IF(inc.nota IS NULL, "'.''.'", inc.nota)  nota, estado
             from unaj.incidencias inc
             where inc.id= '.$inc_id;
 
@@ -28,8 +28,9 @@
                 //echo json_encode($row); 
                 $id=$row['id'];
                 $nota=$row['nota'];
+                $estado=$row['estado'];
                 
-                $incidencia[] = array('id'=> $id, 'nota'=> $nota);
+                $incidencia[] = array('id'=> $id, 'nota'=> $nota, 'estado'=> $estado);
             }
 
             if (!empty($incidencia)) 

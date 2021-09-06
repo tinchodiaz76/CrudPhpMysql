@@ -15,8 +15,8 @@
             $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
             IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
-            replace(IFNULL(tip.texto_resolucion,"'.' '.'"),"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido)) texto_resolucion,
-            inc.email
+            IFNULL(inc.resolucion,replace(IFNULL(tip.texto_resolucion,"'.' '.'"),"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido))) texto_resolucion,
+            inc.email, inc.estado
             from unaj.incidencias inc, unaj.tipinciden tip
             where inc.id= '.$inc_id.'
             and tip.Id_area= inc.id_area
@@ -33,9 +33,10 @@
                 $usuario=$row['usuario'];
                 $texto_resolucion=$row['texto_resolucion'];
                 $email=$row['email'];
+                $estado=$row['estado'];
 
                 $incidencia[] = array('id'=> $id, 'tipo_incidencia'=> $tipo_incidencia, 'descrip_inciden'=> $descrip_inciden, 'usuario_descripcion'=> $usuario_descripcion,
-                    'usuario'=> $usuario,'texto_resolucion'=>$texto_resolucion,'email'=>$email);
+                    'usuario'=> $usuario,'texto_resolucion'=>$texto_resolucion,'email'=>$email, 'estado'=>$estado);
                     
             }
 
