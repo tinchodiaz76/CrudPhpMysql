@@ -11,7 +11,7 @@
         public function traerIncidencia($inc_id)
         {	
             parent::conectar();
-/*
+
             $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
             IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
@@ -26,7 +26,7 @@
 
             while($row = mysqli_fetch_array($resEmp))
             {
-                echo json_encode($row); 
+                // echo json_encode($row); 
                 $id=$row['id'];
                 $tipo_incidencia=$row['tipo_incidencia'];
                 $descrip_inciden=$row['descrip_inciden'];
@@ -57,8 +57,7 @@
                 $json_string = json_encode($incidencia);
                 echo $json_string;
             }	
-*/          
-            echo json_encode("holaaa" + $inc_id);
+                    
             parent::cerrar();
 		}
 	}

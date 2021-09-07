@@ -18,7 +18,7 @@
       $clave = parent::salvar($clave);
       */
 
-      $consulta ='select username from unaj.users where username="'.$user.'" and password= "'.$clave.'"';
+      $consulta ='select username, roles from unaj.users where username="'.$user.'" and password= "'.$clave.'"';
 
       $verificar_usuario = parent::verificarRegistros($consulta);
       //echo 'success: ' + $verificar_usuario;
@@ -29,6 +29,7 @@
         $user = parent::consultaArreglo($consulta);
         session_start();
         $_SESSION['username'] = $user['username'];
+        $_SESSION['roles'] = $user['roles'];
         // header("location: ../verIncidencias.php");
         echo 'success';
       }

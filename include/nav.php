@@ -1,7 +1,10 @@
 <ul id="main-menu" class="">
 			
     <li id="model/traerIncidencias.php" class="active opened active"><a href="#"><i class="entypo-home"><!-- entypo-gauge --></i><span>Inicio</span></a></li>
-                
+<?php
+if ($_SESSION['roles']==1)
+{
+?>	
 	<li id="model/preguntasFrecuentes.php"><a href="#">
 		<!-- span class="material-icons">edit_note</span -->
 		<!-- i class="entypo-clipboard"></i -->
@@ -15,6 +18,14 @@
 		<span>ABM Respuestas Frecuentes</span></a>
 	</li>
 
+	<li id="model/resolucionesAutomaticas.php"><a href="#">
+		<!-- i class="entypo-doc-text"></i -->
+		<i class="inline-icon material-icons md-24">edit_note</i>
+		<span>ABM Resoluciones Automaticas</span></a>
+	</li>	
+<?php
+}
+?>
 	<!-- li><a href="category.php"><i class="entypo-users"></i><span>Socios</span></a>
 		<ul>
 			<li class="active"><a href="view_mem.php"><span>Ver Socios</span></a></li>			

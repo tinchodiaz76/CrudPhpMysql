@@ -28,7 +28,6 @@
         </div>
       </div>
 		  <hr />
-
               <!-- data grid -->
               <div>
                     <table class="table table-bordered datatable" id="table-1">
@@ -52,10 +51,17 @@
                           $result = mysqli_query($con, $query);
                           //while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                           while($row = mysqli_fetch_array($result)): 
-                            $id=$id+1;                                                      
-                            if ($row['estado']==1):
+                            $id=$id+1;                                                     
+                            if ($row['estado']==1)
+                            {
+                                $style = "background-color:yellow";
+                            }
+                            else
+                            {
+                                $style = "";
+                            }
                         ?>
-                              <tr>
+                              <tr style=<?=$style?> >
                                   <td><?=$id?></td>
                                   <td><?=$row['apellido']?></td>
                                   <td><?=$row['nombre']?></td>
@@ -73,27 +79,6 @@
                                   </td>
                               </tr>
                         <?php
-                          else:
-                        ?>
-                              <tr>
-                                  <td><?=$id?></td>
-                                  <td><?=$row['apellido']?></td>
-                                  <td><?=$row['nombre']?></td>
-                                  <td><?=$row['dni']?></td>
-                                  <td><?=$row['telefono']?></td>
-                                  <td><?=$row['email']?></td>
-                                  <td><?=$row['descrip_inciden']?></td>
-                                  <td><?=$row['usuario_descripcion']?></td>
-                                  <td><?=$row['estado_descrip']?></td>
-                                  <td><?=$row['fecha_creacion']?></td>
-                                  <td>
-                                    <input type="button" class="btn btn-warning" onclick="obtengoIDNotas(<?=$row['id']?>)" data-toggle="modal" data-target="#modalNotas">Notas</button>
-                                    <input type="button" class="btn btn-primary" onclick="obtengoIDResolucion(<?=$row['id']?>)" data-toggle="modal" data-target="#modalResolucionIncidencia">Resolver</button>
-                                  </td>
-                              </tr>
-                        <?php
-                          endif;
-
                           endwhile;  
                             $id=$id;
                         ?>
@@ -157,7 +142,7 @@
 
                 window.alert("La incidencia ha sido resuelta.");
 
-                window.location="verIncidencias.php";
+                window.location="index.php";
             },
             }).fail( function( jqXHR, textStatus, errorThrown ) {
                 if (jqXHR.status === 0) {
@@ -194,7 +179,7 @@
 
                 window.alert("Se grabo la nota en la Incidencia.");
 
-                //window.location="verIncidencias.php";
+                window.location="index.php";
             },
             }).fail( function( jqXHR, textStatus, errorThrown ) {
                 if (jqXHR.status === 0) {
@@ -258,14 +243,12 @@
         };
         
         //console.log("parametros_1= " + parametros.inc_id);
-        alert(id);
         $.ajax({
             url: 'model/traerIncidencia.php?inc_id='+ id,
             type:'POST',
             data: { "traerIncidencia":"1"},
             dataType:'json',
-            success: function(respuesta) {
-                alert(respuesta);
+            success: function(respuesta) {                
                 var listaUsuarios = $("#resolverIncidencia");
                 $.each(respuesta, function(index, incidencia) {                      
                     listaUsuarios.append(
@@ -296,9 +279,7 @@
                 });
             },
             
-        }).fail( function( jqXHR, textStatus, errorThrown ) {
-            alert('FAIL');            
-            alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
+        }).fail( function( jqXHR, textStatus, errorThrown ) {       
             if (jqXHR.status === 0) {
                 alert('Not connect: Verify Network.');
             } else if (jqXHR.status == 404) {
