@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
     // Arrays para guardar mensajes y errores:
 
     session_start();
@@ -37,7 +37,6 @@
 
                 $incidencia[] = array('id'=> $id, 'tipo_incidencia'=> $tipo_incidencia, 'descrip_inciden'=> $descrip_inciden, 'usuario_descripcion'=> $usuario_descripcion,
                     'usuario'=> $usuario,'texto_resolucion'=>$texto_resolucion,'email'=>$email, 'estado'=>$estado);
-                    
             }
 
             if (!empty($incidencia)) 
@@ -57,8 +56,6 @@
                 $json_string = json_encode($incidencia);
                 echo $json_string;
             }	
-
-            //echo json_encode("holaaa" + $inc_id);
             parent::cerrar();
 		}
 	}

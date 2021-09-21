@@ -13,22 +13,6 @@ $activo = $_POST['activo'];
 $action = $_POST['action'];
 //Fin obtener valores del formulario. 
 
-/*
-$arr = array(
-	'stack'=>'overflow',
-	'key'=> $desc
-  );
-echo json_encode($arr);
-die();
-
-$desc = isset($_GET['desc']);
-$jsondata = array();
-$jsondata["data"] = array('desc' => $desc);
-header('Content-type: application/json; charset=utf-8');
-echo json_encode($jsondata, JSON_FORCE_OBJECT);
-die();
-*/		
-
 //ABM
 switch($action)
 {

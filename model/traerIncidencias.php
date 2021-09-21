@@ -27,14 +27,12 @@
 <!-- END AJAX content -->
 
 <script type="text/javascript">
-
     //Paginacion, busqueda, etc de dataGird:
     $(document).ready(function()
     {
       selectEstado();
     });
 
-    
     function selectEstado() 
     { //Se usa cada vez que cambia el valor del Estado de la incidencia
         estadoIncidencia= document.getElementById("Estado").value;
@@ -57,7 +55,6 @@
 				});
 			}
     }
-
     //JS Funcionamiento de Notas y Resolver:
     ejecutarIDResolucion.style.display = 'none';
     ejecutarNota.style.display ='none';
@@ -158,14 +155,11 @@
         }
 
     function cerrarModalResolverIncidencias(){
-
-
         var pedro  = document.getElementById("resolverIncidencia");
         // Elimino todos los DIV'S que estan dentros de DATOS
         while (pedro.firstChild) {
             pedro.removeChild(pedro.firstChild);
         }
-
         var pedro  = document.getElementById("footerResolverIncidencia");
         // Elimino todos los DIV'S que estan dentros de DATOS
         while (pedro.firstChild) {
@@ -175,7 +169,6 @@
 
 
     function cerrarModalNotasIncidencias(){
-
         var pedro  = document.getElementById("notasIncidencia");
         // Elimino todos los DIV'S que estan dentros de DATOS
         while (pedro.firstChild) {
@@ -195,14 +188,11 @@
         document.getElementById('incidencia_id').value = id; /*El id es el valor ID de la tabla Incidencias*/
                                                              /*El text existe pero no se muestra*/  
         getIncidenciaIDResolucion(id);
-        
     };
 
     /*Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias*/
     function obtengoIDNotas(id) {                   
-
         cerrarModalNotasIncidencias();
-
         document.getElementById('nota_id').value = id;  /*El id es el valor ID de la tabla Incidencias*/
                                                         /*Es un input hidden*/
         getNotaIncidencia(id);
@@ -224,7 +214,6 @@
             success: function(respuesta) {
                 var listaUsuarios = $("#resolverIncidencia");
                 var footerResolverIncidencia = $("#footerResolverIncidencia");
-
                 $.each(respuesta, function(index, incidencia) {                      
                     listaUsuarios.append(
                           `<div class=\"form-group\"/>` 
@@ -293,7 +282,6 @@
     };
 
     function getNotaIncidencia(id) {
-
         // console.log("parametros_1= " + parametros.inc_id);
         
         $.ajax({
@@ -305,7 +293,6 @@
             success: function(respuesta) {
                 var listaUsuarios = $("#notasIncidencia");
                 footerNotasIncidencia= $("#footerNotasIncidencia");
-                
                 $.each(respuesta, function(index, incidencia) {
                     listaUsuarios.append(
                         `<div class=\"form-group\">` 
@@ -414,7 +401,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Botones al pie de pagina -->
 <br>

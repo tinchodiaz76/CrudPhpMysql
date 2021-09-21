@@ -18,3 +18,4 @@ create table unaj.incidencias (
 	fecha_cerrado date,
 	resolucion varchar(3000)
 );
+
