@@ -16,6 +16,7 @@ function Html_OptionList_render($result, $multiple, $SelectId, $size)
 	if ($multiple==1)
 	{
 		$output = "<select multiple='multiple' size=".$size." id=".$SelectId." name=".$SelectId." class='demo2'>";
+		
 	}	
 	else
 	{
@@ -66,7 +67,7 @@ function List_render($result, $multiple, $SelectId, $size, $class, $selectedValu
 		$size="size='$size'";
 	}
 	if ($class==NULL){
-		$class="";
+		$class="class='form-control'";
 	}else {
 		$class="class='$class'";
 	}
@@ -81,7 +82,7 @@ function List_render($result, $multiple, $SelectId, $size, $class, $selectedValu
 	}	
 	else
 	{
-		$output = "<select ".$size." id=".$SelectId." name=".$SelectId." ".$class." ".$SValue.">";
+		$output = "<select id=".$SelectId." name=".$SelectId." ".$class." ".$SValue.">";
 	}
 					while ($row = mysqli_fetch_row($result)) 
 					{

@@ -1,5 +1,7 @@
 ﻿<?php
 header("Content-Type: text/html;charset=utf-8");
+include '../include/db_conn.php';
+include('../include/functions.php');
 ?>
 	<script>
 		$(document).ready(function(){			
@@ -108,10 +110,12 @@ header("Content-Type: text/html;charset=utf-8");
 
 		function abmClear(){
 			document.getElementById("id_hidden").value = ''; 
+			document.getElementById("area").value = '';
 			document.getElementById("Tipo_id").value = ''; 
-			document.getElementById("id_pregunta").value = ''; 			
+			document.getElementById("Tipo_inc").value = '';		
 			document.getElementById("desc").value = ''; 
-			document.getElementById("orden_aparicion").value = ''; 
+			document.getElementById("resolucion").value = ''; 
+			document.getElementById("infoad").value = '';			
 			document.getElementById("activo").value = ''; 
 			document.getElementById("action_hidden").value = 'insert'; 
 			document.getElementById("guardar").innerHTML = 'Guardar';
@@ -139,19 +143,36 @@ header("Content-Type: text/html;charset=utf-8");
 					</button>
 				</h3>
 			</div>
-			<hr />				
+			<hr />							
 			<div class="form-group">
+			<div class="row">
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Area:</label>					
+						<div class="col-sm-5">			
+							<?php
+								$result = mysqli_query($con, "SELECT id_area, descrip_area, estado, Tipo_id FROM unaj.area_inciden");
+								
+								if (mysqli_affected_rows($con) != 0) {
+								//Llamo funcion para renderizar el select option:
+								List_render($result, "", "area", "", "form-control", "");							
+								}
+								else{
+									echo "<select name='area' id='area'><option value=''>Sin datos de Area</option></select>";
+								}			
+							?>
+						</div>
+				</div>
+				<br/><br/>				
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="tipo" id="Tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $Tipo_id; ?>" required/>
+							<input type="number" name="Tipo_id" id="Tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $Tipo_id; ?>" required/>
 						</div>
 				</div>
 				<br/>
 				<div class="row">
-					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Pregunta_ID:</label>					
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo Incidencia:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="id_pregunta" id="id_pregunta" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $Tipo_id; ?>" required/>
+							<input type="number" name="Tipo_inc" id="Tipo_inc" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo de incidencia" maxlength="2" value="<?php echo $Tipo_inc; ?>" required/>
 						</div>
 				</div>
 				<br/>				
@@ -163,12 +184,19 @@ header("Content-Type: text/html;charset=utf-8");
 				</div>
 				<br/>
 				<div class="row">
-					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Orden:</label>					
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Resolución:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="orden" id="orden_aparicion" class="form-control" data-rule-minlength="1" placeholder="Ingrese el orden de aparicion" maxlength="2" value="<?php  ?>" required/>
+							<input type="text" name="resolucion" id="resolucion" class="form-control" data-rule-minlength="4" placeholder="Ingrese la resolución" maxlength="30" value="<?php  ?>" required/>
 						</div>
 				</div>
 				<br/>
+				<div class="row">
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Información adicional:</label>					
+						<div class="col-sm-5">
+							<input type="text" name="infoad" id="infoad" class="form-control" data-rule-minlength="4" placeholder="Ingrese información adicional" maxlength="30" value="<?php ?>" required/>
+						</div>
+				</div>
+				<br/>				
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error"></span> Activo:</label>					
 						<div class="col-sm-5">
@@ -209,7 +237,7 @@ header("Content-Type: text/html;charset=utf-8");
 			});
 			function dataGridLoad(){									
 				$.ajax({
-				url : 'model/dataGrid_respuestasFrecuentes.php',
+				url : 'model/dataGrid_resolucionesAutomaticas.php',
 				type:'POST',					
 				beforeSend:function(objeto){
 					$("#aContent").fadeOut();
