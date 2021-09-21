@@ -1,60 +1,166 @@
-<div class="row">
-    <div class="col-sm-2 col-12">
-        <h3>Incidencias <span class="error"></span></h3>
-        <br>
-        <label for="Estado">Estado de Incidencias:</label>
-        <select id="Estado" class="form-select" onchange="selectEstado()">
-                <option select value="0">Abierta</option>
-                <option value="1">Con Notas</option>
-                <option value="2">Cerradas</option>
-        </select>
+<?php
 
-    </div>
+    session_start();
+    include('../include/db_conn.php');
+    include('../include/functions.php');
+    $id= 0;
+    $v_user= $_SESSION['username'];
+    
+    if (isset($_GET['estado']))
+    {
+        $v_estado= $_GET['estado'];
+    }
+    else
+    {
+        $v_estado= 1;
+    }
 
-</div>
-<hr />
-<!-- AJAX content -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12">					
-            <div id="loaderPF" class="text-center"><b>Loading...</b>&nbsp;&nbsp;&nbsp;<img src="img/loader.gif"></div>
-            <!-- AJAX -->
-            <div id="aContent"></div>
-            <!-- END AJAX -->
+    
+/*
+    $v_estado=$_GET['estado'];
+*/
+    // consulta principal para recuperar los datos              
+    $query = 'select inc.apellido, inc.nombre, inc.dni, inc.telefono,
+    inc.email, tip.descrip_inciden,
+    IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
+    CASE 
+        when inc.estado=0 THEN "'.'Abierta'.'"
+        when inc.estado=1 THEN "'.'Progreso'.'"
+        ELSE "'.'Cerrada'.'"
+    END estado_descrip,
+    date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
+    inc.id, inc.estado
+    from unaj.incidencias inc, unaj.usuxperfil per, unaj.tipinciden tip
+    where per.username= "'.$v_user.'"
+    and inc.estado='.$v_estado.'
+    and inc.tipo_incidencia = per.tipo_incidencia
+    and tip.tipo_incidencia= inc.tipo_incidencia';                                
+  ?>
+  		<div class="row">
+        <div class="col-sm-2 col-12">
+            <h3>Incidencias <span class="error"></span></h3>
+            <br>
+
+            <select id="Estado" class="form-select" onchange="selectEstado()">Estado
+                	<option value="0">Abierta</option>
+                	<option value="1">Con Notas</option>
+                	<option value="2">Cerradas</option>
+            </select>
+ 
         </div>
-    </div>
-</div>
-<!-- END AJAX content -->
+      </div>
+		  <hr />
+              <!-- data grid -->
+              <div>
+                    <table class="table table-bordered datatable" id="table-1">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Apellido</th>
+                            <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
+                            <th>Descripcion Incidencia</th>
+                            <th>Reporte Usuario</th>
+                            <th>Estado</th>
+                            <th>Fecha Creacion</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                          $result = mysqli_query($con, $query);
+                          //while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                          while($row = mysqli_fetch_array($result)): 
+                            $id=$id+1; 
+                            if ($row['estado']==1)
+                            {
+                                $style = "background-color:yellow";
+                            }
+                            else
+                            {
+                                $style = "";
+                            }
+                        ?>
+                              <tr style=<?=$style?> >
+                                  <td><?=$id?></td>
+                                  <td><?=$row['apellido']?></td>
+                                  <td><?=$row['nombre']?></td>
+                                  <td><?=$row['dni']?></td>
+                                  <td><?=$row['telefono']?></td>
+                                  <td><?=$row['email']?></td>
+                                  <td><?=$row['descrip_inciden']?></td>
+                                  <td><?=$row['usuario_descripcion']?></td>
+                                  <td><?=$row['estado_descrip']?></td>
+                                  <td><?=$row['fecha_creacion']?></td>
+                                  <td>
+                                    <input type="button" class="btn btn-warning" onclick="obtengoIDNotas(<?=$row['id']?>)" data-toggle="modal" data-target="#modalNotas"> Notas</button>
+                                    <div style="width: 20px; height:auto; display:inline-block;"></div>
+                                    <input type="button" class="btn btn-primary" style="background-color: #289039;" onclick="obtengoIDResolucion(<?=$row['id']?>)" data-toggle="modal" data-target="#modalResolucionIncidencia"> Resolver</button>
+                                  </td>
+                              </tr>
+                        <?php
+                          endwhile;  
+                            $id=$id;
+                        ?>
+                      </tbody>
+                    </table>
+              </div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+
     //Paginacion, busqueda, etc de dataGird:
     $(document).ready(function()
     {
-      selectEstado();
+      $("#table-1").dataTable({
+        "sPaginationType": "bootstrap",
+        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "bStateSave": true
+      });
+      
+      $(".dataTables_wrapper select").select2({
+        minimumResultsForSearch: -1
+      });
+
+      
     });
 
-    function selectEstado() 
-    { //Se usa cada vez que cambia el valor del Estado de la incidencia
+    /*
+    function iniLoad(){
         estadoIncidencia= document.getElementById("Estado").value;
-
-        $(document).ready(function(){
-				dataGridLoad();
-			});
-			function dataGridLoad(){									
-				$.ajax({
-				url : 'model/dataGrid_traerIncidencias.php?estado=' + estadoIncidencia,
-				type:'POST',					
-				beforeSend:function(objeto){
-					$("#aContent").fadeOut();
-					$("#loaderPF").fadeIn();
-				},
-				success:function(data){					
-					$("#loaderPF").fadeOut();
-					$("#aContent").html(data).fadeIn();					
-				}
-				});
-			}
+        alert("estadoIncidencia.iniLoad=" + estadoIncidencia);
     }
+    */
+    
+    function selectEstado() 
+    { //Se usa cada vez que cambia el valor del estado de la incidencia
+        estadoIncidencia= document.getElementById("Estado").value;
+        alert("estadoIncidencia.selectEstado=" + estadoIncidencia);
+
+        var parametros = {"action" : "ajax", "page" : page};
+					$("#loader").fadeIn();
+					$.ajax({
+					/*url : 'model/traerIncidencias.php?estado=' + estadoIncidencia,*/
+					url : 'model/traerIncidencias.php?estado=' + estadoIncidencia,
+					type:'POST',
+					//data : parametros,
+					beforeSend:function(objeto){
+                        alert('1');
+                        $("#ajaxContent").fadeOut();
+						$("#loader").fadeIn();
+					},
+					success:function(data){
+						alert('2');
+						$("#loader").fadeOut();
+						$("#ajaxContent").html(data).fadeIn();
+					}
+					});
+        /*iniLoad();*/
+        //$_SESSION['estado']=estadoIncidencia;
+        //sessionStorage.setItem("EstadoIncidencia", estadoIncidencia);
+    }
+
     //JS Funcionamiento de Notas y Resolver:
     ejecutarIDResolucion.style.display = 'none';
     ejecutarNota.style.display ='none';
@@ -155,27 +261,17 @@
         }
 
     function cerrarModalResolverIncidencias(){
+        console.log("cerrarModalResolverIncidencias");
         var pedro  = document.getElementById("resolverIncidencia");
-        // Elimino todos los DIV'S que estan dentros de DATOS
-        while (pedro.firstChild) {
-            pedro.removeChild(pedro.firstChild);
-        }
-        var pedro  = document.getElementById("footerResolverIncidencia");
         // Elimino todos los DIV'S que estan dentros de DATOS
         while (pedro.firstChild) {
             pedro.removeChild(pedro.firstChild);
         }
     }
 
-
     function cerrarModalNotasIncidencias(){
+        console.log("cerrarModalNotasIncidencias");
         var pedro  = document.getElementById("notasIncidencia");
-        // Elimino todos los DIV'S que estan dentros de DATOS
-        while (pedro.firstChild) {
-            pedro.removeChild(pedro.firstChild);
-        }
-
-        var pedro  = document.getElementById("footerNotasIncidencia");
         // Elimino todos los DIV'S que estan dentros de DATOS
         while (pedro.firstChild) {
             pedro.removeChild(pedro.firstChild);
@@ -193,6 +289,7 @@
     /*Esta funcion es llamada por cada click en el boton de la grilla, como parametro recibe el ID de la tabla Incidencias*/
     function obtengoIDNotas(id) {                   
         cerrarModalNotasIncidencias();
+        //console.log("cerrarModalNotasIncidencias-Ejecutado");
         document.getElementById('nota_id').value = id;  /*El id es el valor ID de la tabla Incidencias*/
                                                         /*Es un input hidden*/
         getNotaIncidencia(id);
@@ -213,7 +310,6 @@
             dataType:'json',
             success: function(respuesta) {
                 var listaUsuarios = $("#resolverIncidencia");
-                var footerResolverIncidencia = $("#footerResolverIncidencia");
                 $.each(respuesta, function(index, incidencia) {                      
                     listaUsuarios.append(
                           `<div class=\"form-group\"/>` 
@@ -240,24 +336,6 @@
                         + `     </br>`
                         + `</div>`
                     );
-/*                            +`<button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalResolverIncidencias()">Cerrar</button>`                            */
-                    if (incidencia.estado==2)
-                    {
-                        footerResolverIncidencia.append(
-                            `<div class="modal-footer"> `
-                            +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
-                            + `</div> `
-                        );
-                    }
-                    else
-                    {
-                        footerResolverIncidencia.append(
-                            `<div class="modal-footer"> `
-                            +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
-                            + `<button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return ValidaResolucion(this)">Grabar Resolucion</button> `
-                            + `</div> `
-                        );
-                    }
                 });
             },
             
@@ -282,6 +360,12 @@
     };
 
     function getNotaIncidencia(id) {
+        //console.log("valor en incidencia_id= " + $('#incidencia_id').val());
+/*
+        var parametros= {
+            "inc_id" : $('#nota_id').val()      // inc_id se llama el $_POST["inc_id"]; en el php
+        };
+*/        
         // console.log("parametros_1= " + parametros.inc_id);
         
         $.ajax({
@@ -292,7 +376,6 @@
             dataType:'json',
             success: function(respuesta) {
                 var listaUsuarios = $("#notasIncidencia");
-                footerNotasIncidencia= $("#footerNotasIncidencia");
                 $.each(respuesta, function(index, incidencia) {
                     listaUsuarios.append(
                         `<div class=\"form-group\">` 
@@ -302,23 +385,6 @@
                         + `     </br>`
                         + `</div>`
                     );
-/*+ `  <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>`*/
-                    if  (incidencia.estado==2)
-                    {
-                        footerNotasIncidencia.append(`<div class="modal-footer">`
-                        +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
-                        + `</div>`
-                        );
-                    }
-                    else
-                    {
-                        footerNotasIncidencia.append(`<div class="modal-footer">`
-                        +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
-                        + `  <button type="button" class="btn btn-primary" action="grabarNota.php" data-dismiss="modal"  onclick="return ValidaNota(this)">Grabar Nota</button>`
-                        + `</div>`
-                        )
-
-                    };
                 });
             },
             
@@ -340,63 +406,60 @@
             }
         });
     };
-</script>                    
+  </script>                    
 
-<!-- Modal RESOLUCION DE INCIDENCIA-->
-<div class="modal fade" id="modalResolucionIncidencia" role="dialog">
+
+  <!-- Modal NOTAS DE INCIDENCIA-->
+  <div class="modal fade" id="modalNotas" role="dialog">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">
+                      <!--<span aria-hidden="true">×</span>-->
+                      <span class="sr-only">Close</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">Grabar Notas</h4>
+              </div>              
+              <!-- Modal Body -->
+              <div class="modal-body">
+                  <p class="statusMsg"></p>
+                  <form role="form" id="notasIncidencia">
+                      <!--Aca va el dato de la ventana emergente-->
+                  </form>
+              </div>
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalNotasIncidencias()">Cerrar</button>
+                  <button type="button" class="btn btn-primary" action="grabarNota.php" data-dismiss="modal"  onclick="return ValidaNota(this)">Grabar Nota</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal RESOLUCION DE INCIDENCIA-->
+  <div class="modal fade" id="modalResolucionIncidencia" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            
+            <!-- Modal Header -->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
-                 <span class="sr-only">Cerrar</span>
+                    <!--<span aria-hidden="true">×</span>-->
+                    <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Resolver Incidencia</h4>
             </div>            
+            <!-- Modal Body -->
             <div class="modal-body">
                 <p class="statusMsg"></p>
                 <form role="form" id="resolverIncidencia">
-                
+                    <!--Aca va el dato de la ventana emergente-->
                 </form>
             </div>
-
-            <div class="modal-footer" id="footerResolverIncidencia">
-<!--                
+            <!-- Modal Footer -->
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalResolverIncidencias()">Cerrar</button>
                 <button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return ValidaResolucion(this)">Grabar Resolucion</button>
--->                
-            </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal NOTAS-->
-<div class="modal fade" id="modalNotas" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span class="sr-only">Cerrar</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Grabar Notas</h4>
-            </div>              
-
-            <div class="modal-body">
-                <p class="statusMsg"></p>
-                <form role="form" id="notasIncidencia">
-           
-                </form>
-            </div>
-           
-           
-            <div class="modal-footer" id="footerNotasIncidencia">
-<!--            
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalNotasIncidencias()">Cerrar</button>
-                <button type="button" class="btn btn-primary" action="grabarNota.php" data-dismiss="modal"  onclick="return ValidaNota(this)">Grabar Nota</button>
--->                
             </div>
         </div>
     </div>

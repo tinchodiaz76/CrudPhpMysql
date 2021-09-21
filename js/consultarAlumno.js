@@ -40,7 +40,7 @@ $('#login').click(function(){
         }else if(res == 'error_3'){
           /*swal('Error', 'Usuario o Password incorrecta.', 'error');*/
           document.getElementById("Error").style.display = "block";
-          document.getElementById("Error").innerHTML="<strong> Hola. Por favor verifica tu usuario y clave</strong>";
+          document.getElementById("Error").innerHTML="<strong> Tu usuario o contraseña son incorrectas.</strong>";
 
         }else{
           // Redireccionamos a la página que diga corresponda el usuario

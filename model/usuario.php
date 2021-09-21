@@ -18,7 +18,7 @@
       $clave = parent::salvar($clave);
       */
 
-      $consulta ='select username, roles from unaj.users where username="'.$user.'" and password= "'.$clave.'"';
+      $consulta ='select username,roles from unaj.users where username="'.$user.'" and password= "'.$clave.'"';
 
       $verificar_usuario = parent::verificarRegistros($consulta);
       //echo 'success: ' + $verificar_usuario;

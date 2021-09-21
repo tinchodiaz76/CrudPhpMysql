@@ -1,8 +1,8 @@
 <?php
-// page_protect();
-//session_start();
-include('../include/db_conn.php');
-include('../include/functions.php');
+	// page_protect();
+	//session_start();
+	include('../include/db_conn.php');
+	include('../include/functions.php');
 ?>
 <!-- IMPORTANTE: Para que las funcionalidades de filtro, paginador, orden, etc de la table funcionen tiene que estar contenido en un div -->
 <!-- div -->

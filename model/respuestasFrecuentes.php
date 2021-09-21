@@ -130,20 +130,16 @@ header("Content-Type: text/html;charset=utf-8");
 	</script>
 	<!-- Fin js form -->
 
-
-		<div class="row">
-			<div class="col-sm-2 col-12">
-				<h3>Respuestas Frecuentes <span class="error"></span></h3>
-			</div>
-			<div class="col-sm-10 col-12 ml-auto">
-				<a onclick="abmClear();" class="btn btn-primary btn-green a-btn-slide-text">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					<span><strong>Nueva</strong></span>            
-				</a>  
-			</div>
-		</div>
-		<hr />		
 		<form action="" class="form-horizontal form-groups-bordered">
+			<div class="row">
+				<h3 style="margin-left: 20px;">Respuestas Frecuentes <span class="error"></span>
+					<button class="btn btn-primary btn-green align-right" style="margin-left: 10px;" onclick="abmClear();">
+						<i class="glyphicon glyphicon-plus"></i> 
+						<strong>Nueva</strong>
+					</button>
+				</h3>
+			</div>
+			<hr />
 			<div class="form-group">
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
@@ -162,7 +158,7 @@ header("Content-Type: text/html;charset=utf-8");
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Descripción:</label>					
 						<div class="col-sm-5">
-							<input type="text" name="desc" id="desc" class="form-control" data-rule-minlength="4" placeholder="Ingrese descripcion de la respuesta" maxlength="30" value="<?php  ?>" required/>
+							<input type="text" name="desc" id="desc" class="form-control" data-rule-minlength="4" placeholder="Ingrese descripcion de la respuesta" maxlength="3000" value="<?php  ?>" required/>
 						</div>
 				</div>
 				<br/>
