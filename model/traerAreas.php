@@ -24,11 +24,11 @@
 			{
 				/*echo json_encode($row); */
 
-				$id_area=$row['id'];
+				$area_id=$row['id'];
 				$descrip_area=$row['descripcion'];
 				$estado= $row['estado'];
 						
-				$areas[] = array('id_area'=> $id_area, 'descrip_area'=> $descrip_area, 'estado'=> $estado);
+				$areas[] = array('area_id'=> $area_id, 'descrip_area'=> $descrip_area, 'estado'=> $estado);
 			}
 
 			if (!empty($areas)) 

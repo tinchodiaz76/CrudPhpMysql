@@ -24,26 +24,26 @@
 
 				while($row = mysqli_fetch_array($resEmp))
 				{
-					$id_area=$row['id'];
+					$area_id=$row['id'];
 				}
 			
-				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, texto_resolucion,estado
-				from unaj.tipinciden
+				$query = 'select tipo_id, area_id, id, descripcion, resolucion,estado
+				from unaj.resoluciones_incidencias
 				where tipo_id=1
-				and id_area='.$id_area.'
+				and area_id='.$area_id.'
 				and estado=0
-				order by tipo_incidencia asc';
+				order by id asc';
 			}
 			else
 			{
 				
-				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, 
-				texto_resolucion,estado
-				from unaj.tipinciden
+				$query = 'select tipo_id, area_id, id, descripcion, 
+				resolucion,estado
+				from unaj.resoluciones_incidencias
 				where tipo_id=1
-				and id_area='.$v_area.'
+				and area_id='.$v_area.'
 				and estado=0
-				order by tipo_incidencia asc';
+				order by id asc';
 			}
 
 
@@ -55,13 +55,13 @@
 				/*echo json_encode($row); */
 
 				$tipo_id=$row['tipo_id'];
-				$id_area=$row['id_area'];
-				$tipo_incidencia= $row['tipo_incidencia'];
-				$descrip_inciden= $row['descrip_inciden'];
-				$texto_resolucion= $row['texto_resolucion'];
+				$area_id=$row['area_id'];
+				$tipo_incidencia= $row['id'];
+				$descrip_inciden= $row['descripcion'];
+				$texto_resolucion= $row['resolucion'];
 				$estado= $row['estado'];
 
-				$incidenciaarea[] = array('tipo_id'=> $tipo_id, 'id_area'=> $id_area, 'tipo_incidencia'=> $tipo_incidencia,'descrip_inciden'=>$descrip_inciden, 'texto_resolucion'=> $texto_resolucion, 'estado'=> $estado);
+				$incidenciaarea[] = array('tipo_id'=> $tipo_id, 'area_id'=> $area_id, 'tipo_incidencia'=> $tipo_incidencia,'descrip_inciden'=>$descrip_inciden, 'texto_resolucion'=> $texto_resolucion, 'estado'=> $estado);
 			}
 
 			if (!empty($incidenciaarea)) 
@@ -94,7 +94,7 @@
 	
 		$foo = new IncidenciaArea();
 
-		$foo->TraerIncidenciaArea($_GET['id_area']);
+		$foo->TraerIncidenciaArea($_GET['area_id']);
    	}
 
 ?>

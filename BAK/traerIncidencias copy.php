@@ -19,7 +19,7 @@
     END estado_descrip,
     date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
     inc.id, inc.estado
-    from unaj.incidencias inc, unaj.usuxperfil per, unaj.tipinciden tip
+    from unaj.incidencias inc, unaj.usuxperfil per, unaj.resoluciones_incidencias tip
     where per.username= "'.$v_user.'"
     and inc.estado='.$v_estado.'
     and inc.tipo_incidencia = per.tipo_incidencia

@@ -28,7 +28,7 @@
                                     inc.resolucion,
                                     inc.fecha_cerrado
                                     from unaj.incidencias inc, unaj.usuxperfil per,
-                                        unaj.tipinciden tip
+                                        unaj.resoluciones_incidencias tip
                                     where 1=1";
 /*
 OJOOOOOO!!!
