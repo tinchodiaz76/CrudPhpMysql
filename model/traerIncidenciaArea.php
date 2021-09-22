@@ -13,10 +13,10 @@
 		
 			if (empty($v_area))
 			{
-				$query='select id_area from  
-										(select * from unaj.area_inciden 
+				$query='select id from  
+										(select * from unaj.area_incidente
 										 where estado=0	
-										order by id_area asc
+										order by id asc
 										) t1
 						limit 1';
 				
@@ -24,7 +24,7 @@
 
 				while($row = mysqli_fetch_array($resEmp))
 				{
-					$id_area=$row['id_area'];
+					$id_area=$row['id'];
 				}
 			
 				$query = 'select tipo_id, id_area, tipo_incidencia, descrip_inciden, texto_resolucion,estado

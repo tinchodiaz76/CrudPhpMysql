@@ -12,11 +12,11 @@
 		
 			parent::conectar();
 
-			$query = 'select id_area,descrip_area,estado
-                    from unaj.area_inciden
+			$query = 'select id,descripcion,estado
+                    from unaj.area_incidente
                     where tipo_id=1
                     and estado=0
-                    order by id_area asc';
+                    order by id asc';
 
 			$resEmp =parent::query($query);
 
@@ -24,8 +24,8 @@
 			{
 				/*echo json_encode($row); */
 
-				$id_area=$row['id_area'];
-				$descrip_area=$row['descrip_area'];
+				$id_area=$row['id'];
+				$descrip_area=$row['descripcion'];
 				$estado= $row['estado'];
 						
 				$areas[] = array('id_area'=> $id_area, 'descrip_area'=> $descrip_area, 'estado'=> $estado);
