@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+    <title>Preguntas Frecuentes-UNAJ</title>
+
+	<!--&aacute, le pone un acento en la A-->
+	<!--&eacute, le pone un acento en la E-->
+	<!--&iacute, le pone un acento en la I-->
+	<!--&oacute, le pone un acento en la O-->
+	<!--&uacute, le pone un acento en la U-->
+    <!--&ntilde, le pone la letra Ñ-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="preguntasFrecuentes.css">
+    <link rel="stylesheet" href="css/sweetalert.css">
+
+    <h4 align = center>Preguntas Frecuentesss</h4>
+</head>
+
+<body>
+        <form role="form" id="datos">
+            <!--<a> href="http:\\wwww.lyseis.com.ar\cargaIncidencia.html" </a>-->
+        </form>
+
+        <!--
+            <p>Si no encontraste respuesta a tu consulta, por favor completá los datos solicitados a continuación:  <a href="https://www.lyseis.com.ar\Mesa_de_Ayuda\cargaIncidencia.html" target=”_blank”>Formulario</a></p>
+        -->
+        <br/><br/><br/>
+        <p><b>Si no encontraste respuesta a tu consulta, por favor ingresa <a href="http://localhost/Mesa_de_Ayuda/index_1.html" target=”_blank”>Aqui</a></b></p>
+        
+        
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                $.ajax({
+                    /*data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.*/
+                    url: 'model/traerPreguntasFrecuentes.php',
+                    type:'POST',
+                    data: { "traerPreguntasFrecuentes":"1"},
+                    dataType: "json",
+                    success: function(respuesta) {
+                        var listaUsuarios= $("#datos");
+                        $("#datos").html("");
+                        var $v_append=0;
+      
+                        $.each(respuesta, function(index, incidencias) {
+
+                            listaUsuarios.append(
+                                    `<div>` +
+                                      `<button type="button" class="collapsible" onClick="TraerRepuesta(` + incidencias.tipo_id +  `,` + incidencias.id_pregunta + `)">` +incidencias.pregunta+ `</button>` +
+                                      `<div id="respuesta` + incidencias.id_pregunta + `" style= "display:none"></div>` +
+                                    `</div>`
+                              );
+                              $v_append= $v_append+1;
+                        });
+                        
+                        if ($v_append==0 ){
+                            swal('Info', 'No hay preguntas seteadas.', 'info');
+                        };
+                    },
+                    }).fail( function( jqXHR, textStatus, errorThrown ) {
+                        if (jqXHR.status === 0) {
+                            alert('Not connect: Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            alert('Requested page not found [404]');
+                        } else if (jqXHR.status == 500) {
+                            alert('Internal Server Error [500].');
+                        } else if (textStatus === 'parsererror') {
+                            alert('Requested JSON parse failed.');
+                        } else if (textStatus === 'timeout') {
+                            alert('Time out error.');
+                        } else if (textStatus === 'abort') {
+                            alert('Ajax request aborted.');
+                        } else {
+                            alert('Uncaught Error: ' + jqXHR.responseText);
+                        }
+                    });                        
+            })
+        
+          function TraerRepuesta(tipo_id, id_pregunta){
+    /*      alert(tipo_id + ' ' + id_pregunta);*/
+              if (document.getElementById("respuesta" + id_pregunta).style.display === "block") 
+              {
+                  document.getElementById("respuesta" + id_pregunta).style.display = "none";
+              } 
+              else 
+              {
+                  $.ajax({
+                            //data : parametros,*/ /*La consulta del traerIncidencias.php no necesita parametros.
+                            url: 'model/traerRespuestasFrecuentes.php?tipo_id='+ tipo_id + '&id_pregunta=' + id_pregunta,
+                            type:'POST',
+                            data: { "traerRespuestasFrecuentes":"1"},
+                            dataType: "json",
+                            success: function(respuesta) {
+                                var listaUsuarios= $("#respuesta"+ id_pregunta);
+                                $("#respuesta"+ id_pregunta).html("");
+                                var $v_append=0;
+                                
+                                $.each(respuesta, function(index, incidencias) {
+                                    listaUsuarios.append(
+                                            `<p>` + incidencias.respuesta + `</p>`
+                                      );
+                                      $v_append= $v_append+1;
+                                });
+
+                                if ($v_append==0 ){
+                                    swal('Info', 'No hay respuesta seteadas.', 'info');
+                                };
+                            },
+                            }).fail( function( jqXHR, textStatus, errorThrown ) {
+                                if (jqXHR.status === 0) {
+                                    alert('Not connect: Verify Network.');
+                                } else if (jqXHR.status == 404) {
+                                    alert('Requested page not found [404]');
+                                } else if (jqXHR.status == 500) {
+                                    alert('Internal Server Error [500].');
+                                } else if (textStatus === 'parsererror') {
+                                    alert('Requested JSON parse failed.');
+                                } else if (textStatus === 'timeout') {
+                                    alert('Time out error.');
+                                } else if (textStatus === 'abort') {
+                                    alert('Ajax request aborted.');
+                                } else {
+                                    alert('Uncaught Error: ' + jqXHR.responseText);
+                                }
+                            });                        
+                  document.getElementById("respuesta" + id_pregunta).style.display = "block";
+              }
+            }
+        </script>
+
+        <script src="js/sweetalert.min.js"></script>
+
+  </body>
+  </html>

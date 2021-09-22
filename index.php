@@ -149,7 +149,6 @@ session_start();
 				});
 
 				function iniLoad(page){
-					
 /*					
 					estadoIncidencia= document.getElementById("Estado").value;
 */					

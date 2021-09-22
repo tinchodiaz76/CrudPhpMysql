@@ -22,13 +22,24 @@
 
             $resEmp =parent::query($query);
 
-            $asunto= "Información de citepUba";
-            $header= "From: info@lyseis.com.ar" . "\r\n";
+            //$asunto= "Información de citepUba";
+            //$header= "From: info@lyseis.com.ar" . "\r\n";
+            //$email="mfdiaz76@gmail.com";
+            //$mail= @mail($email,$asunto,$resolucion,$header);
 
-            $email="mfdiaz76@gmail.com";
-
-            $mail= @mail($email,$asunto,$resolucion,$header);
-                            
+            $para = 'martin.caccia@gmail.com';
+            $asunto    = 'Resolucion de incidencia del usuario ' + $v_user;
+            $descripcion   = 'Resolucion: ' + $resolucion;
+            $de = 'From: gymeidos@gmail.com';
+            if (mail($para, $asunto, $descripcion, $de))
+            {
+                echo "Correo enviado satisfactoriamente";
+            }
+            else 
+            {
+                echo "Fallo el envio de email";
+            }
+            /*                
             if ($mail){
                 echo "<h4>El mail se envio Coqui!</h4>";
             }
@@ -36,6 +47,7 @@
             {
                 echo "<h4>Error al enviar el mail!</h4>";
             }
+            */
 			parent::cerrar();
 		}
 	}			
