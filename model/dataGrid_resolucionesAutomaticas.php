@@ -1,10 +1,20 @@
 <?php
+session_start();
 header("Content-Type: text/html;charset=utf-8");
 // page_protect();
-// session_start();
 include('../include/db_conn.php');
 include('../include/functions.php');
-$Id_area=1;
+//$area_id=1; 
+if (isset($_GET['area_id']))
+{
+  $area_id= $_GET['area_id'];
+  //echo "ID: " + $area_id;
+  //die;	
+}
+else
+{
+  $area_id= 1;
+}
 ?>
 <!-- IMPORTANTE: Para que las funcionalidades de filtro, paginador, orden, etc de la table funcionen tiene que estar contenido en un div -->
 <!-- div -->
@@ -33,14 +43,14 @@ $Id_area=1;
 			<tbody>
 
 						<?php
-							$query  = "select * from unaj.tipinciden where Id_area=".$Id_area;
+							$query  = "select * from unaj.resoluciones_incidencias where area_id=".$area_id;
 							//echo $query;
 							//die();
 							$result = mysqli_query($con, $query);
 							
 							// if (mysqli_affected_rows($con) != 0) {
 							    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-							        $msgid   = $row['Tipo_id'];
+							        $msgid   = $row['id'];
 							                							                							                
 									//$expiry = (!isset($row1['expiry']) || is_null($row1['expiry'])) ? ' ' : $row1['expiry'];
 									//$sub_type_name = (!isset($row1['sub_type_name']) || is_null($row1['sub_type_name'])) ? ' ' : $row1['sub_type_name'];									
@@ -51,11 +61,11 @@ $Id_area=1;
 									
 									echo "<tr id='" . $msgid . "'>";																														
 									echo "<td class=\"row-data\">" . $msgid . "</td>";
-									echo "<td class=\"row-data\">" . $row['Id_area'] . "</td>";
-									echo "<td class=\"row-data\">" . $row['Tipo_incidencia'] . "</td>";
-									echo "<td class=\"row-data\">" . $row['descrip_inciden'] . "</td>";
-                                    echo "<td class=\"row-data\">" . $row['texto_resolucion'] . "</td>";
-									echo "<td class=\"row-data\">" . $row['mas_informacion'] . "</td>";
+									echo "<td class=\"row-data\">" . $row['tipo_id'] . "</td>";
+									echo "<td class=\"row-data\">" . $row['area_id'] . "</td>";
+									echo "<td class=\"row-data\">" . $row['descripcion'] . "</td>";
+                                    echo "<td class=\"row-data\">" . $row['resolucion'] . "</td>";
+									echo "<td class=\"row-data\">" . $row['informacion_adicional'] . "</td>";
 									echo "<td class=\"row-data\">" . $activo . "</td>";
 																		
 									echo "<td>";                                    
@@ -76,11 +86,9 @@ $Id_area=1;
                                     }        
 									echo"</td>";
 									//echo "<td></td>"; //excel
-									echo"</tr>";
-											
+									echo"</tr>";											
 							    }		
 					?>	
-
 			</tbody>
 		</table>
 
@@ -94,9 +102,9 @@ $Id_area=1;
 					//change values in form with row data:
 					var data = document.getElementById(rowId).querySelectorAll(".row-data");                 
 					/*returns array of all elements with "row-data" class within the row with given id*/              
-					document.getElementById("Tipo_id").value = data[0].innerHTML; 
-					document.getElementById("area").value = data[1].innerHTML; 					
-					document.getElementById("Tipo_inc").value = data[2].innerHTML; 
+					document.getElementById("id_hidden").value = data[0].innerHTML; 
+					document.getElementById("tipo_id").value = data[1].innerHTML; 					
+					document.getElementById("area_id").value = data[2].innerHTML; 
 					document.getElementById("desc").value = data[3].innerHTML;
 					document.getElementById("resolucion").value = data[4].innerHTML;
 					document.getElementById("infoad").value = data[5].innerHTML;

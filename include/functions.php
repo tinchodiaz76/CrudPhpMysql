@@ -57,7 +57,7 @@ $size: Tamaño (si se le pasa tamaño se convierte en un listbox multiple)
 $class: Clase css a aplicar al select
 $output: Variable de concatenacion y retorno de la funcion
 */
-function List_render($result, $multiple, $SelectId, $size, $class, $selectedValue)
+function List_render($result, $multiple, $SelectId, $size, $class, $selectedValue, $event)
 {
 	//Links content string variable
     $output = '';
@@ -76,13 +76,16 @@ function List_render($result, $multiple, $SelectId, $size, $class, $selectedValu
 	}else {
 		$SValue="value='$selectedValue'";
 	}
+	if ($event==NULL){
+		$event="";
+	}
 	if ($multiple==1)
 	{
-		$output = "<select multiple='multiple' ".$size." id=".$SelectId." name=".$SelectId." ".$class." ".$SValue.">";
+		$output = "<select multiple='multiple' ".$size." id=".$SelectId." name=".$SelectId." ".$class." ".$SValue." ".$event.">";
 	}	
 	else
 	{
-		$output = "<select id=".$SelectId." name=".$SelectId." ".$class." ".$SValue.">";
+		$output = "<select id=".$SelectId." name=".$SelectId." ".$class." ".$SValue." ".$event.">";
 	}
 					while ($row = mysqli_fetch_row($result)) 
 					{

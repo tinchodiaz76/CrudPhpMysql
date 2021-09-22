@@ -2,7 +2,7 @@
 //$host     = "localhost"; // Host name: localhost / pcse2pp1de0738
 $host     = "127.0.0.1"; // Host name: localhost / pcse2pp1de0738
 $username = "root"; // Mysql username 
-$password = "ciclon"; //"adminGym666"; // Mysql password 
+$password = "msRMC1980"; //"adminGym666"; //msRMC1980 //Mysql password 
 $db_name  = "unaj"; // Database name
 
 /* 

@@ -18,12 +18,6 @@ if ($_SESSION['roles']==1)
 		<i class="inline-icon material-icons md-24">edit_note</i>
 		<span>ABM Respuestas Frecuentes</span></a>
 	</li>
-<?php
-	}
-?>
-
-
-
 	<li id="model/resolucionesAutomaticas.php"><a href="#">
 		<!-- i class="entypo-doc-text"></i -->
 		<i class="inline-icon material-icons md-24">edit_note</i>

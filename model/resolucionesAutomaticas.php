@@ -10,12 +10,13 @@ include('../include/functions.php');
   				//alert("Submitted");
 				var formData = {
 				"id": document.getElementById("id_hidden").value, 
-				"tipo" : document.getElementById("Tipo_id").value, 
-				"id_pregunta": document.getElementById("id_pregunta").value, 
-				"desc" : document.getElementById("desc").value,
-				"orden": document.getElementById("orden_aparicion").value,
+				"tipo_id" : document.getElementById("tipo_id").value, 
+				"area_id" : document.getElementById("area_id").value, 									
+				"desc" : document.getElementById("desc").value,			
+				"resolucion": document.getElementById("resolucion").value, 				
+				"infoad": document.getElementById("infoad").value,
 				"activo": document.getElementById("activo").value,
-				"action": document.getElementById("action_hidden").value
+				"action": document.getElementById("action_hidden").value				
 				};
 				var formAction = document.getElementById("formAction_hidden").value;
 				abm_ajax(formAction, formData);
@@ -37,7 +38,7 @@ include('../include/functions.php');
 					//alert('response.stack: '+ response.stack);
 					//alert('response.key: '+ response.key);					                
                 	//Paso la respuesta al modal: 
-					$("#modalTitle").html('UNAJ | Respuestas Frecuentes');               	
+					$("#modalTitle").html('UNAJ | Resoluciones Automaticas');               	
 					$("#modalBody").html('<b>'+response.stack+'</b>');
 					//Muestro el modal:
 					$("#myModal2").modal("show");
@@ -92,7 +93,7 @@ include('../include/functions.php');
 				//alert('response.stack: '+ response.stack);
 				//alert('response.key: '+ response.key);					                
 				//Paso la respuesta al modal: 
-				$("#modalTitle").html('UNAJ | Respuestas Frecuentes');               	
+				$("#modalTitle").html('UNAJ | Resoluciones Automaticas');               	
 				$("#modalBody").html('<b>'+response.stack+'</b>');
 				//Muestro el modal:
 				$("#myModal2").modal("show");
@@ -110,9 +111,8 @@ include('../include/functions.php');
 
 		function abmClear(){
 			document.getElementById("id_hidden").value = ''; 
-			document.getElementById("area").value = '';
-			document.getElementById("Tipo_id").value = ''; 
-			document.getElementById("Tipo_inc").value = '';		
+			document.getElementById("area_id").value = '';
+			document.getElementById("tipo_id").value = ''; 				
 			document.getElementById("desc").value = ''; 
 			document.getElementById("resolucion").value = ''; 
 			document.getElementById("infoad").value = '';			
@@ -149,14 +149,14 @@ include('../include/functions.php');
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Area:</label>					
 						<div class="col-sm-5">			
 							<?php
-								$result = mysqli_query($con, "SELECT id_area, descrip_area, estado, Tipo_id FROM unaj.area_inciden");
+								$result = mysqli_query($con, "SELECT id, descripcion FROM unaj.area_incidente");
 								
 								if (mysqli_affected_rows($con) != 0) {
 								//Llamo funcion para renderizar el select option:
-								List_render($result, "", "area", "", "form-control", "");							
+								List_render($result, "", "area_id", "", "form-control", "", "onchange='selectArea()'");							
 								}
 								else{
-									echo "<select name='area' id='area'><option value=''>Sin datos de Area</option></select>";
+									echo "<select name='area_id' id='area_id'><option value=''>Sin datos de Area</option></select>";
 								}			
 							?>
 						</div>
@@ -165,14 +165,7 @@ include('../include/functions.php');
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="Tipo_id" id="Tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $Tipo_id; ?>" required/>
-						</div>
-				</div>
-				<br/>
-				<div class="row">
-					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo Incidencia:</label>					
-						<div class="col-sm-5">
-							<input type="number" name="Tipo_inc" id="Tipo_inc" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo de incidencia" maxlength="2" value="<?php echo $Tipo_inc; ?>" required/>
+							<input type="number" name="tipo_id" id="tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $tipo_id; ?>" required/>
 						</div>
 				</div>
 				<br/>				
@@ -210,7 +203,7 @@ include('../include/functions.php');
 					<button type="submit" id="guardar" name="guardar" class="btn btn-primary btn-blue" >Guardar</button>	
 					<input type="hidden" name="action_hidden" id="action_hidden" value="insert" />
 					<input type="hidden" name="id_hidden" id="id_hidden" value="" />
-					<input type="hidden" name="formAction_hidden" id="formAction_hidden" value="model/ABM_respuestasFrecuentes.php" />
+					<input type="hidden" name="formAction_hidden" id="formAction_hidden" value="model/ABM_resolucionesAutomaticas.php" />
 				</div>
 			</div>				
 		
@@ -249,6 +242,34 @@ include('../include/functions.php');
 				}
 				});
 			}
+
+			function selectArea() 
+			{ //Se usa cada vez que cambia el valor del Area
+				var area_id= document.getElementById("area_id").value;
+				alert('area_id: ' + area_id);
+				alert('url: ' + 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id);
+				var parametros = {"action" : "ajax", "page" : page};
+				$("#loader").fadeIn();
+				$.ajax({
+				url : 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id,
+				type:'POST',
+				beforeSend:function(objeto){
+					$("#aContent").fadeOut();
+					$("#loaderPF").fadeIn();
+				},
+				success:function(data){	
+					alert('success');
+					response = JSON.parse(data);
+					alert('response:'+response);				
+					$("#loaderPF").fadeOut();
+					$("#aContent").html(data).fadeIn();					
+				},
+				error: function(error) {
+					alert('error');
+					alert('error: '+error);
+				}
+				});
+			}			
 		</script>
     
 	<!-- Ajax Modal -->
