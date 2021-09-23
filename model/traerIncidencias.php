@@ -33,25 +33,23 @@
       selectEstado();
     });
 
-    $(document).ready(function(){
-            dataGridLoad();
-        });
-        function dataGridLoad(){	
-            estadoIncidencia= document.getElementById("Estado").value;								
-            $.ajax({
-            url : 'model/dataGrid_traerIncidencias.php?estado=' + estadoIncidencia,
-            type:'POST',					
-            beforeSend:function(objeto){
-                $("#aContent").fadeOut();
-                $("#loaderPF").fadeIn();
-            },
-            success:function(data){					
-                $("#loaderPF").fadeOut();
-                $("#aContent").html(data).fadeIn();					
-            }
-            });
-        }
+    function selectEstado()
+    {
 
+                estadoIncidencia= document.getElementById("Estado").value;
+				$.ajax({
+				url : 'model/dataGrid_traerIncidencias.php?estado=' + estadoIncidencia,
+				type:'POST',					
+				beforeSend:function(objeto){
+					$("#aContent").fadeOut();
+					$("#loaderPF").fadeIn();
+				},
+				success:function(data){					
+					$("#loaderPF").fadeOut();
+					$("#aContent").html(data).fadeIn();					
+				}
+				});
+    }
     //JS Funcionamiento de Notas y Resolver:
     ejecutarIDResolucion.style.display = 'none';
     ejecutarNota.style.display ='none';
