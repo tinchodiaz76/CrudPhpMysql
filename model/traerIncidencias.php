@@ -33,14 +33,10 @@
       selectEstado();
     });
 
-    function selectEstado() 
-    { //Se usa cada vez que cambia el valor del Estado de la incidencia
-        estadoIncidencia= document.getElementById("Estado").value;
+    function selectEstado()
+    {
 
-        $(document).ready(function(){
-				dataGridLoad();
-			});
-			function dataGridLoad(){									
+                estadoIncidencia= document.getElementById("Estado").value;
 				$.ajax({
 				url : 'model/dataGrid_traerIncidencias.php?estado=' + estadoIncidencia,
 				type:'POST',					
@@ -53,7 +49,6 @@
 					$("#aContent").html(data).fadeIn();					
 				}
 				});
-			}
     }
     //JS Funcionamiento de Notas y Resolver:
     ejecutarIDResolucion.style.display = 'none';
