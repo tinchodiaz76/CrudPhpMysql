@@ -246,9 +246,8 @@
 									type:  'POST', //método de envio
 									success: function(respuesta) {
 										//swal('Info', 'La incidencia ha sido guardada ', 'info');
-										//window.alert('Tu consulta fue enviada');
-										window.alert(json.parse(respuesta));
-				/*						window.location.href= "usuario.html"*/
+										window.alert('Tu consulta fue enviada');
+										window.location.href= "usuario.html"
 									},
 									}).fail( function( jqXHR, textStatus, errorThrown ) {
 											if (jqXHR.status === 0) {
