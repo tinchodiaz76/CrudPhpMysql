@@ -48,7 +48,7 @@ $('#validarDni').click(function(){
           swal('Error', 'Hola!!! No estas registrado en el SIU, volve a las Preguntas Frecuentas y alli te indicamos como proceder.', 'error');
           */
           document.getElementById("Error").style.display = "block";
-          document.getElementById("Error").innerHTML="<strong> Hola. No figura tu usuario en nuestros sistemas. Por favor ingresa </strong><a href=" + "https://guarani.unaj.edu.ar/" +" target=_blank>SIU</a>";
+          document.getElementById("Error").innerHTML="<strong> Hola. No figura tu usuario en nuestros sistemas. Por favor ingresa </strong><a href=" + "https://docs.google.com/forms/d/e/1FAIpQLSckwANd6BOTCAfLAGMvjOHa2b-f58ceYG1G34eZ1IXThRC1qA/viewform" +" target=_blank>Aqui</a>";
 
           //volve a las Preguntas Frecuentas y alli te indicamos como proceder.";
         }else{

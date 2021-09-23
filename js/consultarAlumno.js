@@ -40,8 +40,7 @@ $('#login').click(function(){
         }else if(res == 'error_3'){
           /*swal('Error', 'Usuario o Password incorrecta.', 'error');*/
           document.getElementById("Error").style.display = "block";
-          document.getElementById("Error").innerHTML="<strong> Tu usuario o contraseña son incorrectas.</strong>";
-
+          document.getElementById("Error").innerHTML="<strong> Tu usuario o contraseña son incorrectas. Para recuperar tu contraseña, ingresa aqui </strong><a href=" + "https://guarani.unaj.edu.ar/acceso/recuperar" +" target=_blank>Aqui</a>"
         }else{
           // Redireccionamos a la página que diga corresponda el usuario
           window.location.href= "cargaIncidencia.html";          

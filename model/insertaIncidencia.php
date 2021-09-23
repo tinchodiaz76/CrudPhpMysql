@@ -11,7 +11,6 @@
                                         $apellido,
                                         $nombre,
                                         $dni,
-                                        $telefono,
                                         $selectarea,
                                         $selectincidenciaarea,
                                         $validationTextarea,
@@ -28,11 +27,11 @@
 
             $query ='insert into unaj.incidencias (tipo_id,email,
             apellido,nombre,dni,
-            telefono,propuesta_codigo, elemento_codigo, id_area,tipo_incidencia, 
+            propuesta_codigo, elemento_codigo, id_area,tipo_incidencia, 
             descrip_incidencia,estado,fecha_creacion) 
             values (1,"'.$email.'",
             upper("'.$apellido.'"),upper("'.$nombre.'"),"'.$dni.'",
-            "'.$telefono.'","'.$selectcarrera.'","'.$selectmaterias.'",'.$selectarea.','.$selectincidenciaarea.',
+            "'.$selectcarrera.'","'.$selectmaterias.'",'.$selectarea.','.$selectincidenciaarea.',
             "'.$validationTextarea.'",0,curdate())';
     
             echo $query;
@@ -45,7 +44,7 @@
     
     
     if (isset($_POST['email']) && isset($_POST['apellido']) && isset($_POST['nombre']) &&
-            isset($_POST['dni']) && isset($_POST['telefono']) && isset($_POST['selectarea']) &&
+            isset($_POST['dni']) && isset($_POST['selectarea']) &&
             isset($_POST['selectincidenciaarea']) && isset($_POST['validationTextarea']) &&
             isset($_POST['selectcarrera']) && isset($_POST['selectmaterias'])
         )
@@ -57,7 +56,6 @@
         $_POST['apellido'],
         $_POST['nombre'],
         $_POST['dni'],
-        $_POST['telefono'],
         $_POST['selectarea'],
         $_POST['selectincidenciaarea'],
         $_POST['validationTextarea'],

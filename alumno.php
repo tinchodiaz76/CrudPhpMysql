@@ -56,7 +56,11 @@
                   <label class="sr-only" for="user">Usuario</label>
                   <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="usuario"  placeholder="Ingresa tu usuario">
+                  <input type="text" class="form-control" id="usuario"  placeholder="Ingresa tu usuario" 
+                    value=<?php
+                            echo $_SESSION['nro_documento'];
+                          ?>
+                  >
                   </div>
 
                   <!-- Div espaciador -->

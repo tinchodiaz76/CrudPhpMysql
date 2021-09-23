@@ -51,6 +51,7 @@
                   //$_SESSION['apellido_nombres']     = $value->apellido_nombres;
                   $_SESSION['nombres']     = $value->nombres;
                   $_SESSION['apellido']     = $value->apellido;
+                  $_SESSION['nro_documento']     = $value->nro_documento;
                   //$_SESSION['usuario_alumno']     = $value->usuario;
                   //$_SESSION['persona']     = $value->persona;
               }

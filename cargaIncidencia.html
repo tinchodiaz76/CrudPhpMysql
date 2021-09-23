@@ -67,17 +67,13 @@
 		</div>
 	
 		<br>
-		<div class="col-md-3">
+		<div class="col-md-1">
 			<div class="row">
 				<div class="col">
 					<label for="dni">DNI</label>
-					<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" minlength="7" maxlength="12" required>
+					<input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" required disabled>
 				</div>
 
-				<div class="col">
-					<label for="telefono">Tel&eacutefono</label>
-					<input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su Telefono" minlength="8" maxlength="15" required>
-				</div>
 			</div>
 		</div>
 
@@ -118,7 +114,7 @@
 		<br>
 		<button type="button" class="btn btn-primary" href="javascript:;" onclick="InsertaIncidencia($('#email').val(),
 				$('#apellido').val(),$('#nombre').val(),
-				$('#dni').val(),$('#telefono').val(),
+				$('#dni').val(),
 				$('#selectarea').val(),$('#selectincidenciaarea').val(),
 				$('#validationTextarea').val(),
 				$('#selectcarrera').val(),
@@ -150,6 +146,7 @@
 //							window.alert("datosUsuarios.nombres=" +datosUsuarios.nombres);
 							document.getElementById("apellido").value= datosUsuarios.apellido;
 							document.getElementById("nombre").value= datosUsuarios.nombres;
+							document.getElementById("dni").value= datosUsuarios.dni;
 						});
 					},
 					}).fail( function( jqXHR, textStatus, errorThrown ) {
@@ -223,7 +220,7 @@
 					});                        
 			}
 
-		function InsertaIncidencia(email,apellido,nombre,dni,telefono,selectarea,
+		function InsertaIncidencia(email,apellido,nombre,dni,selectarea,
 								  selectincidenciaarea,validationTextarea,selectcarrera,selectmaterias)
 		{
 				if (Valida()==true) 
@@ -233,7 +230,6 @@
 							"apellido" : apellido,
 							"nombre" : nombre,
 							"dni" : dni,
-							"telefono" : telefono,
 							"selectarea" : selectarea,
 							"selectincidenciaarea" : selectincidenciaarea,
 							"validationTextarea" : validationTextarea,
@@ -516,21 +512,6 @@
 					}
 				}
 				
-
-				var campo = $('#telefono').val();
-				const ttelef = document.getElementById("telefono");	
-
-				if( isNaN(ttelef.value))
-				{
-					// Si no se cumple la condicion...
-					ttelef.style.borderColor = 'salmon'; 
-					swal('Error', 'El campo Telefono debe tener solo numeros.', 'error');
-					return false;
-				}
-				else
-				{
-					ttelef.style.borderColor = ''; 
-				}
 
 				const temail = document.getElementById("email");
 				const temail_v = document.getElementById("email_v");

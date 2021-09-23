@@ -16,7 +16,7 @@
       $v_estado= 1;
     }
 
-    $query = 'select inc.apellido, inc.nombre, inc.dni, inc.telefono,
+    $query = 'select inc.apellido, inc.nombre, inc.dni,
         inc.email, tip.descripcion,
         IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
         CASE 
@@ -25,6 +25,7 @@
             ELSE "'.'Cerrada'.'"
         END estado_descrip,
         date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
+        date_format(inc.fecha_cerrado, "'.'%d/%m/%Y'.'") fecha_cerrado,
         inc.id, inc.estado
         from unaj.incidencias inc, unaj.usuxperfil per, unaj.resoluciones_incidencias tip
         where per.username= "'.$v_user.'"
@@ -41,12 +42,12 @@
             <th>Apellido</th>
             <th>Nombre</th>
             <th>DNI</th>
-            <th>Telefono</th>
             <th>Email</th>
             <th>Descripcion Incidencia</th>
             <th>Reporte Usuario</th>
             <th>Estado</th>
             <th>Fecha Creacion</th>
+            <th>Fecha Cierre</th>
             <th></th>
           </tr>
         </thead>
@@ -73,12 +74,12 @@
                   <td><?=$row['apellido']?></td>
                   <td><?=$row['nombre']?></td>
                   <td><?=$row['dni']?></td>
-                  <td><?=$row['telefono']?></td>
                   <td><?=$row['email']?></td>
                   <td><?=$row['descripcion']?></td>
                   <td><?=$row['usuario_descripcion']?></td>
                   <td><?=$row['estado_descrip']?></td>
                   <td><?=$row['fecha_creacion']?></td>
+                  <td><?=$row['fecha_cerrado']?></td>
         <?php
                   if ($row['estado']==2)
                   {
