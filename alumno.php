@@ -15,7 +15,8 @@
     
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Font Awesome: para los iconos -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- link rel="stylesheet" href="css/font-awesome.min.css" -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <!-- Sweet Alert: alertas JavaScript presentables para el usuario (más bonitas que el alert) -->
     <link rel="stylesheet" href="css/sweetalert.css">
     <!-- Estilos personalizados: archivo personalizado 100% real no feik -->
@@ -54,7 +55,7 @@
                   <!-- Caja de texto para usuario -->
                   <label class="sr-only" for="user">Usuario</label>
                   <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                  <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
                   <input type="text" class="form-control" id="usuario"  placeholder="Ingresa tu usuario">
                   </div>
 
@@ -64,7 +65,7 @@
                   <!-- Caja de texto para la clave-->
                   <label class="sr-only" for="clave">Contraseña</label>
                   <div class="input-group">
-                      <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                      <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
                       <input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Ingresa tu password">
                   </div>
                   

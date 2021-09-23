@@ -4,12 +4,10 @@ header("Content-Type: text/html;charset=utf-8");
 // page_protect();
 include('../include/db_conn.php');
 include('../include/functions.php');
-//$area_id=1; 
+
 if (isset($_GET['area_id']))
 {
-  $area_id= $_GET['area_id'];
-  //echo "ID: " + $area_id;
-  //die;	
+  $area_id= $_GET['area_id'];	
 }
 else
 {
@@ -61,8 +59,8 @@ else
 									
 									echo "<tr id='" . $msgid . "'>";																														
 									echo "<td class=\"row-data\">" . $msgid . "</td>";
-									echo "<td class=\"row-data\">" . $row['tipo_id'] . "</td>";
 									echo "<td class=\"row-data\">" . $row['area_id'] . "</td>";
+									echo "<td class=\"row-data\">" . $row['tipo_id'] . "</td>";									
 									echo "<td class=\"row-data\">" . $row['descripcion'] . "</td>";
                                     echo "<td class=\"row-data\">" . $row['resolucion'] . "</td>";
 									echo "<td class=\"row-data\">" . $row['informacion_adicional'] . "</td>";

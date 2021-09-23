@@ -153,7 +153,7 @@ include('../include/functions.php');
 								
 								if (mysqli_affected_rows($con) != 0) {
 								//Llamo funcion para renderizar el select option:
-								List_render($result, "", "area_id", "", "form-control", "", "onchange='selectArea()'");							
+								List_render($result, "", "area_id", "", "form-control", "", "onchange='dataGridLoad()'");							
 								}
 								else{
 									echo "<select name='area_id' id='area_id'><option value=''>Sin datos de Area</option></select>";
@@ -228,9 +228,11 @@ include('../include/functions.php');
 			$(document).ready(function(){
 				dataGridLoad();
 			});
-			function dataGridLoad(){									
+			function dataGridLoad(){
+				var area_id= document.getElementById("area_id").value;									
 				$.ajax({
-				url : 'model/dataGrid_resolucionesAutomaticas.php',
+				//url : 'model/dataGrid_resolucionesAutomaticas.php',
+				url : 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id,
 				type:'POST',					
 				beforeSend:function(objeto){
 					$("#aContent").fadeOut();
@@ -242,13 +244,12 @@ include('../include/functions.php');
 				}
 				});
 			}
-
+/*
 			function selectArea() 
 			{ //Se usa cada vez que cambia el valor del Area
 				var area_id= document.getElementById("area_id").value;
-				alert('area_id: ' + area_id);
-				alert('url: ' + 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id);
-				var parametros = {"action" : "ajax", "page" : page};
+				//alert('area_id: ' + area_id);
+				//alert('url: ' + 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id);				
 				$("#loader").fadeIn();
 				$.ajax({
 				url : 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id,
@@ -257,19 +258,13 @@ include('../include/functions.php');
 					$("#aContent").fadeOut();
 					$("#loaderPF").fadeIn();
 				},
-				success:function(data){	
-					alert('success');
-					response = JSON.parse(data);
-					alert('response:'+response);				
+				success:function(data){					
 					$("#loaderPF").fadeOut();
 					$("#aContent").html(data).fadeIn();					
-				},
-				error: function(error) {
-					alert('error');
-					alert('error: '+error);
 				}
 				});
-			}			
+			}	
+*/					
 		</script>
     
 	<!-- Ajax Modal -->

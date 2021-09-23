@@ -3,7 +3,7 @@
         <h3>Incidencias <span class="error"></span></h3>
         <br>
         <label for="Estado">Estado de Incidencias:</label>
-        <select id="Estado" class="form-select" onchange="selectEstado()">
+        <select id="Estado" class="form-select" onchange="dataGridLoad()">
                 <option select value="0">Abierta</option>
                 <option value="1">Con Notas</option>
                 <option value="2">Cerradas</option>
@@ -33,28 +33,25 @@
       selectEstado();
     });
 
-    function selectEstado() 
-    { //Se usa cada vez que cambia el valor del Estado de la incidencia
-        estadoIncidencia= document.getElementById("Estado").value;
+    $(document).ready(function(){
+            dataGridLoad();
+        });
+        function dataGridLoad(){	
+            estadoIncidencia= document.getElementById("Estado").value;								
+            $.ajax({
+            url : 'model/dataGrid_traerIncidencias.php?estado=' + estadoIncidencia,
+            type:'POST',					
+            beforeSend:function(objeto){
+                $("#aContent").fadeOut();
+                $("#loaderPF").fadeIn();
+            },
+            success:function(data){					
+                $("#loaderPF").fadeOut();
+                $("#aContent").html(data).fadeIn();					
+            }
+            });
+        }
 
-        $(document).ready(function(){
-				dataGridLoad();
-			});
-			function dataGridLoad(){									
-				$.ajax({
-				url : 'model/dataGrid_traerIncidencias.php?estado=' + estadoIncidencia,
-				type:'POST',					
-				beforeSend:function(objeto){
-					$("#aContent").fadeOut();
-					$("#loaderPF").fadeIn();
-				},
-				success:function(data){					
-					$("#loaderPF").fadeOut();
-					$("#aContent").html(data).fadeIn();					
-				}
-				});
-			}
-    }
     //JS Funcionamiento de Notas y Resolver:
     ejecutarIDResolucion.style.display = 'none';
     ejecutarNota.style.display ='none';
