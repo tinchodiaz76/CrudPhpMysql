@@ -246,8 +246,9 @@
 									type:  'POST', //método de envio
 									success: function(respuesta) {
 										//swal('Info', 'La incidencia ha sido guardada ', 'info');
-										window.alert('Tu consulta fue enviada');
-										window.location.href= "usuario.html"
+										//window.alert('Tu consulta fue enviada');
+										window.alert(json.parse(respuesta));
+				/*						window.location.href= "usuario.html"*/
 									},
 									}).fail( function( jqXHR, textStatus, errorThrown ) {
 											if (jqXHR.status === 0) {
@@ -286,7 +287,7 @@
 						$.each(respuesta, function(index, areas) {
 
 							listaUsuarios.append(
-										`<option value="` + areas.id_area + `">` + areas.descrip_area + `</option>`
+										`<option value="` + areas.area_id + `">` + areas.descrip_area + `</option>`
 							);
 
 							$v_append= $v_append+1;
@@ -319,12 +320,12 @@
 
 
 			/*Carga el Incidentes de acuerdo al Area*/
-		function BuscarIncidente(id_area)
+		function BuscarIncidente(area_id)
 			{
 			/*$(document).ready(function(){*/
 				$.ajax({
-					url: 'model/traerIncidenciaArea.php?id_area=' + selectarea.value,
-					//url: 'model/traerIncidenciaArea.php?id_area=' + id_area.value,
+					url: 'model/traerIncidenciaArea.php?area_id=' + selectarea.value,
+					//url: 'model/traerIncidenciaArea.php?area_id=' + area_id.value,
 					type:'POST',
 					data: { "traerIncidenciaArea":"1"},
 					dataType: "json",

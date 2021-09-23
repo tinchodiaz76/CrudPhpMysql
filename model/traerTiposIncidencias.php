@@ -12,17 +12,17 @@
         {	
             parent::conectar();
 
-            $query =  'select Tipo_incidencia, Descrip_inciden, Texto_resolucion
-            from unaj.tipinciden';
+            $query =  'select id, descripcion, resolucion
+            from unaj.resoluciones_incidencias';
 
             $resEmp =parent::query($query);
 
             while($row = mysqli_fetch_array($resEmp))
             {
                 //echo json_encode($row); 
-                $Tipo_Incidencia=$row['Tipo_incidencia'];
-                $Descrip_Inciden=$row['Descrip_inciden'];
-                $Texto_Resolucion=$row['Texto_resolucion'];
+                $Tipo_Incidencia=$row['id'];
+                $Descrip_Inciden=$row['descripcion'];
+                $Texto_Resolucion=$row['resolucion'];
 
                 $incidencia[] = array('Tipo_Incidencia'=> $Tipo_Incidencia,
                  'Descrip_Inciden'=> $Descrip_Inciden, 

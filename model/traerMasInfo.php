@@ -13,15 +13,15 @@
 
 			if (!empty($Tipo_incidencia))
 			{
-				$query='select mas_informacion
-						from unaj.tipinciden 
-						where tipo_incidencia='.$Tipo_incidencia;
+				$query='select informacion_adicional
+						from unaj.resoluciones_incidencias 
+						where id='.$Tipo_incidencia;
 				
 				$resEmp =parent::query($query);
 
 				while($row = mysqli_fetch_array($resEmp))
 				{
-					$mas_informacion=$row['mas_informacion'];
+					$mas_informacion=$row['informacion_adicional'];
 					$incidenciamasInfo[] = array('mas_informacion'=> $mas_informacion);
 				}
 			

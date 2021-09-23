@@ -12,15 +12,15 @@
         {	
             parent::conectar();
 
-            $query =  'select inc.id, inc.tipo_incidencia,tip.descrip_inciden,
+            $query =  'select inc.id, inc.tipo_incidencia,tip.descripcion,
             IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
             concat(inc.nombre,"'.' '.'", inc.apellido) usuario,
-            IFNULL(inc.resolucion,replace(IFNULL(tip.texto_resolucion,"'.' '.'"),"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido))) texto_resolucion,
+            IFNULL(inc.resolucion,replace(IFNULL(tip.resolucion,"'.' '.'"),"'.'XXX'.'",concat(inc.nombre,"'.' '.'", inc.apellido))) texto_resolucion,
             inc.email, inc.estado
-            from unaj.incidencias inc, unaj.tipinciden tip
+            from unaj.incidencias inc, unaj.resoluciones_incidencias tip
             where inc.id= '.$inc_id.'
-            and tip.Id_area= inc.id_area
-            and tip.Tipo_incidencia=inc.tipo_incidencia';
+            and tip.area_id= inc.id_area
+            and tip.id=inc.tipo_incidencia';
 
             $resEmp =parent::query($query);
 
@@ -28,7 +28,7 @@
             {
                 $id=$row['id'];
                 $tipo_incidencia=$row['tipo_incidencia'];
-                $descrip_inciden=$row['descrip_inciden'];
+                $descrip_inciden=$row['descripcion'];
                 $usuario_descripcion=$row['usuario_descripcion'];
                 $usuario=$row['usuario'];
                 $texto_resolucion=$row['texto_resolucion'];

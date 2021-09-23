@@ -21,7 +21,7 @@
 */
     // consulta principal para recuperar los datos              
     $query = 'select inc.apellido, inc.nombre, inc.dni, inc.telefono,
-    inc.email, tip.descrip_inciden,
+    inc.email, tip.descripcion,
     IFNULL(inc.descrip_incidencia,"'.'-'.'") usuario_descripcion,
     CASE 
         when inc.estado=0 THEN "'.'Abierta'.'"
@@ -30,11 +30,11 @@
     END estado_descrip,
     date_format(inc.fecha_creacion, "'.'%d/%m/%Y'.'") fecha_creacion,
     inc.id, inc.estado
-    from unaj.incidencias inc, unaj.usuxperfil per, unaj.tipinciden tip
+    from unaj.s inc, unaj.usuxperfil per, unaj.resoluciones_incidencias tip
     where per.username= "'.$v_user.'"
     and inc.estado='.$v_estado.'
     and inc.tipo_incidencia = per.tipo_incidencia
-    and tip.tipo_incidencia= inc.tipo_incidencia';                                
+    and tip.id= inc.tipo_incidencia';                                
   ?>
   		<div class="row">
         <div class="col-sm-2 col-12">
@@ -90,7 +90,7 @@
                                   <td><?=$row['dni']?></td>
                                   <td><?=$row['telefono']?></td>
                                   <td><?=$row['email']?></td>
-                                  <td><?=$row['descrip_inciden']?></td>
+                                  <td><?=$row['descripcion']?></td>
                                   <td><?=$row['usuario_descripcion']?></td>
                                   <td><?=$row['estado_descrip']?></td>
                                   <td><?=$row['fecha_creacion']?></td>

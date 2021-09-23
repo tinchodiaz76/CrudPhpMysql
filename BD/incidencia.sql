@@ -8,7 +8,7 @@ create table unaj.incidencias (
 	propuesta_codigo varchar(10),
 	elemento_codigo  varchar(100),
 	telefono varchar(14),
-	Id_area int(1),
+	id_area int(1),
 	tipo_incidencia int(1) not null,
 	descrip_incidencia varchar(3000),
 	estado int(1) not null,					//0 Abierta //1 Nota //2 Cerrada

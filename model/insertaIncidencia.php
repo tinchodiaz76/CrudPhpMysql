@@ -28,7 +28,7 @@
 
             $query ='insert into unaj.incidencias (tipo_id,email,
             apellido,nombre,dni,
-            telefono,propuesta_codigo, elemento_codigo, Id_area,tipo_incidencia, 
+            telefono,propuesta_codigo, elemento_codigo, id_area,tipo_incidencia, 
             descrip_incidencia,estado,fecha_creacion) 
             values (1,"'.$email.'",
             upper("'.$apellido.'"),upper("'.$nombre.'"),"'.$dni.'",
