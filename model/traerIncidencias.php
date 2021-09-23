@@ -3,7 +3,7 @@
         <h3>Incidencias <span class="error"></span></h3>
         <br>
         <label for="Estado">Estado de Incidencias:</label>
-        <select id="Estado" class="form-select" onchange="dataGridLoad()">
+        <select id="Estado" class="form-select" onchange="selectEstado()">
                 <option select value="0">Abierta</option>
                 <option value="1">Con Notas</option>
                 <option value="2">Cerradas</option>
