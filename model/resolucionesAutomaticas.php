@@ -1,5 +1,7 @@
 ﻿<?php
 header("Content-Type: text/html;charset=utf-8");
+include '../include/db_conn.php';
+include('../include/functions.php');
 ?>
 	<script>
 		$(document).ready(function(){			
@@ -8,12 +10,13 @@ header("Content-Type: text/html;charset=utf-8");
   				//alert("Submitted");
 				var formData = {
 				"id": document.getElementById("id_hidden").value, 
-				"tipo" : document.getElementById("Tipo_id").value, 
-				"id_pregunta": document.getElementById("id_pregunta").value, 
-				"desc" : document.getElementById("desc").value,
-				"orden": document.getElementById("orden_aparicion").value,
+				"tipo_id" : document.getElementById("tipo_id").value, 
+				"area_id" : document.getElementById("area_id").value, 									
+				"desc" : document.getElementById("desc").value,			
+				"resolucion": document.getElementById("resolucion").value, 				
+				"infoad": document.getElementById("infoad").value,
 				"activo": document.getElementById("activo").value,
-				"action": document.getElementById("action_hidden").value
+				"action": document.getElementById("action_hidden").value				
 				};
 				var formAction = document.getElementById("formAction_hidden").value;
 				abm_ajax(formAction, formData);
@@ -35,7 +38,7 @@ header("Content-Type: text/html;charset=utf-8");
 					//alert('response.stack: '+ response.stack);
 					//alert('response.key: '+ response.key);					                
                 	//Paso la respuesta al modal: 
-					$("#modalTitle").html('UNAJ | Respuestas Frecuentes');               	
+					$("#modalTitle").html('UNAJ | Resoluciones Automaticas');               	
 					$("#modalBody").html('<b>'+response.stack+'</b>');
 					//Muestro el modal:
 					$("#myModal2").modal("show");
@@ -90,7 +93,7 @@ header("Content-Type: text/html;charset=utf-8");
 				//alert('response.stack: '+ response.stack);
 				//alert('response.key: '+ response.key);					                
 				//Paso la respuesta al modal: 
-				$("#modalTitle").html('UNAJ | Respuestas Frecuentes');               	
+				$("#modalTitle").html('UNAJ | Resoluciones Automaticas');               	
 				$("#modalBody").html('<b>'+response.stack+'</b>');
 				//Muestro el modal:
 				$("#myModal2").modal("show");
@@ -108,10 +111,11 @@ header("Content-Type: text/html;charset=utf-8");
 
 		function abmClear(){
 			document.getElementById("id_hidden").value = ''; 
-			document.getElementById("Tipo_id").value = ''; 
-			document.getElementById("id_pregunta").value = ''; 			
+			document.getElementById("area_id").value = '';
+			document.getElementById("tipo_id").value = ''; 				
 			document.getElementById("desc").value = ''; 
-			document.getElementById("orden_aparicion").value = ''; 
+			document.getElementById("resolucion").value = ''; 
+			document.getElementById("infoad").value = '';			
 			document.getElementById("activo").value = ''; 
 			document.getElementById("action_hidden").value = 'insert'; 
 			document.getElementById("guardar").innerHTML = 'Guardar';
@@ -139,19 +143,29 @@ header("Content-Type: text/html;charset=utf-8");
 					</button>
 				</h3>
 			</div>
-			<hr />				
+			<hr />							
 			<div class="form-group">
+			<div class="row">
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Area:</label>					
+						<div class="col-sm-5">			
+							<?php
+								$result = mysqli_query($con, "SELECT id, descripcion FROM unaj.area_incidente");
+								
+								if (mysqli_affected_rows($con) != 0) {
+								//Llamo funcion para renderizar el select option:
+								List_render($result, "", "area_id", "", "form-control", "", "onchange='dataGridLoad()'");							
+								}
+								else{
+									echo "<select name='area_id' id='area_id'><option value=''>Sin datos de Area</option></select>";
+								}			
+							?>
+						</div>
+				</div>
+				<br/><br/>				
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="tipo" id="Tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $Tipo_id; ?>" required/>
-						</div>
-				</div>
-				<br/>
-				<div class="row">
-					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Pregunta_ID:</label>					
-						<div class="col-sm-5">
-							<input type="number" name="id_pregunta" id="id_pregunta" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $Tipo_id; ?>" required/>
+							<input type="number" name="tipo_id" id="tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $tipo_id; ?>" required/>
 						</div>
 				</div>
 				<br/>				
@@ -163,12 +177,19 @@ header("Content-Type: text/html;charset=utf-8");
 				</div>
 				<br/>
 				<div class="row">
-					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Orden:</label>					
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Resolución:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="orden" id="orden_aparicion" class="form-control" data-rule-minlength="1" placeholder="Ingrese el orden de aparicion" maxlength="2" value="<?php  ?>" required/>
+							<input type="text" name="resolucion" id="resolucion" class="form-control" data-rule-minlength="4" placeholder="Ingrese la resolución" maxlength="30" value="<?php  ?>" required/>
 						</div>
 				</div>
 				<br/>
+				<div class="row">
+					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Información adicional:</label>					
+						<div class="col-sm-5">
+							<input type="text" name="infoad" id="infoad" class="form-control" data-rule-minlength="4" placeholder="Ingrese información adicional" maxlength="30" value="<?php ?>" required/>
+						</div>
+				</div>
+				<br/>				
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error"></span> Activo:</label>					
 						<div class="col-sm-5">
@@ -182,7 +203,7 @@ header("Content-Type: text/html;charset=utf-8");
 					<button type="submit" id="guardar" name="guardar" class="btn btn-primary btn-blue" >Guardar</button>	
 					<input type="hidden" name="action_hidden" id="action_hidden" value="insert" />
 					<input type="hidden" name="id_hidden" id="id_hidden" value="" />
-					<input type="hidden" name="formAction_hidden" id="formAction_hidden" value="model/ABM_respuestasFrecuentes.php" />
+					<input type="hidden" name="formAction_hidden" id="formAction_hidden" value="model/ABM_resolucionesAutomaticas.php" />
 				</div>
 			</div>				
 		
@@ -207,9 +228,11 @@ header("Content-Type: text/html;charset=utf-8");
 			$(document).ready(function(){
 				dataGridLoad();
 			});
-			function dataGridLoad(){									
+			function dataGridLoad(){
+				var area_id= document.getElementById("area_id").value;									
 				$.ajax({
-				url : 'model/dataGrid_respuestasFrecuentes.php',
+				//url : 'model/dataGrid_resolucionesAutomaticas.php',
+				url : 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id,
 				type:'POST',					
 				beforeSend:function(objeto){
 					$("#aContent").fadeOut();
@@ -221,6 +244,27 @@ header("Content-Type: text/html;charset=utf-8");
 				}
 				});
 			}
+/*
+			function selectArea() 
+			{ //Se usa cada vez que cambia el valor del Area
+				var area_id= document.getElementById("area_id").value;
+				//alert('area_id: ' + area_id);
+				//alert('url: ' + 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id);				
+				$("#loader").fadeIn();
+				$.ajax({
+				url : 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id,
+				type:'POST',
+				beforeSend:function(objeto){
+					$("#aContent").fadeOut();
+					$("#loaderPF").fadeIn();
+				},
+				success:function(data){					
+					$("#loaderPF").fadeOut();
+					$("#aContent").html(data).fadeIn();					
+				}
+				});
+			}	
+*/					
 		</script>
     
 	<!-- Ajax Modal -->

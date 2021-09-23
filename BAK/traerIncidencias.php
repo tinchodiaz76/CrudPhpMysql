@@ -136,7 +136,7 @@
     function selectEstado() 
     { //Se usa cada vez que cambia el valor del estado de la incidencia
         estadoIncidencia= document.getElementById("Estado").value;
-        alert("estadoIncidencia.selectEstado=" + estadoIncidencia);
+        //alert("estadoIncidencia.selectEstado=" + estadoIncidencia);
 
         var parametros = {"action" : "ajax", "page" : page};
 					$("#loader").fadeIn();
