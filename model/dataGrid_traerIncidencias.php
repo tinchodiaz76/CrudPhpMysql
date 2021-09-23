@@ -37,19 +37,44 @@
 <div>
     <table class="table table-bordered datatable" id="table-1">
         <thead>
-          <tr>
-            <th>#</th>
-            <th>Apellido</th>
-            <th>Nombre</th>
-            <th>DNI</th>
-            <th>Email</th>
-            <th>Descripcion Incidencia</th>
-            <th>Reporte Usuario</th>
-            <th>Estado</th>
-            <th>Fecha Creacion</th>
-            <th>Fecha Cierre</th>
-            <th></th>
-          </tr>
+          <?php
+           if ($v_estado==2) 
+            {
+              
+          ?>
+              <tr>
+                <th>#</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Descripcion Incidencia</th>
+                <th>Reporte Usuario</th>
+                <th>Estado</th>
+                <th>Fecha Creacion</th>
+                <th>Fecha Cierre</th>    
+                <th></th>
+              </tr>
+          <?php
+            }                        
+          else
+            {
+          ?>
+              <tr>
+              <th>#</th>
+              <th>Apellido</th>
+              <th>Nombre</th>
+              <th>DNI</th>
+              <th>Email</th>
+              <th>Descripcion Incidencia</th>
+              <th>Reporte Usuario</th>
+              <th>Estado</th>
+              <th>Fecha Creacion</th>
+              <th></th>
+            </tr>
+          <?php
+            }
+          ?>
         </thead>
         <tbody>
         <?php 
@@ -79,11 +104,11 @@
                   <td><?=$row['usuario_descripcion']?></td>
                   <td><?=$row['estado_descrip']?></td>
                   <td><?=$row['fecha_creacion']?></td>
-                  <td><?=$row['fecha_cerrado']?></td>
         <?php
                   if ($row['estado']==2)
                   {
         ?>                    
+                  <td><?=$row['fecha_cerrado']?></td>
                   <td>
                     <input type="button" class="btn btn-warning" onclick="obtengoIDNotas(<?=$row['id']?>)" data-toggle="modal" data-target="#modalNotas"> Nota</button>
                     <div style="width: 20px; height:auto; display:inline-block;"></div>
