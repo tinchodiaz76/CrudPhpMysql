@@ -36,7 +36,7 @@ switch($action)
 		break;	
 	case 'edit':		
 		$accion_desc = "Se actualizó la respuesta frecuente $id con exito.";	
-		$Query_upd= "UPDATE unaj.respuestas_frecuentes SET respuesta = '".$desc."' WHERE id_respuesta =".$id;
+		$Query_upd= "UPDATE unaj.respuestas_frecuentes SET orden_aparicion=".$orden. ", respuesta = '".$desc."' WHERE id_respuesta =".$id;
 		if (mysqli_query($con, $Query_upd)) {
 			mysqli_close($con);		
 			$arr = array(

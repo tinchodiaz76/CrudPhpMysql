@@ -24,7 +24,7 @@ $con = mysqli_connect($host, $username, $password, $db_name);
 
 //echo "Connect to MySQL: " . mysqli_connect_error();
 //exit("Connect to MySQL: " . mysqli_connect_error());
-
+$con->set_charset("utf8");
 // Check connection
 //if (mysqli_connect_errno($con)) {
 if (!$con) {

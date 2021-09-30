@@ -23,7 +23,7 @@
             $this->mysqli = new mysqli($this->server, $this->usuario, $this->clave, $this->db);
             */
             $this->mysqli = new mysqli($this->server, $this->usuario, $this->clave, $this->db);
-			
+            $this->mysqli->set_charset("utf8");
 			 //echo $this->mysqli->host_info . "\n";
 			
 			/* comprobar si el servidor sigue vivo */
