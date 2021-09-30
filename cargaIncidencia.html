@@ -28,14 +28,12 @@
 		Complet&aacute los datos solicitados en este formulario y recibir&aacutes nuestro asesoramiento en las próximas 24 hs.
 	</h6>
 	</hgroup>
-<!--
-	<form id="miForm" action="./model/insertaIncidencia.php" method="post" onsubmit="return Valida(this)">
--->
+
 	<form id="miForm">
 		<div class= "col-md-6">   
 			<div class="row">
 				<div class="col">
-					<label for="email">Direcci&oacuten de correo electr&oacutenico</label>
+					<label for="email">Dirección de correo electrónico</label>
 					<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
 				</div>
 			</div>
@@ -45,7 +43,7 @@
 		<div class= "col-md-6">
 			<div class="row">
 				<div class="col">
-					<label for="email_v">Vuelva a ingresar el correo electr&oacutenico</label>
+					<label for="email_v">Vuelva a ingresar el correo electrónico</label>
 					<input type="email" class="form-control" name="email_v" id="email_v" placeholder="name@example.com" onkeypress="return validoCaracterMail(event)" onpaste="return false" required>
 				</div>
 				</div>
@@ -112,13 +110,8 @@
 		</div>
 
 		<br>
-		<button type="button" class="btn btn-primary" href="javascript:;" onclick="InsertaIncidencia($('#email').val(),
-				$('#apellido').val(),$('#nombre').val(),
-				$('#dni').val(),
-				$('#selectarea').val(),$('#selectincidenciaarea').val(),
-				$('#validationTextarea').val(),
-				$('#selectcarrera').val(),
-				$('#selectmaterias').val())">Enviar</button>
+
+		<button class="btn btn-primary">Enviar</button>
 	</form>
 
 	<script src="js/sweetalert.min.js"></script>
@@ -131,6 +124,18 @@
 				BuscarCarreras();
 				BuscarMaterias();
 			})
+
+	document.getElementById('miForm').addEventListener('submit',function(e){
+		e.preventDefault();
+		InsertaIncidencia($('#email').val(),
+				$('#apellido').val(),$('#nombre').val(),
+				$('#dni').val(),
+				$('#selectarea').val(),$('#selectincidenciaarea').val(),
+				$('#validationTextarea').val(),
+				$('#selectcarrera').val(),
+				$('#selectmaterias').val())
+	// Aquí tu Ajax
+});
 
 		function TraeDatosAlumonos()
 		{	
