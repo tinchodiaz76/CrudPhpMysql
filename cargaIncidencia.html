@@ -127,13 +127,23 @@
 
 	document.getElementById('miForm').addEventListener('submit',function(e){
 		e.preventDefault();
+		/*
+		window.alert('carrera=' + $('#selectcarrera').val());
+		window.alert('carrera.text=' + selectcarrera.options[selectcarrera.selectedIndex].text);
+		window.alert('materia=' + $('#selectmaterias').val());
+		window.alert('materia.text=' + selectmaterias.options[selectmaterias.selectedIndex].text);
+		*/
+
 		InsertaIncidencia($('#email').val(),
 				$('#apellido').val(),$('#nombre').val(),
 				$('#dni').val(),
 				$('#selectarea').val(),$('#selectincidenciaarea').val(),
 				$('#validationTextarea').val(),
 				$('#selectcarrera').val(),
-				$('#selectmaterias').val())
+				selectcarrera.options[selectcarrera.selectedIndex].text,
+				$('#selectmaterias').val(),
+				selectmaterias.options[selectmaterias.selectedIndex].text,
+				)
 	// Aquí tu Ajax
 });
 
@@ -226,7 +236,11 @@
 			}
 
 		function InsertaIncidencia(email,apellido,nombre,dni,selectarea,
-								  selectincidenciaarea,validationTextarea,selectcarrera,selectmaterias)
+								  selectincidenciaarea,validationTextarea,selectcarrera,
+								  selectcarreraText,
+								  selectmaterias,
+								  selectmateriasText
+								  )
 		{
 				if (Valida()==true) 
 				{
@@ -239,14 +253,15 @@
 							"selectincidenciaarea" : selectincidenciaarea,
 							"validationTextarea" : validationTextarea,
 							"selectcarrera" : selectcarrera,
-        					"selectmaterias": selectmaterias
+							"selectcarreraText" : selectcarreraText,
+        					"selectmaterias": selectmaterias,
+							"selectmateriasText" : selectmateriasText
 											};
 							$.ajax({
 									data:  parametros, //datos que se envian a traves de ajax
 									url:   'model/insertaIncidencia.php', //archivo que recibe la peticion
 									type:  'POST', //método de envio
 									success: function(respuesta) {
-										//swal('Info', 'La incidencia ha sido guardada ', 'info');
 										window.alert('Tu consulta fue enviada');
 										window.location.href= "usuario.html"
 									},

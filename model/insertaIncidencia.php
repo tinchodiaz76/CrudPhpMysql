@@ -15,7 +15,9 @@
                                         $selectincidenciaarea,
                                         $validationTextarea,
                                         $selectcarrera,
-                                        $selectmaterias
+                                        $selectcarreraText,
+                                        $selectmaterias,
+                                        $selectmateriasText
                                         )
 
         {
@@ -27,11 +29,14 @@
 
             $query ='insert into unaj.incidencias (tipo_id,email,
             apellido,nombre,dni,
-            propuesta_codigo, elemento_codigo, id_area,tipo_incidencia, 
+            propuesta_codigo, propuesta_descripcion, elemento_codigo, elemento_descripcion,
+            id_area,tipo_incidencia, 
             descrip_incidencia,estado,fecha_creacion) 
             values (1,"'.$email.'",
             upper("'.$apellido.'"),upper("'.$nombre.'"),"'.$dni.'",
-            "'.$selectcarrera.'","'.$selectmaterias.'",'.$selectarea.','.$selectincidenciaarea.',
+            "'.$selectcarrera.'","'.$selectcarreraText.'",
+            "'.$selectmaterias.'","'.$selectmateriasText.'",
+            '.$selectarea.','.$selectincidenciaarea.',
             "'.$validationTextarea.'",0,curdate())';
     
             echo $query;
@@ -46,7 +51,10 @@
     if (isset($_POST['email']) && isset($_POST['apellido']) && isset($_POST['nombre']) &&
             isset($_POST['dni']) && isset($_POST['selectarea']) &&
             isset($_POST['selectincidenciaarea']) && isset($_POST['validationTextarea']) &&
-            isset($_POST['selectcarrera']) && isset($_POST['selectmaterias'])
+            isset($_POST['selectcarrera']) &&
+            isset($_POST['selectcarreraText']) &&
+            isset($_POST['selectmaterias']) &&
+            isset($_POST['selectmateriasText'])
         )
     {
 
@@ -60,7 +68,9 @@
         $_POST['selectincidenciaarea'],
         $_POST['validationTextarea'],
         $_POST['selectcarrera'],
-        $_POST['selectmaterias']);
+        $_POST['selectcarreraText'],
+        $_POST['selectmaterias'],
+        $_POST['selectmateriasText']);
 
     }
 
