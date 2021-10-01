@@ -32,8 +32,7 @@
         and inc.estado='.$v_estado.'
         and inc.tipo_incidencia = per.tipo_incidencia
         and tip.id= inc.tipo_incidencia
-        order by inc.id
-        LIMIT 1, 5';
+        order by inc.id';
 ?>
 
 <div>

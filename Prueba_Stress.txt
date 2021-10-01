@@ -1,0 +1,47 @@
+DROP PROCEDURE IF EXISTS unaj.load_foo_test_data;
+
+DELIMITER $$
+
+create procedure unaj.load_foo_test_data()
+begin
+
+declare v_max int unsigned default 5000;
+declare v_counter int unsigned default 0;
+
+  start transaction;
+  while v_counter < v_max do
+    INSERT INTO unaj.incidencias
+		(Tipo_id,
+		email,
+		apellido,
+		nombre,
+		dni,
+		propuesta_codigo,
+		propuesta_descripcion,
+		elemento_codigo,
+		elemento_descripcion,
+		Id_area,
+		tipo_incidencia,
+		estado,
+		fecha_creacion
+		)
+		VALUES
+		(1,
+		'mnfdiaz76@gmail.com',
+		'DIAZ',
+		'Martin', 
+		25250566,
+		'LEN',
+		'Licenciatura en Enfermería',
+		'OS021',
+		'Introducción a las Neurociencias',
+		1,
+		1,
+		0,
+        curdate()
+		);
+    set v_counter=v_counter+1;
+  end while;
+  commit;
+end$$
+
