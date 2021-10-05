@@ -45,3 +45,7 @@ declare v_counter int unsigned default 0;
   commit;
 end$$
 
+;
+
+
+CALL unaj.load_foo_test_data();
