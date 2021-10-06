@@ -13,7 +13,9 @@
 			<thead>
 				<tr>
 					<th>ID</th>
+					<!--05/10/2021
 					<th>Tipo</th>
+					05/10/2021-->
 					<th>Descripción</th>
                     <th>Orden</th>
 					<th>Activo</th>
@@ -29,7 +31,10 @@
 			<tbody>
 
 						<?php
+/*05/10/2021
 							$query  = "select * from unaj.preguntas_frecuentes";
+05/10/2021*/							
+							$query  = "select id_pregunta, pregunta,orden_aparicion, activo from unaj.preguntas_frecuentes";
 							//echo $query;
 							//die();
 							$result = mysqli_query($con, $query);
@@ -47,7 +52,9 @@
 									
 									echo "<tr id='" . $msgid . "'>";																														
 									echo "<td>" . $msgid . "</td>";
+/*05/10/2021
 									echo "<td class=\"row-data\">" . $row['Tipo_id'] . "</td>";
+05/10/2021*/									
 									echo "<td class=\"row-data\">" . $row['pregunta'] . "</td>";
                                     echo "<td class=\"row-data\">" . $row['orden_aparicion'] . "</td>";
 									echo "<td class=\"row-data\">" . $activo . "</td>";
@@ -88,10 +95,12 @@
 				//change values in form with row data:
 				var data = document.getElementById(rowId).querySelectorAll(".row-data");                 
 			/*returns array of all elements with "row-data" class within the row with given id*/              
-				document.getElementById("Tipo_id").value = data[0].innerHTML; 
-				document.getElementById("desc").value = data[1].innerHTML;
-				document.getElementById("orden_aparicion").value = data[2].innerHTML;
-				var activo = ((data[3].innerHTML == 'SI') ? 1 : 0);
+				/*05/10/2021
+				document.getElementById("Tipo_id").value = data[0].innerHTML;
+				05/10/2021*/
+				document.getElementById("desc").value = data[0].innerHTML;
+				document.getElementById("orden_aparicion").value = data[1].innerHTML;
+				var activo = ((data[2].innerHTML == 'SI') ? 1 : 0);
 				document.getElementById("activo").value = activo;
 				/*              
 				var name = data[0].innerHTML;

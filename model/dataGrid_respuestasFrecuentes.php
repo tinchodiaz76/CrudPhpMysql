@@ -14,7 +14,9 @@ include('../include/functions.php');
 			<thead>
 				<tr>
 					<th>ID</th>
+<!--05/10/2021					
 					<th>Tipo</th>
+05/10/2021-->					
 					<th>Pregunta_ID</th>
 					<th>Descripción</th>
                     <th>Orden</th>
@@ -31,7 +33,11 @@ include('../include/functions.php');
 			<tbody>
 
 						<?php
+/*05/10/2021						
 							$query  = "select * from unaj.respuestas_frecuentes";
+05/10/2021*/							
+							$query= "select id_pregunta,id_respuesta,respuesta,link,orden_aparicion,activo from unaj.respuestas_frecuentes";
+
 							//echo $query;
 							//die();
 							$result = mysqli_query($con, $query);
@@ -49,7 +55,9 @@ include('../include/functions.php');
 									
 									echo "<tr id='" . $msgid . "'>";																														
 									echo "<td>" . $msgid . "</td>";
+/*05/10/2021									
 									echo "<td class=\"row-data\">" . $row['tipo_id'] . "</td>";
+05/10/2021*/									
 									echo "<td class=\"row-data\">" . $row['id_pregunta'] . "</td>";
 									echo "<td class=\"row-data\">" . $row['respuesta'] . "</td>";
                                     echo "<td class=\"row-data\">" . $row['orden_aparicion'] . "</td>";
@@ -91,11 +99,13 @@ include('../include/functions.php');
 					//change values in form with row data:
 					var data = document.getElementById(rowId).querySelectorAll(".row-data");                 
 				/*returns array of all elements with "row-data" class within the row with given id*/              
+/*05/10/2021				
 					document.getElementById("Tipo_id").value = data[0].innerHTML; 
-					document.getElementById("id_pregunta").value = data[1].innerHTML; 
-					document.getElementById("desc").value = data[2].innerHTML;
-					document.getElementById("orden_aparicion").value = data[3].innerHTML;
-					var activo = ((data[4].innerHTML == 'SI') ? 1 : 0);
+05/10/2021*/					
+					document.getElementById("id_pregunta").value = data[0].innerHTML; 
+					document.getElementById("desc").value = data[1].innerHTML;
+					document.getElementById("orden_aparicion").value = data[2].innerHTML;
+					var activo = ((data[3].innerHTML == 'SI') ? 1 : 0);
 					document.getElementById("activo").value = activo;
 					/*              
 					var name = data[0].innerHTML;

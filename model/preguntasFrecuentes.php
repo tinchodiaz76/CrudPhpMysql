@@ -14,7 +14,9 @@
   				//alert("Submitted");
 				var formData = {
 				"id": document.getElementById("id_hidden").value, 
-				"tipo" : document.getElementById("Tipo_id").value, 
+/*05/10/2021				
+				"tipo" : 1, /*document.getElementById("Tipo_id").value, 
+05/10/2021*/
 				"desc" : document.getElementById("desc").value,
 				"orden": document.getElementById("orden_aparicion").value,
 				"activo": document.getElementById("activo").value,
@@ -112,7 +114,9 @@
 
 		function abmClear(){
 			document.getElementById("id_hidden").value = ''; 
+/*05/10/2021
 			document.getElementById("Tipo_id").value = ''; 
+05/10/2021*/
 			document.getElementById("desc").value = ''; 
 			document.getElementById("orden_aparicion").value = ''; 
 			document.getElementById("activo").value = ''; 
@@ -144,6 +148,7 @@
 			</div>
 			<hr />
 			<div class="form-group">
+<!--05/10/2021
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
 						<div class="col-sm-5">
@@ -151,6 +156,7 @@
 						</div>
 				</div>
 				<br/>
+/*05/10/2021-->
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Descripción:</label>					
 						<div class="col-sm-5">

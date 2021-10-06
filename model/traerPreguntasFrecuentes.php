@@ -11,8 +11,10 @@
     	{	
 		
 			parent::conectar();
-			
+			/*05/10/2021
 			$query =  'select tipo_id, id_pregunta, pregunta
+			05/10/2021*/
+			$query =  'select id_pregunta, pregunta
 							from unaj.preguntas_frecuentes
 							where tipo_id=1
 							order by orden_aparicion asc';
@@ -23,12 +25,15 @@
 			while($row = mysqli_fetch_array($resEmp))
 			{
 				//echo $row['pregunta'];
-
+				/*05/10/2021
 				$tipo_id= $row['tipo_id'];
+				05/10/2021*/
 				$id_pregunta=$row['id_pregunta'];
 				$pregunta=$row['pregunta'];
-		
+/*05/10/2021
 				$incidencias[] = array('tipo_id'=> $tipo_id, 'id_pregunta'=>$id_pregunta,
+05/10/2021*/				
+				$incidencias[] = array('id_pregunta'=>$id_pregunta,
 				'pregunta'=> $pregunta
 						);
 			}

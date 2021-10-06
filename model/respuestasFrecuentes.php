@@ -8,7 +8,9 @@ header("Content-Type: text/html;charset=utf-8");
   				//alert("Submitted");
 				var formData = {
 				"id": document.getElementById("id_hidden").value, 
+/*05/10/2021				
 				"tipo" : document.getElementById("Tipo_id").value, 
+*/				
 				"id_pregunta": document.getElementById("id_pregunta").value, 
 				"desc" : document.getElementById("desc").value,
 				"orden": document.getElementById("orden_aparicion").value,
@@ -107,8 +109,10 @@ header("Content-Type: text/html;charset=utf-8");
 		}
 
 		function abmClear(){
-			document.getElementById("id_hidden").value = ''; 
+			document.getElementById("id_hidden").value = '';
+/*05/10/2021			
 			document.getElementById("Tipo_id").value = ''; 
+05/10/2021*/			
 			document.getElementById("id_pregunta").value = ''; 			
 			document.getElementById("desc").value = ''; 
 			document.getElementById("orden_aparicion").value = ''; 
@@ -141,6 +145,7 @@ header("Content-Type: text/html;charset=utf-8");
 			</div>
 			<hr />
 			<div class="form-group">
+<!--
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
 						<div class="col-sm-5">
@@ -148,6 +153,7 @@ header("Content-Type: text/html;charset=utf-8");
 						</div>
 				</div>
 				<br/>
+-->				
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Pregunta_ID:</label>					
 						<div class="col-sm-5">

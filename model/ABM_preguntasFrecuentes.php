@@ -4,7 +4,10 @@ include('../include/functions.php');
 include('../include/db_conn.php');
 //Obtener valores del formulario.
 $id = $_POST['id']; 
+/*05/10/2021
 $tipo = $_POST['tipo'];
+05/10/2021*/
+$tipo = 1; 
 $desc = $_POST['desc'];
 $orden = $_POST['orden'];
 $activo = $_POST['activo'];
@@ -51,7 +54,7 @@ switch($action)
 		break;	
 	case 'edit':		
 		$accion_desc = "Se actualizó la pregunta frecuente $id con exito.";	
-		$Query_upd= "UPDATE unaj.preguntas_frecuentes SET orden_aparicion= ".$orden. ", pregunta = '".$desc."' WHERE id_pregunta =".$id;
+		$Query_upd= "UPDATE unaj.preguntas_frecuentes SET orden_aparicion= ".$orden. ", activo=".$activo. ", pregunta = '".$desc."' WHERE id_pregunta =".$id;
 		if (mysqli_query($con, $Query_upd)) {
 			mysqli_close($con);		
 			$arr = array(
