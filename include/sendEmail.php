@@ -23,7 +23,7 @@ function sendEmail($addAddress, $addCC, $subject, $bodyContent)
     $mail->Host     = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'gymeidos@gmail.com';
-    $mail->Password = '*****';
+    $mail->Password = 'GEidos12345';
     $mail->SMTPSecure = 'tls'; //PHPMailer::ENCRYPTION_SMTPS; //'tls';
     $mail->Port     = 587; //465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 

@@ -163,14 +163,14 @@ include('../include/functions.php');
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Descripción:</label>					
 						<div class="col-sm-5">
-							<input type="text" name="desc" id="desc" class="form-control" data-rule-minlength="4" placeholder="Ingrese descripcion de la respuesta" maxlength="30" value="<?php  ?>" required/>
+							<input type="text" name="desc" id="desc" class="form-control" data-rule-minlength="4" placeholder="Ingrese descripcion de la respuesta" maxlength="3000" value="<?php  ?>" required/>
 						</div>
 				</div>
 				<br/>
 				<div class="row">
-					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Resolución:</label>					
+					<label for="field-1" class="col-sm-3 control-label"><span class="error"></span> Resolución:</label>					
 						<div class="col-sm-5">
-							<input type="text" name="resolucion" id="resolucion" class="form-control" data-rule-minlength="4" placeholder="Ingrese la resolución" maxlength="30" value="<?php  ?>" required/>
+							<input type="text" name="resolucion" id="resolucion" class="form-control" data-rule-minlength="4" placeholder="Ingrese la resolución" maxlength="3000" value="<?php  ?>" />
 						</div>
 				</div>
 				<br/>

@@ -8,7 +8,7 @@
         # Atributos de la clase conexion
         //private $mysqli = '';
         private $usuario = 'root';
-        private $clave = 'msRMC1980'; //'msRMC1980'; //'adminGym666'; //ciclon
+        private $clave = 'ciclon'; //'msRMC1980'; //'adminGym666'; //ciclon
         //private $server = 'localhost';
         private $server = "127.0.0.1";
         private $db = 'unaj'; //ywayqssx_MA
