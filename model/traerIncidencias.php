@@ -84,7 +84,7 @@
         };
         
         $.ajax({
-            url: 'model/resolverIncidencia.php?resolucion='+  $('#inputResolucion').val() + '&id=' + $('#incidencia_id').val(),
+            url: 'model/resolverIncidencia.php?resolucion='+  $('#inputResolucion').val() + '&id=' + $('#incidencia_id').val() + '&email=' + $('#email').val() + '&nombre=' + $('#inputTipo').val(),
             type:'POST',
             data: { "resolverIncidencias":"1"},
             success: function(respuesta) {

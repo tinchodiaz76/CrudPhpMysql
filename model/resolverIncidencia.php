@@ -1,61 +1,28 @@
 ﻿<?php
+header("Content-Type: text/html;charset=utf-8");
+session_start();
+include('../include/functions.php');
+include('../include/db_conn.php');
 
-    session_start();
+//Obtener valores del formulario.
+$v_user= $_SESSION['username'];
+$resolucion = $_GET['resolucion'];
+$id = $_GET['id'];
+$email = $_GET['email'];
+$nombreApellido = $_GET['nombre'];
 
-    # Incluimos la clase usuario
-    require_once('conexion.php');
+$Query_upd= "UPDATE unaj.incidencias SET estado=2, username='".$v_user. "', fecha_cerrado= curdate(), resolucion = '".$resolucion."' WHERE id =".$id;
 
-    class ResolverIncidencias extends Conexion
-    {
-        public function resolverIncidencia($resolucion,$id)
-        {	
-            parent::conectar();
-
-            $v_user= $_SESSION['username'];
-
-            $query ='update unaj.incidencias 
-            set estado=2,
-            username= "'.$v_user.'",
-            fecha_cerrado= curdate(),
-            resolucion= "'.$resolucion.'"
-            where id= '.$id;
-
-            $resEmp =parent::query($query);
-
-            //$asunto= "Información de citepUba";
-            //$header= "From: info@lyseis.com.ar" . "\r\n";
-            //$email="mfdiaz76@gmail.com";
-            //$mail= @mail($email,$asunto,$resolucion,$header);
-
-            $para = 'martin.caccia@gmail.com';
-            $asunto    = 'Resolucion de incidencia del usuario ' + $v_user;
-            $descripcion   = 'Resolucion: ' + $resolucion;
-            $de = 'From: gymeidos@gmail.com';
-            if (mail($para, $asunto, $descripcion, $de))
-            {
-                echo "Correo enviado satisfactoriamente";
-            }
-            else 
-            {
-                echo "Fallo el envio de email";
-            }
-            /*                
-            if ($mail){
-                echo "<h4>El mail se envio Coqui!</h4>";
-            }
-            else 
-            {
-                echo "<h4>Error al enviar el mail!</h4>";
-            }
-            */
-			parent::cerrar();
-		}
-	}			
-
-    if (isset($_POST['resolverIncidencias']))
-	{
-		$foo = new ResolverIncidencias();
-
-		$foo->resolverIncidencia($_GET['resolucion'],$_GET['id']);
-   	}
+if (mysqli_query($con, $Query_upd)) {
+    require('../include/sendEmail.php');
+    //Seteos para envio de email:
+    $addAddress = $email; 
+    $addCC = 'mfdiaz76@gmail.com';
+    $subject    = 'Resolución de incidencia para el usuario ' . $nombreApellido;
+    $bodyContent   = 'Resolución: ' . $resolucion;
+    sendEmail($addAddress, $addCC, $subject, $bodyContent);	
+}else{
+    //'Se produjo un error, vuelva a intentarlo nuevamente.',
+}	
+mysqli_close($con);	
 ?>
