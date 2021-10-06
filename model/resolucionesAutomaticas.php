@@ -10,7 +10,7 @@ include('../include/functions.php');
   				//alert("Submitted");
 				var formData = {
 				"id": document.getElementById("id_hidden").value, 
-				"tipo_id" : document.getElementById("tipo_id").value, 
+				//"tipo_id" : document.getElementById("tipo_id").value, 
 				"area_id" : document.getElementById("area_id").value, 									
 				"desc" : document.getElementById("desc").value,			
 				"resolucion": document.getElementById("resolucion").value, 				
@@ -31,12 +31,8 @@ include('../include/functions.php');
 				method:"POST",  
 				data : formData, 
 				success:function(response)
-				{	
-					//alert('success');
-					response = JSON.parse(response);
-					//alert('response:'+response);
-					//alert('response.stack: '+ response.stack);
-					//alert('response.key: '+ response.key);					                
+				{						
+					response = JSON.parse(response);					                
                 	//Paso la respuesta al modal: 
 					$("#modalTitle").html('UNAJ | Resoluciones Automaticas');               	
 					$("#modalBody").html('<b>'+response.stack+'</b>');
@@ -62,11 +58,11 @@ include('../include/functions.php');
 			//alert('modal_ok');
 			var formData = {
 			"id": document.getElementById("id_hidden").value, 
-			"tipo" : '', 
-			"id_pregunta": '',
-			"desc" : '',
-			"orden": '',
-			"activo": '',
+			"area_id" : document.getElementById("area_id").value, 									
+			"desc" : '',			
+			"resolucion": '', 				
+			"infoad": '',
+			"activo": '',		
 			"action": document.getElementById("action_hidden").value
 			};
 			var formAction = document.getElementById("formAction_hidden").value;
@@ -74,7 +70,7 @@ include('../include/functions.php');
 			//cierro modal:
 			$('#actdel').modal('hide');
 			//blanqueo inicializo form:
-			abmClear();
+			//abmClear();
 		}
 
 		function abm_ajax2(formAction, formData)
@@ -86,16 +82,12 @@ include('../include/functions.php');
 			method:"POST",  
 			data : formData, 
 			success:function(response)
-			{	
-				//alert('success');
-				response = JSON.parse(response);
-				//alert('response:'+response);
-				//alert('response.stack: '+ response.stack);
-				//alert('response.key: '+ response.key);					                
+			{					
+				response = JSON.parse(response);					                
 				//Paso la respuesta al modal: 
-				$("#modalTitle").html('UNAJ | Resoluciones Automaticas');               	
+				$("#modalTitle").html('UNAJ | Resoluciones Automaticas');  				
 				$("#modalBody").html('<b>'+response.stack+'</b>');
-				//Muestro el modal:
+				//Muestro el modal:				
 				$("#myModal2").modal("show");
 				//limpio form:
 				abmClear();
@@ -111,8 +103,8 @@ include('../include/functions.php');
 
 		function abmClear(){
 			document.getElementById("id_hidden").value = ''; 
-			document.getElementById("area_id").value = '';
-			document.getElementById("tipo_id").value = ''; 				
+			//document.getElementById("area_id").value = '';
+			//document.getElementById("tipo_id").value = ''; 				
 			document.getElementById("desc").value = ''; 
 			document.getElementById("resolucion").value = ''; 
 			document.getElementById("infoad").value = '';			
@@ -153,22 +145,21 @@ include('../include/functions.php');
 								
 								if (mysqli_affected_rows($con) != 0) {
 								//Llamo funcion para renderizar el select option:
-								List_render($result, "", "area_id", "", "form-control", "", "onchange='dataGridLoad()'");							
+								List_render($result, "", "area_id", "", "form-control", "1", "onchange='dataGridLoad()'");							
 								}
 								else{
-									echo "<select name='area_id' id='area_id'><option value=''>Sin datos de Area</option></select>";
+									//echo "<select name='area_id' id='area_id'><option value=''>Sin datos de Area</option></select>";
 								}			
 							?>
 						</div>
 				</div>
 				<br/><br/>				
-				<div class="row">
+				<!--div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Tipo:</label>					
 						<div class="col-sm-5">
 							<input type="number" name="tipo_id" id="tipo_id" class="form-control" data-rule-minlength="1" placeholder="Ingrese el tipo" maxlength="2" value="<?php echo $tipo_id; ?>" required/>
 						</div>
-				</div>
-				<br/>				
+				</div-->				
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error">*</span> Descripción:</label>					
 						<div class="col-sm-5">
@@ -193,7 +184,7 @@ include('../include/functions.php');
 				<div class="row">
 					<label for="field-1" class="col-sm-3 control-label"><span class="error"></span> Activo:</label>					
 						<div class="col-sm-5">
-							<input type="number" name="activo" id="activo" class="form-control" data-rule-minlength="1" placeholder="Ingrese status, 1=Activo / 0=Inactivo" maxlength="1" value="<?php echo $Activo; ?>" />
+							<input type="number" name="activo" id="activo" class="form-control" data-rule-minlength="1" placeholder="Ingrese status, 0=Activo / 1=Inactivo" maxlength="1" value="<?php echo $Activo; ?>" />
 						</div>
 				</div>							
 			</div>
@@ -229,9 +220,13 @@ include('../include/functions.php');
 				dataGridLoad();
 			});
 			function dataGridLoad(){
-				var area_id= document.getElementById("area_id").value;									
-				$.ajax({
-				//url : 'model/dataGrid_resolucionesAutomaticas.php',
+				var area_id= document.getElementById("area_id").value;				
+				document.getElementById("id_hidden").value = ''; 			
+				document.getElementById("desc").value = ''; 
+				document.getElementById("resolucion").value = ''; 
+				document.getElementById("infoad").value = '';			
+				document.getElementById("activo").value = ''; 									
+				$.ajax({				
 				url : 'model/dataGrid_resolucionesAutomaticas.php?area_id=' + area_id,
 				type:'POST',					
 				beforeSend:function(objeto){

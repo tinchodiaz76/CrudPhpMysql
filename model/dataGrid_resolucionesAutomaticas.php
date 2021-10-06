@@ -24,7 +24,7 @@ else
 				<tr>
 					<th>ID</th>
 					<th>Area_id</th>
-					<th>Tipo incidencia</th>
+					<!-- th>Tipo incidencia</th -->
 					<th>Descripción</th>
                     <th>Resolución</th>
                     <th>Información adicional</th>					
@@ -50,20 +50,16 @@ else
 							    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 							        $msgid   = $row['id'];
 							                							                							                
-									//$expiry = (!isset($row1['expiry']) || is_null($row1['expiry'])) ? ' ' : $row1['expiry'];
-									//$sub_type_name = (!isset($row1['sub_type_name']) || is_null($row1['sub_type_name'])) ? ' ' : $row1['sub_type_name'];									
-									//La fecha de expiracion habria que calcularla en realidad con la fecha de ultimo pago del socio.
-									//$expiry = date('Y-m-d', strtotime("+1 months", strtotime($row['cdate'])));
-									$activo = ($row['estado'] == 1) ? 'SI' : 'NO';
-									//$img = imgPic($row['UserPicProfile'], "", "", "");
+									$activo = ($row['estado'] == 0) ? 'SI' : 'NO';	
+									$infoAdic = ($row['informacion_adicional'] == 1) ? 'SI' : 'NO';					
 									
 									echo "<tr id='" . $msgid . "'>";																														
 									echo "<td class=\"row-data\">" . $msgid . "</td>";
 									echo "<td class=\"row-data\">" . $row['area_id'] . "</td>";
-									echo "<td class=\"row-data\">" . $row['tipo_id'] . "</td>";									
+									//echo "<td class=\"row-data\">" . $row['tipo_id'] . "</td>";									
 									echo "<td class=\"row-data\">" . $row['descripcion'] . "</td>";
                                     echo "<td class=\"row-data\">" . $row['resolucion'] . "</td>";
-									echo "<td class=\"row-data\">" . $row['informacion_adicional'] . "</td>";
+									echo "<td class=\"row-data\">" . $infoAdic . "</td>";
 									echo "<td class=\"row-data\">" . $activo . "</td>";
 																		
 									echo "<td>";                                    
@@ -71,7 +67,7 @@ else
 									echo"		<span class='glyphicon glyphicon-edit' aria-hidden='true'></span>";
 									echo"		<span><strong>Edit</strong></span>";            
 									echo"	</a>";
-									if ($row['estado'] == 1){											
+									if ($row['estado'] == 0){											
                                         echo"	<a onclick=\"abm2(" . $msgid . ",'delete');\" class='btn btn-primary btn-red a-btn-slide-text'>";
                                         echo"		<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>";
                                         echo"		<span><strong>Delete</strong></span>";            
@@ -101,19 +97,14 @@ else
 					var data = document.getElementById(rowId).querySelectorAll(".row-data");                 
 					/*returns array of all elements with "row-data" class within the row with given id*/              
 					document.getElementById("id_hidden").value = data[0].innerHTML; 
-					document.getElementById("tipo_id").value = data[1].innerHTML; 					
-					document.getElementById("area_id").value = data[2].innerHTML; 
-					document.getElementById("desc").value = data[3].innerHTML;
-					document.getElementById("resolucion").value = data[4].innerHTML;
-					document.getElementById("infoad").value = data[5].innerHTML;
-					var activo = ((data[6].innerHTML == 'SI') ? 1 : 0);
-					document.getElementById("activo").value = activo;
-					/*              
-					var name = data[0].innerHTML;
-					var age = data[1].innerHTML;
-					alert("Name: " + name + "\nAge: " + age);
-					*/
-					//change input hiddens values:                
+					//document.getElementById("tipo_id").value = data[1].innerHTML; 					
+					document.getElementById("area_id").value = data[1].innerHTML; 
+					document.getElementById("desc").value = data[2].innerHTML;
+					document.getElementById("resolucion").value = data[3].innerHTML;
+					var infoAd = ((data[4].innerHTML == 'SI') ? 1 : 0);
+					document.getElementById("infoad").value = infoAd;
+					var activo = ((data[5].innerHTML == 'SI') ? 0 : 1);
+					document.getElementById("activo").value = activo;               
 					document.getElementById("id_hidden").value = rowId;
 					document.getElementById("action_hidden").value = action;                
 				}
@@ -121,17 +112,17 @@ else
 				function abm2(rowId, action){	
 					switch (action) {
 						case 'delete':
-							var q_desc = 'Esta seguro que quiere borrar la respuesta frecuente '+rowId+' ?';
+							var q_desc = 'Esta seguro que quiere borrar la resolucion automatica '+rowId+' ?';
 							break;					
 						case 'activar':
-							var q_desc = 'Esta seguro que quiere activar la respuesta frecuente '+rowId+' ?';
+							var q_desc = 'Esta seguro que quiere activar la resolucion automatica '+rowId+' ?';
 							break;
 					}	
 					//change input hiddens values:                
 					document.getElementById("id_hidden").value = rowId;
 					document.getElementById("action_hidden").value = action;		
                 	//Paso la respuesta al modal: 
-					$("#modalTitle2").html('UNAJ | Respuestas Frecuentes');               	
+					$("#modalTitle2").html('UNAJ | Resoluciones Automaticas');               	
 					$("#modalBody2").html(q_desc);
 					//Muestro el modal:
 					$("#actdel").modal("show");
