@@ -32,6 +32,10 @@
                 $usuario_descripcion=$row['usuario_descripcion'];
                 $usuario=$row['usuario'];
                 $texto_resolucion=$row['texto_resolucion'];
+/*
+                $ch = curl_init();
+                $texto_resolucion_encode=curl_escape($ch,$texto_resolucion);
+*/
                 $email=$row['email'];
                 $estado=$row['estado'];
 

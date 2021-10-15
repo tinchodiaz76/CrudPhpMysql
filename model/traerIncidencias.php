@@ -83,8 +83,17 @@
             "email" : $('#email').val()
         };
         
-        $.ajax({
-            url: 'model/resolverIncidencia.php?resolucion='+  $('#inputResolucion').val() + '&id=' + $('#incidencia_id').val() + '&email=' + $('#email').val() + '&nombre=' + $('#inputTipo').val(),
+        /*
+        window.alert($('#inputResolucion').val());
+        */
+        var inputResolucionEncode= encodeURIComponent($('#inputResolucion').val());
+
+         $.ajax({
+
+            url: 'model/resolverIncidencia.php?resolucion='+ inputResolucionEncode + '&id=' + $('#incidencia_id').val() + '&email=' + $('#email').val() + '&nombre=' + $('#inputTipo').val(),
+/*
+            url: 'model/resolverIncidencia.php?resolucion='+  $('#inputResolucionCodificada').val() + '&id=' + $('#incidencia_id').val() + '&email=' + $('#email').val() + '&nombre=' + $('#inputTipo').val(),            
+*/            
             type:'POST',
             data: { "resolverIncidencias":"1"},
             success: function(respuesta) {
@@ -193,7 +202,7 @@
         getNotaIncidencia(id);
     };
 
-    function getIncidenciaIDResolucion(id) {
+     function getIncidenciaIDResolucion(id) {
         //console.log("valor en incidencia_id= " + $('#incidencia_id').val());
 
         var parametros= {
@@ -210,48 +219,74 @@
                 var listaUsuarios = $("#resolverIncidencia");
                 var footerResolverIncidencia = $("#footerResolverIncidencia");
                 $.each(respuesta, function(index, incidencia) {                      
-                    listaUsuarios.append(
-                          `<div class=\"form-group\"/>` 
-                        + `     <label for=\"inputTipo\">Nombre y Apellido</label>` + `</br>`
-                        + `     <input type=\"text\" id=\"inputTipo\" value=\"` +  incidencia.usuario + `\"` + `>` + `</br>`
-                        + `     <label for=\"inputTipo\">Mail</label>` + `</br>`
-                        + `     <input type=\"text\" id=\"email\" value=\"` +  incidencia.email + `\"` + `>`
-                        + `</div>` 
-                        + `<div class=\"form-group\">`
-                        + `     </br>`
-                        + `     <label for=\"inputDescrip\">Descripcion Incidencia</label>` 
-                        + `     </br>`
-                        + `     <textarea class=\"form-control\" id=\"inputDescrip\">` + incidencia.descrip_inciden + `</textarea>` 
-                        + `</div>` 
-                        + `<div class=\"form-group\">` 
-                        + `     </br>`
-                        + `     <label for=\"inputRU\">Reporte Usuario</label>` + `</br>`
-                        + `     <textarea class=\"form-control\" id=\"inputRU\">` + incidencia.usuario_descripcion + `</textarea>`
-                        + `</div>`
-                        + `<div class=\"form-group\">` 
-                        + `     </br>`
-                        + `     <label for=\"inputResolucion\">Resolucion</label>` + `</br>`
-                        + `     <textarea class=\"form-control\" id=\"inputResolucion\">` + incidencia.texto_resolucion + ` </textarea>`
-                        + `     </br>`
-                        + `</div>`
-                    );
-/*                            +`<button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarModalResolverIncidencias()">Cerrar</button>`                            */
                     if (incidencia.estado==2)
                     {
-                        footerResolverIncidencia.append(
-                            `<div class="modal-footer"> `
-                            +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
-                            + `</div> `
-                        );
+                            listaUsuarios.append(
+                                `<div class=\"form-group\"/>` 
+                                + `     <label for=\"inputTipo\">Nombre y Apellido</label>` + `</br>`
+                                + `     <input type=\"text\" id=\"inputTipo\" value=\"` +  incidencia.usuario + `\"` + `disabled>` + `</br>`
+                                + `     <label for=\"inputTipo\">Mail</label>` + `</br>`
+                                + `     <input type=\"text\" id=\"email\" value=\"` +  incidencia.email + `\"` + `disabled>`
+                                + `</div>` 
+                                + `<div class=\"form-group\">`
+                                + `     </br>`
+                                + `     <label for=\"inputDescrip\">Descripcion Incidencia</label>` 
+                                + `     </br>`
+                                + `     <textarea disabled class=\"form-control\" id=\"inputDescrip\">` + incidencia.descrip_inciden + `</textarea>` 
+                                + `</div>` 
+                                + `<div class=\"form-group\">` 
+                                + `     </br>`
+                                + `     <label for=\"inputRU\">Reporte Usuario</label>` + `</br>`
+                                + `     <textarea disabled class=\"form-control\" id=\"inputRU\">` + incidencia.usuario_descripcion + `</textarea>`
+                                + `</div>`
+                                + `<div class=\"form-group\">` 
+                                + `     </br>`
+                                + `     <label for=\"inputResolucion\">Resolucion</label>` + `</br>`
+                                + `     <textarea disabled class=\"form-control\" id=\"inputResolucion\">` + incidencia.texto_resolucion + `</textarea>`
+                                + `     </br>`
+                                + `</div>`
+                                );
+
+                                footerResolverIncidencia.append(
+                                    `<div class="modal-footer"> `
+                                    +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
+                                    + `</div> `
+                                );
                     }
                     else
                     {
-                        footerResolverIncidencia.append(
-                            `<div class="modal-footer"> `
-                            +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
-                            + `<button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return ValidaResolucion(this)">Grabar Resolucion</button> `
-                            + `</div> `
-                        );
+                        listaUsuarios.append(
+                                `<div class=\"form-group\"/>` 
+                                + `     <label for=\"inputTipo\">Nombre y Apellido</label>` + `</br>`
+                                + `     <input type=\"text\" id=\"inputTipo\" value=\"` +  incidencia.usuario + `\"` + `disabled>` + `</br>`
+                                + `     <label for=\"inputTipo\">Mail</label>` + `</br>`
+                                + `     <input type=\"text\" id=\"email\" value=\"` +  incidencia.email + `\"` + `disabled>`
+                                + `</div>` 
+                                + `<div class=\"form-group\">`
+                                + `     </br>`
+                                + `     <label for=\"inputDescrip\">Descripcion Incidencia</label>` 
+                                + `     </br>`
+                                + `     <textarea disabled class=\"form-control\" id=\"inputDescrip\">` + incidencia.descrip_inciden + `</textarea>` 
+                                + `</div>` 
+                                + `<div class=\"form-group\">` 
+                                + `     </br>`
+                                + `     <label for=\"inputRU\">Reporte Usuario</label>` + `</br>`
+                                + `     <textarea disabled class=\"form-control\" id=\"inputRU\">` + incidencia.usuario_descripcion + `</textarea>`
+                                + `</div>`
+                                + `<div class=\"form-group\">` 
+                                + `     </br>`
+                                + `     <label for=\"inputResolucion\">Resolucion</label>` + `</br>`
+                                + `     <textarea class=\"form-control\" id=\"inputResolucion\">` + incidencia.texto_resolucion + `</textarea>`
+                                + `     </br>`
+                                + `</div>`
+                                );
+
+                                footerResolverIncidencia.append(
+                                    `<div class="modal-footer"> `
+                                    +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
+                                    + `<button type="button" class="btn btn-primary" action="resolverIncidencia.php" data-dismiss="modal"  onclick="return ValidaResolucion(this)">Grabar Resolucion</button> `
+                                    + `</div> `
+                                );
                     }
                 });
             },
@@ -289,31 +324,39 @@
                 var listaUsuarios = $("#notasIncidencia");
                 footerNotasIncidencia= $("#footerNotasIncidencia");
                 $.each(respuesta, function(index, incidencia) {
-                    listaUsuarios.append(
-                        `<div class=\"form-group\">` 
-                        + `     </br>`
-                        + `     <label for=\"inputNota\">Nota</label>` + `</br>`
-                        + `     <textarea class=\"form-control\" id=\"inputNota\">` + incidencia.nota + ` </textarea>`
-                        + `     </br>`
-                        + `</div>`
-                    );
-/*+ `  <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>`*/
-                    if  (incidencia.estado==2)
+                    if (incidencia.estado==2)
                     {
+                        listaUsuarios.append(
+                            `<div class=\"form-group\">` 
+                            + `     </br>`
+                            + `     <label for=\"inputNota\">Nota</label>` + `</br>`
+                            + `     <textarea disabled class=\"form-control\" id=\"inputNota\">` + incidencia.nota + ` </textarea>`
+                            + `     </br>`
+                            + `</div>`
+                        );
+
                         footerNotasIncidencia.append(`<div class="modal-footer">`
                         +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
                         + `</div>`
                         );
-                    }
+                    }                    
                     else
                     {
+                        listaUsuarios.append(
+                            `<div class=\"form-group\">` 
+                            + `     </br>`
+                            + `     <label for=\"inputNota\">Nota</label>` + `</br>`
+                            + `     <textarea class=\"form-control\" id=\"inputNota\">` + incidencia.nota + ` </textarea>`
+                            + `     </br>`
+                            + `</div>`
+                        );
+
                         footerNotasIncidencia.append(`<div class="modal-footer">`
                         +`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>`
                         + `  <button type="button" class="btn btn-primary" action="grabarNota.php" data-dismiss="modal"  onclick="return ValidaNota(this)">Grabar Nota</button>`
                         + `</div>`
-                        )
-
-                    };
+                        );
+                    }     
                 });
             },
             

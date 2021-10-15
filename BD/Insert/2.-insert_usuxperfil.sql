@@ -1,11 +1,3 @@
-insert into unaj.usuxperfil values ('Alumnos','1');
-
-insert into unaj.usuxperfil values ('Alumnos','2');
-
-insert into unaj.usuxperfil values ('Alumnos','3');
-
-/*****/
-
 insert into unaj.usuxperfil values ('17992744','4');
 
 insert into unaj.usuxperfil values ('17992744','5');
@@ -26,7 +18,7 @@ insert into unaj.usuxperfil values ('17992744','12');
 
 insert into unaj.usuxperfil values ('17992744','13');
 
-/*****/
+
 
 insert into unaj.usuxperfil values ('34828883','14');
 
@@ -38,7 +30,6 @@ insert into unaj.usuxperfil values ('34828883','17');
 
 insert into unaj.usuxperfil values ('34828883','18');
 
-/*****/
 
 insert into unaj.usuxperfil values ('26645450','1');
 
@@ -78,7 +69,6 @@ insert into unaj.usuxperfil values ('26645450','18');
 
 insert into unaj.usuxperfil values ('26645450','19');
 
-/*****/
 
 insert into unaj.usuxperfil values ('18139347','1');
 
