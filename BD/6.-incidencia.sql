@@ -6,7 +6,9 @@ create table unaj.incidencias (
 	nombre varchar(70) not null,
 	dni varchar(12) not null,
 	propuesta_codigo varchar(10),
+	propuesta_descripcion varchar(3000),
 	elemento_codigo  varchar(100),
+	elemento_descripcion  varchar(3000),
 	id_area int(1),
 	tipo_incidencia int(1) not null,
 	descrip_incidencia varchar(3000),
@@ -17,4 +19,3 @@ create table unaj.incidencias (
 	fecha_cerrado date,
 	resolucion varchar(3000)
 );
-
